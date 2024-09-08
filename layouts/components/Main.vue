@@ -19,7 +19,6 @@ const $appStore = useAppConfigStore()
 <style lang="scss" scoped>
 #main {
   //padding-top: var(--navbar-height);
-  @apply w-full pt-[72px] grid place-items-center;
-  height: calc(100vh - 300px);
+  @apply w-full pb-10 grid place-items-center;
 }
 </style>
