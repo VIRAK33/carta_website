@@ -15,3 +15,7 @@ body {
 .fixed-width {
   @apply max-w-full lg:max-w-[1440px] px-10 lg:px-4 mx-auto;
 }
+
+button {
+  @apply outline-none border-none;
+}

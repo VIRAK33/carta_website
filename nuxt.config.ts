@@ -4,36 +4,35 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-08-24',
-
   // Exp
   experimental: {
     localLayerAliases: true,
   },
-
+  
   alias: {
     '@core': '/@core',
   },
-
+  
   typescript: {
     strict: true,
     shim: false,
   },
-
+  
   // App Config
   app: {
     // global transition
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' },
   },
-
+  
   css: [resolve('./@core/scss/_index.scss')],
-
+  
   modules: [
     // Chore
     '@nuxt/eslint',
     // Styling & UI
     '@nuxtjs/tailwindcss',
+    'nuxt-headlessui',
     'nuxt-icon',
     // Animation
     '@vueuse/motion/nuxt',
@@ -42,11 +41,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
   ],
-
+  
   router: {
     middleware: ['loader'],
   },
-
+  
   components: [
     {
       prefix: '',
@@ -59,7 +58,7 @@ export default defineNuxtConfig({
       global: true,
     },
   ],
-
+  
   imports: {
     dirs: [
       resolve('./stores'),
@@ -67,22 +66,28 @@ export default defineNuxtConfig({
       resolve('./@core/composables'), // Auto-import composables from this directory
     ],
   },
-
+  
   tailwindcss: {},
-
+  
+  headlessui: {
+    prefix: 'Headless',
+  },
+  
   /* 👉🏼Pinia Module */
   pinia: {
     storesDirs: ['~/stores/**', '#/stores/**', '@/stores/**'],
   },
-
+  
   /* 👉🏼Color Mode Module */
   colorMode: {
     classSuffix: '',
+    preference: 'system',
+    fallback: 'light',
   },
-
+  
   build: {
     transpile: [],
   },
-
+  
   devtools: { enabled: true },
 })

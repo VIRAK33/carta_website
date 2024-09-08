@@ -3,6 +3,7 @@ export interface IMenuItem {
   title: string
   path?: string
   icon?: string
+  children?: Array<IMenuItem>
 }
 
 export interface IAppState {
@@ -22,28 +23,24 @@ export const useAppConfigStore = defineStore('appStore', {
         title: 'About',
       },
       {
-        value: 'news_events',
+        value: 'our-committees',
+        title: 'Our Committees',
+      },
+      {
+        value: 'members',
+        title: 'Members',
+      },
+      {
+        value: 'news-events',
         title: 'News & Events',
       },
       {
-        value: 'admission',
-        title: 'Admission',
-      },
-      {
-        value: 'schools',
-        title: 'Schools',
-      },
-      {
-        value: 'research',
-        title: 'Research',
-      },
-      {
-        value: 'faculty',
-        title: 'Faculty',
-      },
-      {
-        value: 'campus',
-        title: 'Campus',
+        value: 'library',
+        title: 'Library',
+        children: [
+          { value: 'photos', title: 'Photos', icon: 'material-symbols:photo-prints' },
+          { value: 'videos', title: 'Videos', icon: 'material-symbols:video-library-rounded' },
+        ],
       },
     ],
     navbarHeight: 0,

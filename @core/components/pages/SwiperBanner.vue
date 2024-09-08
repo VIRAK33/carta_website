@@ -1,13 +1,6 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import {
-  A11y,
-  Autoplay,
-  EffectFade,
-  Navigation,
-  Pagination,
-  Scrollbar,
-} from 'swiper/modules'
+import { A11y, Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
@@ -136,7 +129,8 @@ const slides = ref<{ name: string; image: string }[]>([
 
 <style lang="scss">
 .swiper-banner {
-  @apply w-full h-[480px] md:h-[720px] lg:h-screen;
+  @apply w-full h-[480px];
+  //md:h-[720px] lg:h-screen
   //height: calc(100vh - var(--navbar-height));
 
   .swiper--item {
