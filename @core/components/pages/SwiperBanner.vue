@@ -22,17 +22,17 @@ const swiperModules = computed(() => [
 const slides = ref<{ name: string; image: string }[]>([
   {
     name: 'First Banner',
-    image: 'https://rupp.edu.kh/iispp/image_banner/Render%20flag.jpg',
+    image: 'https://www.yeacambodia.org/cdn/uploads/2020/08/21.png',
   },
   {
     name: 'Second Banner',
     image:
-      'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://www.yeacambodia.org/cdn/uploads/2020/08/Untitled-1.jpg',
   },
   {
     name: 'Third Banner',
     image:
-      'https://images.pexels.com/photos/137618/pexels-photo-137618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://www.yeacambodia.org/cdn/uploads/2020/08/22.png',
   },
 ])
 </script>
@@ -113,11 +113,11 @@ const slides = ref<{ name: string; image: string }[]>([
 
   .swiper--prev,
   .swiper--next {
-    @apply w-10 h-10 rounded-full grid place-items-center border-2 border-gray-300
-    transition-all duration-300;
+    @apply w-10 h-10 rounded-full grid place-items-center border-2
+    bg-primary-700/80 border-gray-300 transition-all duration-300;
 
     &:hover {
-      @apply bg-gray-200/40 -translate-y-0.5 shadow-md shadow-gray-700;
+      @apply bg-primary-700 -translate-y-2;
     }
 
     .icon {
@@ -143,7 +143,7 @@ const slides = ref<{ name: string; image: string }[]>([
 
   .swiper-pagination {
     .swiper-pagination-bullet {
-      @apply w-4 h-4;
+      @apply w-2 h-7 bg-primary-700 rounded;
     }
 
     .swiper-pagination-bullet.swiper-pagination-bullet-active {
