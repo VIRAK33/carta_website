@@ -1,58 +1,81 @@
 <script lang="ts" setup>
+import ThemeSwitcher from '~/layouts/components/ThemeSwitcher.vue'
 import BtnBurger from '~/layouts/components/BtnBurger.vue'
 import DrawerNavbar from '~/layouts/components/DrawerNavbar.vue'
 
 /* STATES */
+
 const $appStore = useAppConfigStore()
 const logo = ref<string>(
-  'https://english.pku.edu.cn/Uploads/Bden/Picture/2020/11/25/s5fbdbf048bc00.png'
+  'https://cdn.pixabay.com/photo/2022/08/22/02/05/logo-7402513_640.png',
 )
+
+/* METHODS */
+const onGetNavbarHeight = (): void => {
+  const $el = document.querySelector('.navbar') as HTMLElement
+
+  $appStore.navbarHeight =
+    $el?.offsetHeight + 'px'
+}
+
+onMounted(() => onGetNavbarHeight())
 </script>
 
 <template>
-  <nav :style="{ '--navbar-height': $appStore.navbarHeight }" class="navbar">
-    <div class="navbar-top">
-      <ul class="navbar-top--menus">
-        <li>
-          <a>Identity</a>
-        </li>
-        <li>
-          <a>Giving</a>
-        </li>
-        <li>
-          <a>Old</a>
-        </li>
-      </ul>
-    </div>
-    <div class="navbar-base">
-      <!-- Logo -->
-      <img
-        v-if="false"
-        alt="Logo"
-        class="navbar-base--logo"
-        src="https://t3.ftcdn.net/jpg/04/91/76/62/360_F_491766294_h4j7LbW2YgfbNHhq7F8GboIc1XyBSEY5.jpg"
-      />
-      <img :src="logo" alt="Logo" class="navbar-base--logo" />
+  <nav class="navbar">
+    <!-- 👉🏼Logo -->
+    <RouterLink class="navbar--logo" to="/">
+      <img :src="logo" alt="logo" />
+    </RouterLink>
 
-      <ul class="navbar-base--menus">
-        <li v-for="({ title }, $i) in $appStore.menus" :key="$i">
-          <a>{{ title }}</a>
-        </li>
-        <li>
-          <a
-            class="block w-8 h-8 grid place-items-center bg-primary-600 rounded-full"
+    <!-- 👉🏼Menus -->
+    <ul class="navbar--menus">
+      <li v-for="({title, value, children}, $i) in $appStore.menus" :key="$i" class="navbar--menus__item">
+        <RouterLink v-if="!children" :to="{ name: value }">{{ title }}</RouterLink>
+
+        <!-- 👉🏼Children Menu -->
+        <HeadlessPopover v-else v-slot="{ open }" class="relative">
+          <HeadlessPopoverButton>
+            <a :class="{ 'router-link-active': open }">
+              <span>{{ title }}</span>
+              <Icon
+                :class="[open ? 'rotate-180' : '', 'transition-all duration-300 text-xl text-gray-700']"
+                name="material-symbols:keyboard-arrow-down-rounded"
+              />
+            </a>
+          </HeadlessPopoverButton>
+          <Transition
+            enter-active-class="transition duration-200 ease-out"
+            enter-from-class="translate-y-1 opacity-0"
+            enter-to-class="translate-y-0 opacity-100"
+            leave-active-class="transition duration-150 ease-in"
+            leave-from-class="translate-y-0 opacity-100"
+            leave-to-class="translate-y-1 opacity-0"
           >
-            <Icon class="text-xl text-white" name="ph:magnifying-glass-bold" />
-          </a>
-        </li>
-      </ul>
+            <HeadlessPopoverPanel class="absolute left-0 z-10 w-screen max-w-xs -translate-x-1/2 transform px-4 mt-1">
+              <ul class="navbar--menus__group">
+                <li v-for="({ title, icon }, $j) in children" :key="$j">
+                  <a class="relative">
+                    <div class="icon">
+                      <Icon :name="icon" class="text-xl text-primary-700" />
+                    </div>
+                    {{ title }}
+                  </a>
+                </li>
+              </ul>
+            </HeadlessPopoverPanel>
+          </Transition>
+        </HeadlessPopover>
+      </li>
+    </ul>
 
-      <div class="navbar-base--drawer">
-        <BtnBurger />
-        <Teleport to="#teleports">
-          <DrawerNavbar />
-        </Teleport>
-      </div>
+    <!-- Theme Switcher -->
+    <div class="flex items-center gap-4">
+      <ThemeSwitcher />
+      <BtnBurger class="md:hidden" />
+      <Teleport to="#teleports">
+        <DrawerNavbar />
+      </Teleport>
     </div>
   </nav>
 </template>
@@ -61,55 +84,57 @@ const logo = ref<string>(
 @import '@/@core/scss/_mixins.scss';
 
 .navbar {
-  @apply block w-full h-5 fixed top-0 z-50;
+  @apply w-full flex items-center justify-between px-4 md:px-10 py-2;
 
-  &::before {
-    content: '';
-    @apply absolute top-0 w-full h-[var(--navbar-height)] z-[-1]
-    bg-gradient-to-b from-black/70 to-transparent;
-  }
+  &--logo {
+    @apply h-12 aspect-square flex items-center text-xl font-semibold;
 
-  &-top {
-    @apply w-full h-8 flex items-center justify-end px-4 md:px-10 lg:px-20;
-
-    &--menus {
-      @apply flex items-center divide-x divide-gray-500;
-
-      li {
-        @apply block px-7 text-sm text-gray-200 font-medium;
-        a {
-          @apply block w-full h-full;
-        }
-
-        &:first-child {
-          @apply pl-0;
-        }
-
-        &:last-child {
-          @apply pr-0;
-        }
-      }
+    img {
+      @apply w-full h-full object-cover;
     }
   }
 
-  &-base {
-    @apply w-full flex items-center justify-between px-4 md:px-10 lg:px-20 py-4;
+  &--menus {
+    @apply hidden md:flex items-center gap-9;
 
-    &--logo {
-      @apply w-auto h-10 object-cover;
-    }
+    &__item {
+      @apply relative;
 
-    &--menus {
-      @apply hidden md:flex items-center gap-4 lg:gap-7 xl:gap-10;
+      a {
+        @apply flex items-center lg:text-lg font-semibold tracking-wider cursor-pointer;
 
-      li {
-        @apply text-sm lg:text-base xl:text-lg text-gray-100 font-semibold tracking-wider cursor-pointer;
-        //font-size: clamp(0.75rem, 0.4821rem + 0.8571vw, 1.125rem);
+        &:before {
+          content: '';
+          @apply absolute bottom-0 w-0 h-[1.5px] rounded-md bg-primary-500 transition-all duration-300;
+        }
+
+        &:hover,
+        &.router-link-active {
+          @apply text-primary-500;
+
+          &:before {
+            @apply w-full;
+          }
+        }
       }
+
     }
 
-    &--drawer {
-      @apply block md:hidden;
+    &__group {
+      @apply flex flex-col gap-2 p-2.5 rounded-lg shadow-lg dark:bg-gray-900 ring-1 ring-black/5;
+
+      a {
+        @apply flex p-2 gap-2 rounded-lg hover:bg-gray-100 hover:dark:bg-gray-800;
+
+        &:before {
+          content: '' !important;
+          display: none;
+        }
+
+        .icon {
+          @apply w-8 h-8 grid place-items-center rounded bg-primary-200/70;
+        }
+      }
     }
   }
 }

@@ -9,7 +9,7 @@ definePageMeta({
 
 <template>
   <!-- 👉🏼Swiper Images -->
-  <SwiperBanner />
+  <SwiperBanner v-if="false" />
 </template>
 
 <style lang="scss" scoped></style>

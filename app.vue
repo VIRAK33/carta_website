@@ -10,13 +10,12 @@ useHead({
 
 <template>
   <Body
-    class="antialiased duration-300 transition-colors text-gray-800 bg-white"
+    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-gray-950 dark:text-gray-200"
   >
-    <!-- dark:bg-gray-950 dark:text-gray-200 -->
-    <NuxtLayout>
-      <NuxtLoadingIndicator />
-      <NuxtPage />
-    </NuxtLayout>
+  <NuxtLayout>
+    <NuxtLoadingIndicator />
+    <NuxtPage />
+  </NuxtLayout>
   </Body>
 </template>
 

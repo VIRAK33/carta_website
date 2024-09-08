@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import SplashScreen from '~/@core/components/SplashScreen.vue'
 import { useAppConfigStore } from '~/stores/use-app-config.store'
 
 /* STATES */
@@ -15,8 +14,7 @@ nuxtApp.hook('page:finish', () => $appConfigStore.onUpdateLoading(false))
   <LayoutMain>
     <slot />
   </LayoutMain>
-
-  <SplashScreen v-if="false" />
+  <LayoutFooter />
 </template>
 
 <style lang="scss" scoped></style>
