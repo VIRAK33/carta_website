@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="footer">
+  <div class="footer fixed-width">
     <div class="footer--info">
       <div class="flex items-center gap-4">
         <h1 class="text-xl text-gray-700 dark:text-gray-300 font-semibold">Website Name</h1>
@@ -65,7 +65,7 @@
 
 <style lang="scss" scoped>
 .footer {
-  @apply w-full grid grid-cols-2 md:grid-cols-3 gap-4 px-4 py-4
+  @apply grid grid-cols-2 md:grid-cols-3 gap-4 px-4 py-4
   border-t border-gray-200 dark:border-gray-700;
 
   &--info {
