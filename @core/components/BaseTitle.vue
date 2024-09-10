@@ -12,7 +12,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .base-title {
-  @apply relative text-2xl text-gray-700 font-semibold tracking-wide;
+  @apply relative text-2xl text-gray-700 dark:text-gray-300 font-semibold tracking-wide;
 
   &:before {
     content: '';
