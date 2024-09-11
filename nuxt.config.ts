@@ -9,6 +9,12 @@ export default defineNuxtConfig({
     localLayerAliases: true,
   },
   
+  app: {
+    // global transition
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+  },
+  
   alias: {
     '@core': '/@core',
   },
@@ -90,4 +96,5 @@ export default defineNuxtConfig({
   },
   
   devtools: { enabled: true },
+  compatibilityDate: '2024-09-10',
 })

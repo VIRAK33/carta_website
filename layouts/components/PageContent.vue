@@ -7,17 +7,17 @@ const $appStore = useAppConfigStore()
 </script>
 
 <template>
-  <main
-    id="main"
+  <div
+    id="page-content"
     :style="{ '--navbar-height': $appStore.navbarHeight }"
-    class="main"
+    class="content"
   >
     <slot />
-  </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-#main {
+#content {
   //padding-top: var(--navbar-height);
   @apply w-full pb-20 grid place-items-center;
 }

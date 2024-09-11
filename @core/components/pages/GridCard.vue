@@ -21,7 +21,7 @@ const cards = ref([
           Our Equilibrium collection promotes balance and calm.
         </span>
       </div>
-      <div class="divider" />
+      <div class="divider my-2" />
       <div class="card-footer">
         <div class="flex items-center">
           <Icon class="mr-2" name="solar:eye-broken" />
@@ -63,10 +63,6 @@ const cards = ref([
     .subtitle {
       @apply text-sm text-gray-500 font-medium;
     }
-  }
-
-  .divider {
-    @apply w-full h-px my-2 bg-gray-100;
   }
 
   &-footer {
