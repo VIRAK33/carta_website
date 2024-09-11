@@ -7,7 +7,7 @@
     <div class="footer--info">
       <div class="flex items-center gap-4">
         <h1 class="text-xl text-gray-700 dark:text-gray-300 font-semibold">Website Name</h1>
-        <img alt="" src="https://cdn.pixabay.com/photo/2022/08/22/02/05/logo-7402513_640.png" />
+        <img alt="" class="rounded-full" src="/logo.png" />
       </div>
 
       <span class="text-sm text-gray-500 dark:text-gray-400">
@@ -57,7 +57,7 @@
       </span>
     </div>
   </div>
-  <hr />
+  <span class="divider" />
   <div class="w-full py-2 text-center">
     <p class="text-sm text-gray-400 font-medium">© 2024 by Website Name</p>
   </div>

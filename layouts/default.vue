@@ -10,11 +10,13 @@ nuxtApp.hook('page:finish', () => $appConfigStore.onUpdateLoading(false))
 </script>
 
 <template>
-  <LayoutNavbar />
-  <LayoutMain>
-    <slot />
-  </LayoutMain>
-  <LayoutFooter />
+  <main id="main" class="main">
+    <LayoutNavbar />
+    <LayoutPageContent>
+      <RouterView />
+    </LayoutPageContent>
+    <LayoutFooter />
+  </main>
 </template>
 
 <style lang="scss" scoped></style>

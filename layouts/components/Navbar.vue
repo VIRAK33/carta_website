@@ -6,9 +6,6 @@ import DrawerNavbar from '~/layouts/components/DrawerNavbar.vue'
 /* STATES */
 
 const $appStore = useAppConfigStore()
-const logo = ref<string>(
-  'https://cdn.pixabay.com/photo/2022/08/22/02/05/logo-7402513_640.png',
-)
 
 /* METHODS */
 const onGetNavbarHeight = (): void => {
@@ -25,7 +22,7 @@ onMounted(() => onGetNavbarHeight())
   <nav class="navbar">
     <!-- 👉🏼Logo -->
     <RouterLink class="navbar--logo" to="/">
-      <img :src="logo" alt="logo" />
+      <img alt="logo" class="rounded-full" src="/logo.png" />
     </RouterLink>
 
     <!-- 👉🏼Menus -->
@@ -84,7 +81,7 @@ onMounted(() => onGetNavbarHeight())
 @import '@/@core/scss/_mixins.scss';
 
 .navbar {
-  @apply w-full flex items-center justify-between px-4 md:px-10 py-2;
+  @apply w-full flex items-center justify-between px-4 md:px-10 py-4;
 
   &--logo {
     @apply h-12 aspect-square flex items-center text-xl font-semibold;
