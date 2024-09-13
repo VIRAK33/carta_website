@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-
-import BaseTitle from '~/@core/components/BaseTitle.vue'
 import MemberCard from '~/@core/components/pages/MemberCard.vue'
 </script>
 
 <template>
   <section class="fixed-width py-14">
-    <div class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto">
-      <BaseTitle text="Our Organization Structure" />
+    <div
+      class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto"
+    >
+      <AppTitle text="Our Organization Structure" />
 
       <span class="inline-block pt-4 subtitle text-center">
-        The Cambodia AI Robotics and Technology Transfer Association is organized to efficiently achieve its mission and support its members. The structure includes the following key components:
+        The Cambodia AI Robotics and Technology Transfer Association is
+        organized to efficiently achieve its mission and support its members.
+        The structure includes the following key components:
       </span>
     </div>
 
@@ -44,6 +46,4 @@ import MemberCard from '~/@core/components/pages/MemberCard.vue'
   </section>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

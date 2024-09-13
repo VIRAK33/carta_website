@@ -7,7 +7,6 @@ export interface IMenuItem {
 }
 
 export interface IAppState {
-  appName: string
   menus: Array<IMenuItem>
   navbarHeight: number | string
   loading: boolean
@@ -16,7 +15,6 @@ export interface IAppState {
 
 export const useAppConfigStore = defineStore('appStore', {
   state: (): IAppState => ({
-    appName: process.env.APP_NAME ?? '',
     menus: [
       {
         value: 'about',
@@ -38,8 +36,16 @@ export const useAppConfigStore = defineStore('appStore', {
         value: 'library',
         title: 'Library',
         children: [
-          { value: 'photos', title: 'Photos', icon: 'material-symbols:photo-prints' },
-          { value: 'videos', title: 'Videos', icon: 'material-symbols:video-library-rounded' },
+          {
+            value: 'photos',
+            title: 'Photos',
+            icon: 'material-symbols:photo-prints',
+          },
+          {
+            value: 'videos',
+            title: 'Videos',
+            icon: 'material-symbols:video-library-rounded',
+          },
         ],
       },
     ],
