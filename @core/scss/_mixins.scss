@@ -1,3 +1,12 @@
 @mixin class-morphism() {
   @apply backdrop-blur-none backdrop-sepia-0 bg-white/30;
 }
+
+@mixin truncated-text($max-width: 100%, $line-limit: 1) {
+  max-width: $max-width;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $line-limit;
+}
