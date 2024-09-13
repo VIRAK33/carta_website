@@ -11,8 +11,7 @@ const $appStore = useAppConfigStore()
 const onGetNavbarHeight = (): void => {
   const $el = document.querySelector('.navbar') as HTMLElement
 
-  $appStore.navbarHeight =
-    $el?.offsetHeight + 'px'
+  $appStore.navbarHeight = $el?.offsetHeight + 'px'
 }
 
 onMounted(() => onGetNavbarHeight())
@@ -21,14 +20,18 @@ onMounted(() => onGetNavbarHeight())
 <template>
   <nav class="navbar">
     <!-- 👉🏼Logo -->
-    <RouterLink class="navbar--logo" to="/">
-      <img alt="logo" class="rounded-full" src="/logo.png" />
-    </RouterLink>
+    <AppLogo />
 
     <!-- 👉🏼Menus -->
     <ul class="navbar--menus">
-      <li v-for="({title, value, children}, $i) in $appStore.menus" :key="$i" class="navbar--menus__item">
-        <RouterLink v-if="!children" :to="{ name: value }">{{ title }}</RouterLink>
+      <li
+        v-for="({ title, value, children }, $i) in $appStore.menus"
+        :key="$i"
+        class="navbar--menus__item"
+      >
+        <RouterLink v-if="!children" :to="{ name: value }"
+          >{{ title }}
+        </RouterLink>
 
         <!-- 👉🏼Children Menu -->
         <HeadlessPopover v-else v-slot="{ open }" class="relative">
@@ -36,7 +39,10 @@ onMounted(() => onGetNavbarHeight())
             <a :class="{ 'router-link-active': open }">
               <span>{{ title }}</span>
               <Icon
-                :class="[open ? 'rotate-180' : '', 'transition-all duration-300 text-xl text-gray-700']"
+                :class="[
+                  open ? 'rotate-180' : '',
+                  'transition-all duration-300 text-xl text-gray-700',
+                ]"
                 name="material-symbols:keyboard-arrow-down-rounded"
               />
             </a>
@@ -49,7 +55,9 @@ onMounted(() => onGetNavbarHeight())
             leave-from-class="translate-y-0 opacity-100"
             leave-to-class="translate-y-1 opacity-0"
           >
-            <HeadlessPopoverPanel class="absolute left-0 z-10 w-screen max-w-xs -translate-x-1/2 transform px-4 mt-1">
+            <HeadlessPopoverPanel
+              class="absolute left-0 z-10 w-screen max-w-xs -translate-x-1/2 transform px-4 mt-1"
+            >
               <ul class="navbar--menus__group">
                 <li v-for="({ title, icon }, $j) in children" :key="$j">
                   <a class="relative">
@@ -83,14 +91,6 @@ onMounted(() => onGetNavbarHeight())
 .navbar {
   @apply w-full flex items-center justify-between px-4 md:px-10 py-4;
 
-  &--logo {
-    @apply h-12 aspect-square flex items-center text-xl font-semibold;
-
-    img {
-      @apply w-full h-full object-cover;
-    }
-  }
-
   &--menus {
     @apply hidden md:flex items-center gap-9;
 
@@ -114,7 +114,6 @@ onMounted(() => onGetNavbarHeight())
           }
         }
       }
-
     }
 
     &__group {

@@ -16,7 +16,7 @@ defineProps<{
 
   &:before {
     content: '';
-    @apply absolute bottom-0 w-40 h-1 rounded bg-gradient-to-r from-cyan-500 to-blue-500;
+    @apply absolute bottom-0 w-40 h-1 rounded bg-gradient-to-r from-primary-700 to-primary-500;
   }
 }
 </style>

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 /* STATES */
+const $config = useRuntimeConfig()
 const $appConfigStore = useAppConfigStore()
 
 useHead({
-  title: $appConfigStore.appName,
-  titleTemplate: `%s - ${$appConfigStore.appName}`,
+  title: $config.public.APP_NAME,
+  titleTemplate: `%s - Home`,
 })
 </script>
 
@@ -12,10 +13,10 @@ useHead({
   <Body
     class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-gray-950 dark:text-gray-200"
   >
-  <NuxtLayout>
-    <NuxtLoadingIndicator />
-    <NuxtPage />
-  </NuxtLayout>
+    <NuxtLayout>
+      <NuxtLoadingIndicator />
+      <NuxtPage />
+    </NuxtLayout>
   </Body>
 </template>
 
