@@ -6,8 +6,18 @@
     "skipLibCheck": true,
     "ignoreDeprecations": "5.0",
     "suppressImplicitAnyIndexErrors": true,
-    "types": ["@pinia/nuxt", "@nuxtjs/tailwindcss"]
+    "types": [
+      "@types/node",
+      "@pinia/nuxt",
+      "@nuxtjs/tailwindcss",
+      "types/masonry"
+    ]
   },
-  "include": ["**/*.ts", "**/*.vue"],
-  "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts",
+    "**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

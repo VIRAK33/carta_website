@@ -17,17 +17,14 @@ const colors = ['#99f6e4', '#d9f99d', '#fecaca', '#f3e8ff', '#ffe4e6']
   <div class="card">
     <!-- 👉🏼Card Image -->
     <div class="card-img">
-      <img
-        :src="img"
-        alt=""
-      />
+      <img :src="img" alt="" />
     </div>
     <!-- 👉🏼Card Content -->
     <div :class="`card-content`" :style="{ background: sample(colors) }">
       <div class="title" v-text="title" />
       <span class="subtitle" v-text="subtitle" />
 
-      <div class="actions">
+      <div v-if="false" class="actions">
         <a class="block rounded-full cursor-pointer">
           <Icon class="text-gray-800" name="bi:twitter-x" />
         </a>
@@ -55,7 +52,7 @@ const colors = ['#99f6e4', '#d9f99d', '#fecaca', '#f3e8ff', '#ffe4e6']
   }
 
   &-content {
-    @apply w-full h-40 rounded-lg pt-12 px-4 text-center;
+    @apply w-full rounded-lg pt-12 pb-7 px-4 text-center;
 
     .title {
       @apply text-base tracking-wide font-semibold dark:text-gray-700;

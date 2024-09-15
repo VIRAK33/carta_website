@@ -3,6 +3,7 @@ export interface IMenuItem {
   title: string
   path?: string
   icon?: string
+  route?: string
   children?: Array<IMenuItem>
 }
 
@@ -18,34 +19,40 @@ export const useAppConfigStore = defineStore('appStore', {
     menus: [
       {
         value: 'about',
+        route: 'about',
         title: 'About',
       },
       {
         value: 'our-committees',
+        route: 'our-committees',
         title: 'Our Committees',
       },
       {
         value: 'members',
+        route: 'members',
         title: 'Members',
       },
       {
         value: 'news-events',
+        route: 'news-events',
         title: 'News & Events',
       },
       {
         value: 'library',
+        route: 'library',
         title: 'Library',
         children: [
           {
-            value: 'photos',
+            value: 'library-photos',
+            route: 'library-photos',
             title: 'Photos',
             icon: 'material-symbols:photo-prints',
           },
-          {
-            value: 'videos',
-            title: 'Videos',
-            icon: 'material-symbols:video-library-rounded',
-          },
+          // {
+          //   value: 'videos',
+          //   title: 'Videos',
+          //   icon: 'material-symbols:video-library-rounded',
+          // },
         ],
       },
     ],

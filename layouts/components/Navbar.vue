@@ -25,12 +25,12 @@ onMounted(() => onGetNavbarHeight())
     <!-- 👉🏼Menus -->
     <ul class="navbar--menus">
       <li
-        v-for="({ title, value, children }, $i) in $appStore.menus"
+        v-for="({ title, route, children }, $i) in $appStore.menus"
         :key="$i"
         class="navbar--menus__item"
       >
-        <RouterLink v-if="!children" :to="{ name: value }"
-          >{{ title }}
+        <RouterLink v-if="!children" :to="{ name: route }">
+          {{ title }}
         </RouterLink>
 
         <!-- 👉🏼Children Menu -->
@@ -59,13 +59,13 @@ onMounted(() => onGetNavbarHeight())
               class="absolute left-0 z-10 w-screen max-w-xs -translate-x-1/2 transform px-4 mt-1"
             >
               <ul class="navbar--menus__group">
-                <li v-for="({ title, icon }, $j) in children" :key="$j">
-                  <a class="relative">
+                <li v-for="({ title, icon, route }, $j) in children" :key="$j">
+                  <RouterLink :to="{ name: route }" class="relative">
                     <div class="icon">
                       <Icon :name="icon" class="text-xl text-primary-700" />
                     </div>
                     {{ title }}
-                  </a>
+                  </RouterLink>
                 </li>
               </ul>
             </HeadlessPopoverPanel>
@@ -90,6 +90,7 @@ onMounted(() => onGetNavbarHeight())
 
 .navbar {
   @apply w-full flex items-center justify-between px-4 md:px-10 py-4;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 
   &--menus {
     @apply hidden md:flex items-center gap-9;
@@ -117,18 +118,22 @@ onMounted(() => onGetNavbarHeight())
     }
 
     &__group {
-      @apply flex flex-col gap-2 p-2.5 rounded-lg shadow-lg dark:bg-gray-900 ring-1 ring-black/5;
+      @apply flex flex-col gap-2 p-2.5 rounded-lg shadow-md bg-white dark:shadow-gray-500 dark:bg-gray-950 ring-1 ring-black/5;
 
       a {
-        @apply flex p-2 gap-2 rounded-lg hover:bg-gray-100 hover:dark:bg-gray-800;
+        @apply flex p-2 gap-2 rounded-lg hover:bg-gray-100 hover:dark:bg-gray-800 text-base;
 
         &:before {
           content: '' !important;
           display: none;
         }
 
+        &.router-link-active {
+          @apply bg-primary-50;
+        }
+
         .icon {
-          @apply w-8 h-8 grid place-items-center rounded bg-primary-200/70;
+          @apply w-8 h-8 grid place-items-center rounded-full bg-primary-200/70;
         }
       }
     }
