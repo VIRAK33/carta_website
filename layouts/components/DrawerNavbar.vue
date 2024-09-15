@@ -4,10 +4,24 @@ import { useAppConfigStore } from '~/stores/use-app-config.store'
 
 /* STATES */
 const $appConfigStore = useAppConfigStore()
-const $route = useRoute()
+// const $route = useRoute()
 
 /* WATCH */
-watch(() => $route.path, () => $appConfigStore.onUpdateActiveDrawer(false))
+// watch(
+//   () => $route.name,
+//   (newRouteName) => {
+//     console.log({ newRouteName })
+//     $appConfigStore.onUpdateActiveDrawer(false)
+//   },
+//   {
+//     deep: true,
+//     immediate: true,
+//   }
+// )
+
+function onRouteChange(): void {
+  setTimeout(() => $appConfigStore.onUpdateActiveDrawer(false), 500)
+}
 </script>
 
 <template>
@@ -23,15 +37,23 @@ watch(() => $route.path, () => $appConfigStore.onUpdateActiveDrawer(false))
       class="drawer-navbar--content"
     >
       <ul class="drawer-navbar--content--menus">
-        <li v-for="({ title, value, children }, $key) in $appConfigStore.menus" :key="$key">
-          <RouterLink v-if="!children" :to="{ name: value }">{{ title }}</RouterLink>
+        <li
+          v-for="({ title, value, children }, $key) in $appConfigStore.menus"
+          :key="$key"
+        >
+          <RouterLink v-if="!children" :to="{ name: value }"
+            >{{ title }}
+          </RouterLink>
 
           <HeadlessDisclosure v-else v-slot="{ open }">
             <HeadlessDisclosureButton class="w-full">
               <a class="w-full flex items-center justify-between">
                 {{ title }}
                 <Icon
-                  :class="[open ? 'rotate-90' : '', 'transition-all duration-300 text-2xl text-gray-700 dark:text-gray-400']"
+                  :class="[
+                    open ? 'rotate-90' : '',
+                    'transition-all duration-300 text-2xl text-gray-700 dark:text-gray-400',
+                  ]"
                   name="ic:round-keyboard-arrow-right"
                 />
               </a>
@@ -46,13 +68,22 @@ watch(() => $route.path, () => $appConfigStore.onUpdateActiveDrawer(false))
             >
               <HeadlessDisclosurePanel>
                 <ul class="w-full flex flex-col gap-4 pl-4 py-4">
-                  <li v-for="({ title, icon }, $index) in children" :key="$index">
-                    <a class="flex items-center gap-4 text-lg">
-                      <div class="w-7 h-7 grid place-items-center rounded bg-primary-200/70">
+                  <li
+                    v-for="({ title, icon, route }, $index) in children"
+                    :key="$index"
+                  >
+                    <RouterLink
+                      :to="{ name: route }"
+                      class="flex items-center gap-4 text-lg"
+                      @click.prevent="onRouteChange"
+                    >
+                      <div
+                        class="w-7 h-7 grid place-items-center rounded bg-primary-200/70"
+                      >
                         <Icon :name="icon" class="text-primary-700" />
                       </div>
                       {{ title }}
-                    </a>
+                    </RouterLink>
                   </li>
                 </ul>
               </HeadlessDisclosurePanel>

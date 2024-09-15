@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NewsCard from '~/@core/components/cards/NewsCard.vue'
+import NewsCard from '~/@core/components/card/NewsCard.vue'
 
 const news = ref<{
   title: string

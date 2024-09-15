@@ -7,20 +7,22 @@ const $config = useRuntimeConfig()
   <RouterLink class="app-logo" to="/">
     <!-- Logo Image -->
     <img alt="Carta" src="/logo.png" />
-    <div class="text" v-html="$config.public.APP_NAME_KH" />
+    <div class="text" v-text="$config.public.APP_NAME_EN" />
   </RouterLink>
 </template>
 
 <style lang="scss" scoped>
+@import '@core/scss/_mixins.scss';
+
 .app-logo {
-  @apply flex items-center gap-4 text-xl font-semibold;
+  @apply flex flex-col items-center text-xl font-semibold;
 
   img {
-    @apply max-w-full max-h-20 aspect-square object-cover rounded-full;
+    @apply max-w-20 max-h-20 aspect-square object-cover rounded-full;
   }
 
   .text {
-    @apply text-xl dark:text-primary-500 font-semibold;
+    @apply max-w-md text-base dark:text-primary-500 font-semibold;
   }
 }
 </style>

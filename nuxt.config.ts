@@ -34,13 +34,11 @@ export default defineNuxtConfig({
   css: [resolve('./@core/scss/_index.scss')],
 
   modules: [
-    // Chore
-    '@nuxt/eslint', // Styling & UI
-    '@nuxtjs/tailwindcss',
-    'nuxt-headlessui',
-    'nuxt-icon', // Animation
-    '@vueuse/motion/nuxt',
-    '@nuxtjs/color-mode', // State Management
+    '@nuxt/ui', // Styling & UI
+    '@nuxt/eslint',
+    'nuxt-headlessui', // Animation
+    '@vueuse/motion/nuxt', // State Management
+    '@nuxtjs/color-mode',
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/google-fonts',
@@ -112,6 +110,7 @@ export default defineNuxtConfig({
     public: {
       APP_NAME: process.env.NUXT_APP_NAME ?? '',
       APP_NAME_KH: process.env.NUXT_APP_NAME_KH ?? '',
+      APP_NAME_EN: process.env.NUXT_APP_NAME_EN ?? '',
     },
   },
 })

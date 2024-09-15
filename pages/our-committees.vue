@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import MemberCard from '~/@core/components/pages/MemberCard.vue'
+import MemberCard from '~/@core/components/card/MemberCard.vue'
 </script>
 
 <template>
