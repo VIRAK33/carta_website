@@ -5,12 +5,21 @@ defineProps<{
   title: string
   description?: string
   date?: string
+  loading?: boolean
 }>()
 </script>
 
 <template>
-  <div class="card">
-    <div class="card-inner">
+  <div :class="{ loading }" class="card">
+    <!-- 👉🏼Loading -->
+    <div v-if="loading" class="card-inner animate-pulse">
+      <div class="card-img"></div>
+      <div class="card-block">
+        <div class="title" />
+        <div class="subtitle" />
+      </div>
+    </div>
+    <div v-else class="card-inner">
       <!-- 👉🏼 Card Image -->
       <img :src="thumbnail" alt="" class="card-img" />
 
@@ -53,6 +62,20 @@ defineProps<{
 
     .date-text {
       @apply inline-block mt-4 text-sm text-gray-400 font-medium;
+    }
+  }
+
+  &.loading {
+    .card-inner .card-img {
+      @apply w-full h-32 bg-gray-200;
+    }
+
+    .card-block .title {
+      @apply w-1/2 h-7 bg-gray-200 rounded-md;
+    }
+
+    .card-block .subtitle {
+      @apply w-full h-7 bg-gray-200 rounded-md mt-4;
     }
   }
 }
