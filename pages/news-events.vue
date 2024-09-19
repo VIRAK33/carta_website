@@ -21,10 +21,6 @@ news.value = data.value?.results
 
 <template>
   <div class="fixed-width py-14">
-    <pre v-if="pending">
-    Loading...
-    </pre>
-    <pre v-else>{{ data }}</pre>
     <div
       class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto"
     >
@@ -36,7 +32,10 @@ news.value = data.value?.results
       </span>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9 py-14">
+    <div
+      v-if="!pending"
+      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9 py-14"
+    >
       <a
         v-for="(
           { title, short_description, thumbnail, created_date }, $i
