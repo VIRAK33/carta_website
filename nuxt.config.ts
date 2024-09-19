@@ -111,6 +111,7 @@ export default defineNuxtConfig({
       APP_NAME: process.env.NUXT_APP_NAME ?? '',
       APP_NAME_KH: process.env.NUXT_APP_NAME_KH ?? '',
       APP_NAME_EN: process.env.NUXT_APP_NAME_EN ?? '',
+      API_URL: process.env.NUXT_APP_API_URL ?? '',
     },
   },
 })

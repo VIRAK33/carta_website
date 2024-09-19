@@ -51,7 +51,7 @@ export const useAppConfigStore = defineStore('appStore', {
           // {
           //   value: 'videos',
           //   title: 'Videos',
-          //   icon: 'material-symbols:video-library-rounded',
+          //   icons: 'material-symbols:video-library-rounded',
           // },
         ],
       },

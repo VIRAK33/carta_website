@@ -15,14 +15,14 @@ const $config = useRuntimeConfig()
 @import '@core/scss/_mixins.scss';
 
 .app-logo {
-  @apply flex flex-col items-center text-xl font-semibold;
+  @apply flex items-center gap-4 text-xl font-semibold;
 
   img {
     @apply max-w-20 max-h-20 aspect-square object-cover rounded-full;
   }
 
   .text {
-    @apply max-w-md text-base dark:text-primary-500 font-semibold;
+    @apply max-w-sm text-base dark:text-primary-500 font-semibold;
   }
 }
 </style>
