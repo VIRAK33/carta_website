@@ -63,7 +63,7 @@
           class="flex-none text-lg"
           name="material-symbols:alternate-email"
         />
-        <a class="text-sm" href="mailto:+85592346767">info@educonnectkh.com</a>
+        <a class="text-sm" href="mailto:+85592346767">info@carta.org</a>
       </span>
       <span
         class="flex items-center gap-2 my-2 font-medium text-gray-500 dark:text-gray-400"
@@ -78,7 +78,7 @@
   </div>
   <span class="divider" />
   <div class="w-full py-2 text-center">
-    <p class="text-sm text-gray-400 font-medium">© 2024 by Website Name</p>
+    <p class="text-sm text-gray-400 font-medium">© 2024 by Carta</p>
   </div>
 </template>
 

@@ -31,7 +31,7 @@ definePageMeta({
           <img
             alt="Knowledge Icon"
             class="w-16 h-16 mb-4"
-            src="https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:s3%3A%2F%2Fmedia-private.canva.com%2FP6hXg%2FMAGPTvP6hXg%2F1%2Fp.jpg/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAACEUPA3oCCQuip7JK4uUwnJBd_ZzgJ0-sk9hmqzW2DI5&exp=1726164363&osig=AAAAAAAAAAAAAAAAAAAAANAjIYvjyBGvTk1kuQe0RXASjhGfVxap9gGCSjdzSMMM&signer=media-rpc&x-canva-quality=thumbnail"
+            src="@/assets/icons/home/knowledge.png"
           />
           <h2 class="text-xl font-semibold text-blue-700">Knowledge</h2>
           <p class="text-gray-600 mt-2">
@@ -48,7 +48,7 @@ definePageMeta({
           <img
             alt="Network Icon"
             class="w-16 h-16 mb-4"
-            src="https://media.canva.com/v2/image-resize/format:JPG/height:387/quality:92/uri:s3%3A%2F%2Fmedia-private.canva.com%2Fl7qng%2FMAGPTpl7qng%2F1%2Fp.jpg/watermark:F/width:580?csig=AAAAAAAAAAAAAAAAAAAAAEIz4LfRoF344XEglF5tRV4Y0p-uWxNsY6w2n-e-Q-vq&exp=1726164132&osig=AAAAAAAAAAAAAAAAAAAAAPWfVIr_gfdCOVpAzQZrI9TDfzG_B5cGqaByKcnrzMLq&signer=media-rpc&x-canva-quality=screen"
+            src="@/assets/icons/home/networking.png"
           />
           <h2 class="text-xl font-semibold text-blue-700">Network</h2>
           <p class="text-gray-600 mt-2">
@@ -65,7 +65,7 @@ definePageMeta({
           <img
             alt="Marketplace Icon"
             class="w-16 h-16 mb-4"
-            src="https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:s3%3A%2F%2Fmedia-private.canva.com%2FXTL30%2FMAGPTnXTL30%2F1%2Fp.jpg/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAITtCNwosbGB4i3s_hG6YMpvTdFYyZDHWr1U0CH-LKpb&exp=1726162643&osig=AAAAAAAAAAAAAAAAAAAAAD6SzPGkSYodj9WyW1vE97S2KSvm58zLGuo9__3wgMmg&signer=media-rpc&x-canva-quality=thumbnail"
+            src="@/assets/icons/home/cart.png"
           />
           <h2 class="text-xl font-semibold text-blue-700">Marketplace</h2>
           <p class="text-gray-600 mt-2">
@@ -82,7 +82,7 @@ definePageMeta({
           <img
             alt="Leadership Icon"
             class="w-16 h-16 mb-4"
-            src="https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:s3%3A%2F%2Fmedia-private.canva.com%2FFNu6Q%2FMAGPTgFNu6Q%2F1%2Fp.jpg/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAFRKyIl71iWNZ5TwUMSYqO-mLkJbX3LIDGYb26WY9QGZ&exp=1726161635&osig=AAAAAAAAAAAAAAAAAAAAAHqO_X5EgvCu_zw3eWX77F3Gl22T1kjvnusxMudP9UTg&signer=media-rpc&x-canva-quality=thumbnail"
+            src="@/assets/icons/home/leadership-development.png"
           />
           <h2 class="text-xl font-semibold text-blue-700">Leadership</h2>
           <p class="text-gray-600 mt-2">
