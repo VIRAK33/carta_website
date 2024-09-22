@@ -18,29 +18,29 @@ import MemberCard from '~/@core/components/card/MemberCard.vue'
 
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-7">
       <MemberCard
-        img="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2024/06/15/17184214562297.jpg"
-        subtitle="Football Superstar"
-        title="Leonel Messi"
+        img="https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:s3%3A%2F%2Fmedia-private.canva.com%2FeCDRk%2FMAGPlKeCDRk%2F1%2Fp.jpg/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAHXq91BIi7fycJIll1XJVrdlNXqJgOTjZkG3nkRWBv8E&exp=1726225343&osig=AAAAAAAAAAAAAAAAAAAAADN8VGllB2dsD93CnvXdq3aZSndURcebiA3_PHUe3mcm&signer=media-rpc&x-canva-quality=thumbnail"
+        subtitle="President"
+        title="Pheng Sokliep"
       />
       <MemberCard
-        img="https://assets.architecturaldigest.in/photos/638dc400d8be961106a0cdc1/16:9/w_2560%2Cc_limit/GettyImages-1443064180.jpg"
-        subtitle="Football Superstar"
-        title="Cristiano Ronaldo"
+        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        subtitle="Vice President"
+        title="Heng Sokunthy"
       />
       <MemberCard
-        img="https://cdn.kiripost.com/static/images/photo_2023-06-13_16-49-51.2e16d0ba.fill-960x540.jpg"
-        subtitle="Rapper Star"
-        title="Vannda Mann"
+        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        subtitle="Administration"
+        title="Heng Thylavann"
       />
       <MemberCard
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/G-Devith_image.jpg/1200px-G-Devith_image.jpg"
-        subtitle="Rapper Star"
-        title="Ngoun Chan Devith"
+        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        subtitle="Treasurer"
+        title="Sokhelly"
       />
       <MemberCard
-        img="https://images.khmer24.co/profiles/pictures/24-06-14/profile_76303717183501843059.jpg"
-        subtitle="Mengleang Tuong"
-        title="Fullstack Developer"
+        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        subtitle="Director General in charge Robotics"
+        title="Voeurn Yong Ann"
       />
     </div>
   </section>
