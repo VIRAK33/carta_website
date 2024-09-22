@@ -2,6 +2,42 @@
 /* IMPORTS */
 import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
 
+/* STATES */
+const data = ref([
+  {
+    title: 'Knowledge',
+    description: `
+          We are committed to advancing technological expertise and industry
+          insights, providing our members with valuable information and
+          resources to stay ahead in their fields.
+          `,
+    img: 'https://cdn-icons-png.flaticon.com/512/2660/2660985.png',
+  },
+  {
+    title: 'Network',
+    description: `We build and sustain strong connections within Cambodia and across
+            the region, facilitating access to a broad network of local and
+            international partners and opportunities.`,
+    img: 'https://cdn-icons-png.flaticon.com/512/4207/4207230.png',
+  },
+  {
+    title: 'Marketplace',
+    description: `
+    We create and support dynamic platforms for engagement, offering our
+            members a space to showcase their innovations, explore new markets,
+            and connect with potential clients and collaborators.`,
+    img: 'https://cdn-icons-png.flaticon.com/512/9541/9541658.png',
+  },
+  {
+    title: 'Leadership',
+    description: `
+    We lead with vision and integrity, guiding our members through
+            strategic initiatives and fostering a culture of excellence that
+            drives progress and development in technology and business.`,
+    img: 'https://cdn-icons-png.flaticon.com/512/860/860380.png',
+  },
+])
+
 definePageMeta({
   layout: 'default',
 })
@@ -11,8 +47,36 @@ definePageMeta({
   <!-- 👉🏼Swiper Images -->
   <SwiperBanner />
 
-  <!-- 👉🏼Core -->
-  <div class="py-8">
+  <!-- 👉🏼Core Value -->
+  <div class="fixed-width py-14">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-7 py-7">
+      <!-- 👉🏼Card -->
+      <div
+        v-for="({ title, description, img }, $key) in data"
+        :key="$key"
+        class="w-full"
+      >
+        <div
+          :class="{
+            'from-primary-500 to-pink-500': $key === 0,
+            'from-blue-500 to-green-500': $key === 1,
+            'from-yellow-500 to-lime-500': $key === 2,
+            'from-green-500 to-teal-500': $key === 3,
+          }"
+          class="w-24 h-24 p-4 mx-auto rounded-full bg-gradient-to-r"
+        >
+          <img :src="img" alt="Knowledge" />
+        </div>
+        <div class="text-xl text-center font-semibold tracking-wide leading-10">
+          {{ title }}
+        </div>
+        <p class="text-base text-gray-600 dark:text-gray-300">
+          {{ description }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div v-if="false" class="py-8">
     <div class="max-w-7xl mx-auto px-4">
       <!-- Header Section -->
       <div class="text-center mb-12">
