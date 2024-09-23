@@ -47,88 +47,6 @@ definePageMeta({
   <!-- 👉🏼Swiper Images -->
   <SwiperBanner />
 
-  <!-- 👉🏼Grid News -->
-  <div class="fixed-width py-14">
-    <AppTitle text="News" />
-    <div class="grid grid-rows-3 grid-flow-col grid-cols-2 gap-8 mt-7">
-      <div class="row-span-3 w-full h-full">
-        <div class="relative rounded-xl overflow-hidden">
-          <img
-            alt=""
-            src="https://business-cambodia.com/cms/assets/759d19ab-4e85-4593-9877-5607a6d5f953"
-          />
-          <div
-            class="absolute bottom-0 left-0 w-full h-full p-4 bg-gray-900/20"
-          >
-            <div class="text-3xl text-gray-300 font-semibold">
-              ដឹងតម្លៃនៅខ្មែរហើយ! តស់មកដឹងពីតម្លៃកក់ iPhone16 គ្រប់ម៉ូដែលនៅខ្មែរ
-            </div>
-            <span class="text-base text-gray-200 leading-8">
-              Lorem ipsum dolor sit amet, consectetur
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-span-2 w-full h-full">
-        <div class="w-full flex items-center gap-7">
-          <img
-            alt=""
-            class="flex-none w-auto h-24 aspect-square rounded-xl"
-            src="https://business-cambodia.com/cms/assets/240ba2e4-4087-4c65-b470-0aa1d462c992"
-          />
-          <div class="flex-grow">
-            <h4 class="text-lg text-gray-700 font-semibold">
-              ចង់ធ្វើការនៅធនាគារខ្មែរទេ? ធនាគារអេស៊ីលីដា
-              ប្រកាសរើសបុគ្គ.លិកជាង១០០នាក់ឱ្យបម្រើការផ្នែកទាំងនេះ
-            </h4>
-            <span class="text-sm text-gray-500">
-              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
-              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-span-2 w-full h-full">
-        <div class="w-full flex items-center gap-7">
-          <img
-            alt=""
-            class="flex-none w-auto h-24 aspect-square rounded-xl"
-            src="https://business-cambodia.com/cms/assets/2bb676cd-1d94-4fb4-9c14-b795e9b79f03"
-          />
-          <div class="flex-grow">
-            <h4 class="text-lg text-gray-700 font-semibold">
-              ខេត្ដសំណាង! ក្រុមហ៊ុនយក្សរបស់ជប៉ុន
-              បើកការដ្ឋានសាងសង់រោងចក្រថ្មីមួយ​នៅខេត្តពោធិ៍​សាត់
-            </h4>
-            <span class="text-sm text-gray-500">
-              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
-              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-span-2 w-full h-full">
-        <div class="w-full flex items-center gap-7">
-          <img
-            alt=""
-            class="flex-none w-auto h-24 aspect-square rounded-xl"
-            src="https://business-cambodia.com/cms/assets/bc29c53c-d5e3-43c3-ab14-6e989b152572"
-          />
-          <div class="flex-grow">
-            <h4 class="text-lg text-gray-700 font-semibold">
-              នរណាខ្លះកំពុងប្រើ? វេទិកា Telegram អាចប្រឈមបញ្ហាធំៗ៣នេះ
-              ក្រោយស្ថាបនិកត្រូវបានចា.ប់ខ្លួន
-            </h4>
-            <span class="text-sm text-gray-500">
-              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
-              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- 👉🏼Core Value -->
   <div class="fixed-width py-14">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-7 py-7">
@@ -332,6 +250,90 @@ definePageMeta({
           promoting technology, fostering industry growth, and facilitating
           valuable connections.
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 👉🏼Grid News -->
+  <div class="fixed-width py-14">
+    <AppTitle text="News" />
+    <div
+      class="grid grid-rows-3 grid-flow-row md:grid-flow-col grid-cols-1 md:grid-cols-2 gap-8 mt-7"
+    >
+      <div class="row-span-3 w-full h-full">
+        <div class="relative rounded-xl overflow-hidden">
+          <img
+            alt=""
+            src="https://business-cambodia.com/cms/assets/759d19ab-4e85-4593-9877-5607a6d5f953"
+          />
+          <div
+            class="absolute bottom-0 left-0 w-full h-full p-4 bg-gray-900/20"
+          >
+            <div class="text-3xl text-gray-300 font-semibold">
+              ដឹងតម្លៃនៅខ្មែរហើយ! តស់មកដឹងពីតម្លៃកក់ iPhone16 គ្រប់ម៉ូដែលនៅខ្មែរ
+            </div>
+            <span class="text-base text-gray-200 leading-8">
+              Lorem ipsum dolor sit amet, consectetur
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-2 w-full h-full">
+        <div class="w-full flex items-center gap-7">
+          <img
+            alt=""
+            class="flex-none w-auto h-24 aspect-square rounded-xl"
+            src="https://business-cambodia.com/cms/assets/240ba2e4-4087-4c65-b470-0aa1d462c992"
+          />
+          <div class="flex-grow">
+            <h4 class="text-lg text-gray-700 font-semibold">
+              ចង់ធ្វើការនៅធនាគារខ្មែរទេ? ធនាគារអេស៊ីលីដា
+              ប្រកាសរើសបុគ្គ.លិកជាង១០០នាក់ឱ្យបម្រើការផ្នែកទាំងនេះ
+            </h4>
+            <span class="text-sm text-gray-500">
+              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
+              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-2 w-full h-full">
+        <div class="w-full flex items-center gap-7">
+          <img
+            alt=""
+            class="flex-none w-auto h-24 aspect-square rounded-xl"
+            src="https://business-cambodia.com/cms/assets/2bb676cd-1d94-4fb4-9c14-b795e9b79f03"
+          />
+          <div class="flex-grow">
+            <h4 class="text-lg text-gray-700 font-semibold">
+              ខេត្ដសំណាង! ក្រុមហ៊ុនយក្សរបស់ជប៉ុន
+              បើកការដ្ឋានសាងសង់រោងចក្រថ្មីមួយ​នៅខេត្តពោធិ៍​សាត់
+            </h4>
+            <span class="text-sm text-gray-500">
+              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
+              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-2 w-full h-full">
+        <div class="w-full flex items-center gap-7">
+          <img
+            alt=""
+            class="flex-none w-auto h-24 aspect-square rounded-xl"
+            src="https://business-cambodia.com/cms/assets/bc29c53c-d5e3-43c3-ab14-6e989b152572"
+          />
+          <div class="flex-grow">
+            <h4 class="text-lg text-gray-700 font-semibold">
+              នរណាខ្លះកំពុងប្រើ? វេទិកា Telegram អាចប្រឈមបញ្ហាធំៗ៣នេះ
+              ក្រោយស្ថាបនិកត្រូវបានចា.ប់ខ្លួន
+            </h4>
+            <span class="text-sm text-gray-500">
+              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
+              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
