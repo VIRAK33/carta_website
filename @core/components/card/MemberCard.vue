@@ -1,16 +1,10 @@
 <script lang="ts" setup>
-/* IMPORTS */
-import { sample } from 'lodash'
-
 /* PROPS */
 defineProps<{
   title: string
   subtitle?: string
   img: string
 }>()
-
-// const colors = ['bg-teal-200/70', 'bg-lime-200/70', 'bg-green-200/70', 'bg-pink-200/70', 'bg-indigo-200/70']
-const colors = ['#99f6e4', '#d9f99d', '#fecaca', '#f3e8ff', '#ffe4e6']
 </script>
 
 <template>
@@ -20,7 +14,7 @@ const colors = ['#99f6e4', '#d9f99d', '#fecaca', '#f3e8ff', '#ffe4e6']
       <img :src="img" alt="" />
     </div>
     <!-- 👉🏼Card Content -->
-    <div :class="`card-content`" :style="{ background: sample(colors) }">
+    <div :class="`card-content`">
       <div class="title" v-text="title" />
       <span class="subtitle" v-text="subtitle" />
 
@@ -52,14 +46,14 @@ const colors = ['#99f6e4', '#d9f99d', '#fecaca', '#f3e8ff', '#ffe4e6']
   }
 
   &-content {
-    @apply w-full rounded-lg pt-12 pb-7 px-4 text-center;
+    @apply w-full rounded-lg pt-12 pb-7 px-4 text-center bg-gray-100 dark:bg-gray-900;
 
     .title {
-      @apply text-base tracking-wide font-semibold dark:text-gray-700;
+      @apply text-base tracking-wide font-semibold dark:text-gray-300;
     }
 
     .subtitle {
-      @apply text-sm font-medium leading-7 dark:text-gray-600;
+      @apply text-sm font-medium leading-7 text-gray-500 dark:text-gray-400;
     }
 
     .actions {
