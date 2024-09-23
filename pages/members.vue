@@ -200,41 +200,41 @@ const banner = ref<string>(
           <div class="flex justify-center space-x-4">
             <img
               alt="International Logo 1"
-              class="h-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/kar.webp"
             />
             <img
               alt="International Logo 2"
-              class="h-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/myras.webp"
             />
             <img
               alt="International Logo 3"
-              class="h-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/mrsp.webp"
             />
           </div>
           <div class="flex justify-center space-x-4">
             <img
               alt="International Logo 3"
-              class="h-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/apara.webp"
             />
             <img
               alt="International Logo 3"
-              class="h-16 w-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/automationsg.webp"
             />
           </div>
           <div class="flex justify-center space-x-4">
             <img
               alt="International Logo 3"
-              class="h-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/china-asean.webp"
             />
             <img
               alt="International Logo 3"
-              class="h-16"
+              class="h-12 w-auto"
               src="@/assets/icons/member/arain.png"
             />
           </div>

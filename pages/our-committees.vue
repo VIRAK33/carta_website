@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import MemberCard from '~/@core/components/card/MemberCard.vue'
-import image1 from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
+import Dr_Pheng_Sokliep from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
+import Heng_Sokunthy from '@/assets/images/committees/Heng_Sokunthy.png'
+import Voeurn_Yong_Ann from '@/assets/images/committees/Voeurn_Yong_Ann.jpeg'
 </script>
 
 <template>
@@ -19,12 +21,12 @@ import image1 from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
 
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-7">
       <MemberCard
-        :img="image1"
+        :img="Dr_Pheng_Sokliep"
         subtitle="President"
         title="Pheng Sokliep"
       />
       <MemberCard
-        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        :img="Heng_Sokunthy"
         subtitle="Vice President"
         title="Heng Sokunthy"
       />
@@ -39,7 +41,7 @@ import image1 from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
         title="Sokhelly"
       />
       <MemberCard
-        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        :img="Voeurn_Yong_Ann"
         subtitle="Director General in charge Robotics"
         title="Voeurn Yong Ann"
       />
