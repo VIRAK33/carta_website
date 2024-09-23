@@ -1,4 +1,5 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+</script>
 
 <template>
   <div class="footer fixed-width">
@@ -19,28 +20,28 @@
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            About
+            <NuxtLink to="/about">About</NuxtLink>
           </a>
         </li>
         <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            Our Committees
+            <NuxtLink to="/our-committees">Our Committees</NuxtLink>
           </a>
         </li>
         <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            Members
+            <NuxtLink to="/members">Members</NuxtLink>
           </a>
         </li>
         <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            News & Events
+            <NuxtLink to="/news-events">News & Events</NuxtLink>
           </a>
         </li>
       </ul>
