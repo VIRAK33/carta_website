@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import MemberCard from '~/@core/components/card/MemberCard.vue'
+import image1 from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
 </script>
 
 <template>
@@ -18,7 +19,7 @@ import MemberCard from '~/@core/components/card/MemberCard.vue'
 
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-7">
       <MemberCard
-        img="https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:s3%3A%2F%2Fmedia-private.canva.com%2FeCDRk%2FMAGPlKeCDRk%2F1%2Fp.jpg/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAHXq91BIi7fycJIll1XJVrdlNXqJgOTjZkG3nkRWBv8E&exp=1726225343&osig=AAAAAAAAAAAAAAAAAAAAADN8VGllB2dsD93CnvXdq3aZSndURcebiA3_PHUe3mcm&signer=media-rpc&x-canva-quality=thumbnail"
+        :img="image1"
         subtitle="President"
         title="Pheng Sokliep"
       />
