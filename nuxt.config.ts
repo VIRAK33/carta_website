@@ -24,13 +24,6 @@ export default defineNuxtConfig({
     shim: false,
   },
 
-  // App Config
-  app: {
-    // global transition
-    pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' },
-  },
-
   css: [resolve('./@core/scss/_index.scss')],
 
   modules: [
