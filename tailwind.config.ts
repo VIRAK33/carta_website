@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import type { Config } from 'tailwindcss'
+import colors from 'tailwindcss/colors'
 
 export default <Partial<Config>>{
   theme: {
@@ -9,7 +10,9 @@ export default <Partial<Config>>{
         square: '1 / 1',
         video: '16 / 9',
       },
-      colors: {},
+      colors: {
+        primary: colors.red,
+      },
     },
   },
 }
