@@ -61,6 +61,7 @@ export default defineNuxtConfig({
 
   imports: {
     dirs: [
+      'composables',
       resolve('./stores'),
       '~/stores', // Auto-import Pinia Store
       resolve('./@core/composables'), // Auto-import composables from this directory
