@@ -32,6 +32,7 @@ news.value = data.value?.results
       </span>
     </div>
 
+    <p>Current Date: {{ $moment().format('MMMM Do YYYY, h:mm:ss a') }}</p>
     <div
       v-if="!pending"
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9 py-14"
@@ -44,7 +45,7 @@ news.value = data.value?.results
         class="inline-block cursor-pointer transition-all duration-300 hover:-translate-y-1.5"
       >
         <NewsCard
-          :date="created_date"
+          :date="$moment(created_date).format('MM-DD-YYYY')"
           :description="short_description"
           :loading="pending"
           :thumbnail="usePathImageUrl(thumbnail)"

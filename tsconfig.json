@@ -10,14 +10,12 @@
       "@types/node",
       "@pinia/nuxt",
       "@nuxtjs/tailwindcss",
-      "types/masonry"
+      "types/masonry",
+      "@nuxt/types",
+      "@nuxt/vue-app",
+      "@vue/runtime-core"
     ]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.vue"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.vue"],
+  "exclude": ["node_modules"]
 }

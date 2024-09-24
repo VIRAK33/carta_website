@@ -26,6 +26,7 @@
     "axios": "^1.7.7",
     "lightgallery": "^2.7.2",
     "masonry-layout": "^4.2.2",
+    "moment": "^2.30.1",
     "nuxt": "^3.13.0",
     "nuxt-icon": "^1.0.0-beta.7",
     "pinia": "^2.2.2",
