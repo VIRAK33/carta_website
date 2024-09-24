@@ -34,7 +34,7 @@ export const useAppConfigStore = defineStore('appStore', {
       },
       {
         value: 'news-events',
-        route: 'news-events',
+        route: 'news',
         title: 'News & Events',
       },
       {
