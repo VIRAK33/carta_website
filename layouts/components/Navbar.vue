@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+/* IMPORTS */
 import ThemeSwitcher from '~/layouts/components/ThemeSwitcher.vue'
 import BtnBurger from '~/layouts/components/BtnBurger.vue'
 import DrawerNavbar from '~/layouts/components/DrawerNavbar.vue'
+import LanguageSwitcher from '~/layouts/components/LanguageSwitcher.vue'
 
 /* STATES */
-
 const $appStore = useAppConfigStore()
 
 /* METHODS */
@@ -30,14 +31,14 @@ onMounted(() => onGetNavbarHeight())
         class="navbar--menus__item"
       >
         <RouterLink v-if="!children" :to="{ name: route }">
-          {{ title }}
+          {{ $t(title) }}
         </RouterLink>
 
         <!-- 👉🏼Children Menu -->
         <HeadlessPopover v-else v-slot="{ open }" class="relative">
           <HeadlessPopoverButton>
             <a :class="{ 'router-link-active': open }">
-              <span>{{ title }}</span>
+              <span>{{ $t(title) }}</span>
               <Icon
                 :class="[
                   open ? 'rotate-180' : '',
@@ -64,7 +65,7 @@ onMounted(() => onGetNavbarHeight())
                     <div class="icon">
                       <Icon :name="icon" class="text-xl text-primary-700" />
                     </div>
-                    {{ title }}
+                    {{ $t(title) }}
                   </RouterLink>
                 </li>
               </ul>
@@ -76,6 +77,7 @@ onMounted(() => onGetNavbarHeight())
 
     <!-- Theme Switcher -->
     <div class="flex items-center gap-4">
+      <LanguageSwitcher />
       <ThemeSwitcher />
       <BtnBurger class="md:hidden" />
       <Teleport to="#teleports">

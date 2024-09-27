@@ -5,3 +5,8 @@ export interface ICard {
   photos?: string[]
   created_date?: string
 }
+
+export enum ILocale {
+  KM = 'km',
+  EN = 'en',
+}
