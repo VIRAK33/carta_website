@@ -74,6 +74,10 @@ export const useAppConfigStore = defineStore('appStore', () => {
     activeDrawer.value = !activeDrawer.value
   }
 
+  const onSetNavbarHeight = ($value: number): void => {
+    navbarHeight.value = $value
+  }
+
   return {
     menus,
     navbarHeight,
@@ -82,64 +86,6 @@ export const useAppConfigStore = defineStore('appStore', () => {
     onUpdateLoading,
     onUpdateActiveDrawer,
     onToggleActiveDrawer,
+    onSetNavbarHeight,
   }
 })
-
-// export const useAppConfigStore = defineStore('appStore', {
-//   state: (): IAppState => ({
-//     menus: [
-//       {
-//         value: 'about',
-//         route: 'about',
-//         title: useNuxtApp().$i18n.t('about'),
-//       },
-//       {
-//         value: 'our-committees',
-//         route: 'our-committees',
-//         title: 'Our Committees',
-//       },
-//       {
-//         value: 'members',
-//         route: 'members',
-//         title: 'Members',
-//       },
-//       {
-//         value: 'news-events',
-//         route: 'news',
-//         title: 'News & Events',
-//       },
-//       {
-//         value: 'library',
-//         route: 'library',
-//         title: 'Library',
-//         children: [
-//           {
-//             value: 'library-photos',
-//             route: 'library-photos',
-//             title: 'Photos',
-//             icon: 'material-symbols:photo-prints',
-//           },
-//           // {
-//           //   value: 'videos',
-//           //   title: 'Videos',
-//           //   icons: 'material-symbols:video-library-rounded',
-//           // },
-//         ],
-//       },
-//     ],
-//     navbarHeight: 0,
-//     loading: false,
-//     activeDrawer: false,
-//   }),
-//   actions: {
-//     onUpdateLoading(value: boolean): void {
-//       this.loading = value
-//     },
-//     onUpdateActiveDrawer(value: boolean): void {
-//       this.activeDrawer = value
-//     },
-//     onToggleActiveDrawer(): void {
-//       this.activeDrawer = !this.activeDrawer
-//     },
-//   },
-// })
