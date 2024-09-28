@@ -2,13 +2,9 @@
 import { useAPI } from '~/@core/composables/useAPI'
 import { usePathImageUrl } from '~/@core/composables/useFile'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
+import type { INews } from '~/types/INews'
 
-const news = ref<{
-  title: string
-  short_description: string
-  thumbnail: string
-  created_date: string
-}>()
+const news = ref<INews[]>([])
 
 const { data, pending, error } = useAPI({
   method: 'GET',
