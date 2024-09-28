@@ -9,16 +9,16 @@ const $appStore = useAppConfigStore()
 <template>
   <div
     id="page-content"
-    :style="{ '--navbar-height': $appStore.navbarHeight }"
-    class="content"
+    :style="{ '--navbar-height': `${$appStore.navbarHeight}px` }"
+    class="page-content"
   >
     <slot />
   </div>
 </template>
 
 <style lang="scss" scoped>
-#content {
+#page-content {
+  @apply w-full pb-20;
   //padding-top: var(--navbar-height);
-  @apply w-full pb-20 grid place-items-center;
 }
 </style>
