@@ -8,6 +8,9 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { useAppConfigStore } from '~/stores/use-app-config.store'
+import slide1 from "@/assets/images/slide/slide1.png"
+import slide2 from "@/assets/images/slide/slide2.png"
+import slide3 from "@/assets/images/slide/slide3.png"
 
 /* STATES */
 const $appStore = useAppConfigStore()
@@ -22,17 +25,15 @@ const swiperModules = computed(() => [
 const slides = ref<{ name: string; image: string }[]>([
   {
     name: 'First Banner',
-    image: 'https://www.yeacambodia.org/cdn/uploads/2020/08/21.png',
+    image: slide1,
   },
   {
     name: 'Second Banner',
-    image:
-      'https://www.yeacambodia.org/cdn/uploads/2020/08/Untitled-1.jpg',
+    image: slide2,
   },
   {
     name: 'Third Banner',
-    image:
-      'https://www.yeacambodia.org/cdn/uploads/2020/08/22.png',
+    image: slide3,
   },
 ])
 </script>
