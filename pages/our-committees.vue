@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import MemberCard from '~/@core/components/card/MemberCard.vue'
+import Dr_Pheng_Sokliep from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
+import Heng_Sokunthy from '@/assets/images/committees/Heng_Sokunthy.png'
+import Voeurn_Yong_Ann from '@/assets/images/committees/Voeurn_Yong_Ann.jpeg'
 </script>
 
 <template>
@@ -18,29 +21,29 @@ import MemberCard from '~/@core/components/card/MemberCard.vue'
 
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-7">
       <MemberCard
-        img="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2024/06/15/17184214562297.jpg"
-        subtitle="Football Superstar"
-        title="Leonel Messi"
+        :img="Dr_Pheng_Sokliep"
+        subtitle="President"
+        title="Pheng Sokliep"
       />
       <MemberCard
-        img="https://assets.architecturaldigest.in/photos/638dc400d8be961106a0cdc1/16:9/w_2560%2Cc_limit/GettyImages-1443064180.jpg"
-        subtitle="Football Superstar"
-        title="Cristiano Ronaldo"
+        :img="Heng_Sokunthy"
+        subtitle="Vice President"
+        title="Heng Sokunthy"
       />
       <MemberCard
-        img="https://cdn.kiripost.com/static/images/photo_2023-06-13_16-49-51.2e16d0ba.fill-960x540.jpg"
-        subtitle="Rapper Star"
-        title="Vannda Mann"
+        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        subtitle="Administration"
+        title="Heng Thylavann"
       />
       <MemberCard
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/G-Devith_image.jpg/1200px-G-Devith_image.jpg"
-        subtitle="Rapper Star"
-        title="Ngoun Chan Devith"
+        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
+        subtitle="Treasurer"
+        title="Sokhelly"
       />
       <MemberCard
-        img="https://images.khmer24.co/profiles/pictures/24-06-14/profile_76303717183501843059.jpg"
-        subtitle="Mengleang Tuong"
-        title="Fullstack Developer"
+        :img="Voeurn_Yong_Ann"
+        subtitle="Director General in charge Robotics"
+        title="Voeurn Yong Ann"
       />
     </div>
   </section>
