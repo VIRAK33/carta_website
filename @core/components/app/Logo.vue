@@ -7,7 +7,7 @@ const $config = useRuntimeConfig()
   <RouterLink class="app-logo" to="/">
     <!-- Logo Image -->
     <img alt="Carta" src="/logo.png" />
-    <div class="text" v-text="$config.public.APP_NAME_EN" />
+    <div class="text" v-text="$t('app_name')" />
   </RouterLink>
 </template>
 

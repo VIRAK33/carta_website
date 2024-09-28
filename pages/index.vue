@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
+import { useAPI } from '~/@core/composables/useAPI'
+import type { INews } from '~/types/INews'
+import { usePathImageUrl } from '~/@core/composables/useFile'
 
 /* STATES */
 const data = ref([
@@ -37,6 +40,19 @@ const data = ref([
     img: 'https://cdn-icons-png.flaticon.com/512/860/860380.png',
   },
 ])
+const news = ref<INews[]>([])
+
+/* FETCHING */
+const {
+  data: resp,
+  pending,
+  error,
+} = useAPI({
+  method: 'GET',
+  url: '/v1/public/news/news',
+  params: { page: 1, size: 3 }, // Optional query parameters
+})
+news.value = resp.value?.results
 
 definePageMeta({
   layout: 'default',
@@ -260,21 +276,23 @@ definePageMeta({
     <div
       class="grid grid-rows-3 grid-flow-row md:grid-flow-col grid-cols-1 md:grid-cols-2 gap-8 mt-7"
     >
-      <div class="row-span-3 w-full h-full">
+      <div
+        v-for="({ title, short_description, thumbnail }, $i) in news"
+        :key="$i"
+        class="row-span-3 w-full h-full"
+      >
         <div class="relative rounded-xl overflow-hidden">
-          <img
-            alt=""
-            src="https://business-cambodia.com/cms/assets/759d19ab-4e85-4593-9877-5607a6d5f953"
-          />
+          <img :src="usePathImageUrl(thumbnail)" alt="" />
           <div
-            class="absolute bottom-0 left-0 w-full h-full p-4 bg-gray-900/20"
+            class="absolute top-0 left-0 w-full h-full flex flex-col justify-end p-4"
           >
-            <div class="text-3xl text-gray-300 font-semibold">
-              ដឹងតម្លៃនៅខ្មែរហើយ! តស់មកដឹងពីតម្លៃកក់ iPhone16 គ្រប់ម៉ូដែលនៅខ្មែរ
+            <div class="p-4 bg-gray-700/70">
+              <div class="text-3xl text-white font-semibold" v-text="title" />
+              <span
+                class="text-base text-gray-200 font-medium leading-8"
+                v-text="short_description"
+              />
             </div>
-            <span class="text-base text-gray-200 leading-8">
-              Lorem ipsum dolor sit amet, consectetur
-            </span>
           </div>
         </div>
       </div>

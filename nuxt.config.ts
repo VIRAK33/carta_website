@@ -27,14 +27,17 @@ export default defineNuxtConfig({
   css: [resolve('./@core/scss/_index.scss')],
 
   modules: [
-    '@nuxt/ui', // Styling & UI
-    '@nuxt/eslint',
-    'nuxt-headlessui', // Animation
-    '@vueuse/motion/nuxt', // State Management
+    // Styling & UI
+    '@nuxt/ui',
+    '@nuxt/eslint', // Animation
+    'nuxt-headlessui', // State Management
+    '@vueuse/motion/nuxt',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/i18n',
   ],
 
   router: {
@@ -84,6 +87,23 @@ export default defineNuxtConfig({
   /* 👉🏼Pinia Module */
   pinia: {
     storesDirs: ['~/stores/**', '#/stores/**', '@/stores/**'],
+  },
+
+  /* 👉🏼i18n Locale */
+  i18n: {
+    locales: [
+      { code: 'en', name: 'English', iso: 'en-US', file: 'en.yml' },
+      { code: 'km', name: 'ភាសាខ្មែរ', iso: 'km-KH', file: 'km.yml' },
+    ],
+    lazy: true, // Enables lazy loading of translations
+    langDir: 'locales/', // Directory where your locale files are stored
+    defaultLocale: 'km', // Default locale
+    vueI18n: './i18n.config.ts',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+    },
   },
 
   /* 👉🏼Color Mode Module */
