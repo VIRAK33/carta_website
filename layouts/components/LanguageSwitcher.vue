@@ -4,12 +4,15 @@ import { ILocale } from '~/types/IComponent'
 
 /* STATES */
 const { locale } = useI18n()
+const i18nRedirected = useCookie('i18n_redirected')
 
 /* FUNCTIONS */
 function onToggleSwitch(): void {
   locale.value === 'en'
     ? (locale.value = ILocale.KM)
     : (locale.value = ILocale.EN)
+
+  i18nRedirected.value = locale.value
 }
 </script>
 
