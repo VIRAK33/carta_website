@@ -19,6 +19,6 @@ const $appStore = useAppConfigStore()
 <style lang="scss" scoped>
 #page-content {
   @apply w-full pb-20;
-  //padding-top: var(--navbar-height);
+  padding-top: var(--navbar-height);
 }
 </style>

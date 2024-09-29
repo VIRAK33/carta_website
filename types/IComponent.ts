@@ -6,6 +6,14 @@ export interface ICard {
   created_date?: string
 }
 
+export interface IInfiniteLoadingState {
+  loaded(): void
+
+  complete(): void
+
+  reset(): void
+}
+
 export enum ILocale {
   KM = 'km',
   EN = 'en',
