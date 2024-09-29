@@ -34,7 +34,7 @@ export const useAppConfigStore = defineStore('appStore', () => {
       title: 'menus.members',
     },
     {
-      value: 'news-events',
+      value: 'news',
       route: 'news',
       title: 'menus.news_and_events',
     },
