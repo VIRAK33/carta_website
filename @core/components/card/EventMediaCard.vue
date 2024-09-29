@@ -95,7 +95,7 @@ function onViewSource(): void {
 }
 
 .modal-container {
-  //width: 50vw;
-  @apply w-full md:w-[70vw] lg:w-[50vw] p-7;
+  @apply w-full md:w-[920px] p-7;
+  //w-full md:w-[70vw] lg:w-[50vw]
 }
 </style>
