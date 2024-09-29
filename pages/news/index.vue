@@ -1,22 +1,51 @@
 <script lang="ts" setup>
+/* IMPORTS */
 import { useAPI } from '~/@core/composables/useAPI'
 import { usePathImageUrl } from '~/@core/composables/useFile'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
+import type { INews } from '~/types/INews'
+import type { IInfiniteLoadingState } from '~/types/IComponent'
+import { isArray, isEmpty, isNull } from 'lodash-es'
 
-const news = ref<{
-  title: string
-  short_description: string
-  thumbnail: string
-  created_date: string
-}>()
-
-const { data, pending, error } = useAPI({
-  method: 'GET',
-  url: '/v1/public/news/news',
-  // params: { limit: 10 } // Optional query parameters
+/* STATES */
+const news = ref<INews[]>([])
+const query = reactive<{ page: number; size: number }>({
+  page: 1,
+  size: 20,
 })
 
-news.value = data.value?.results
+/* METHODS */
+const infiniteHandler = async (
+  $state: IInfiniteLoadingState
+): Promise<void> => {
+  try {
+    const { data } = await useAPI({
+      method: 'GET',
+      url: '/v1/public/news/news',
+      params: {
+        page: query.page,
+        size: query.size,
+      },
+    })
+
+    if (isArray(data.value?.results) && !isEmpty(data.value?.results)) {
+      news.value.push(...data.value?.results)
+      query.page++
+
+      isNull(data.value?.next) ? $state.complete() : $state.loaded()
+    }
+  } catch (error) {
+    $state.complete()
+  }
+}
+
+// const { data, pending, error } = useAPI({
+//   method: 'GET',
+//   url: '/v1/public/news/news',
+//   // params: { limit: 10 } // Optional query parameters
+// })
+//
+// news.value = data.value?.results
 </script>
 
 <template>
@@ -32,10 +61,7 @@ news.value = data.value?.results
       </span>
     </div>
 
-    <div
-      v-if="!pending"
-      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9 py-14"
-    >
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9 py-14">
       <RouterLink
         v-for="(
           { title, short_description, thumbnail, created_date, slug }, $i
@@ -53,6 +79,12 @@ news.value = data.value?.results
         />
       </RouterLink>
     </div>
+    <InfiniteLoading :distance="10" @infinite="infiniteHandler">
+      <template #complete>
+        <span />
+      </template>
+      <template #spinner> Loading...</template>
+    </InfiniteLoading>
   </div>
 </template>
 
