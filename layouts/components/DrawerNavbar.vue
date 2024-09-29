@@ -41,14 +41,16 @@ function onRouteChange(): void {
           v-for="({ title, value, children }, $key) in $appConfigStore.menus"
           :key="$key"
         >
-          <RouterLink v-if="!children" :to="{ name: value }"
-            >{{ title }}
-          </RouterLink>
+          <RouterLink
+            v-if="!children"
+            :to="{ name: value }"
+            v-text="$t(title)"
+          />
 
           <HeadlessDisclosure v-else v-slot="{ open }">
             <HeadlessDisclosureButton class="w-full">
               <a class="w-full flex items-center justify-between">
-                {{ title }}
+                {{ $t(title) }}
                 <Icon
                   :class="[
                     open ? 'rotate-90' : '',
@@ -82,7 +84,7 @@ function onRouteChange(): void {
                       >
                         <Icon :name="icon" class="text-primary-700" />
                       </div>
-                      {{ title }}
+                      {{ $t(title) }}
                     </RouterLink>
                   </li>
                 </ul>
