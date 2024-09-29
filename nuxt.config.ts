@@ -29,9 +29,9 @@ export default defineNuxtConfig({
   modules: [
     // Styling & UI
     '@nuxt/ui',
-    '@nuxt/eslint', // Animation
+    '@nuxt/eslint',
     'nuxt-headlessui', // State Management
-    '@vueuse/motion/nuxt',
+    '@vueuse/motion/nuxt', // Animation
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
@@ -95,7 +95,7 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', iso: 'en-US', file: 'en.yml' },
       { code: 'km', name: 'ភាសាខ្មែរ', iso: 'km-KH', file: 'km.yml' },
     ],
-    lazy: true, // Enables lazy loading of translations
+    lazy: false, // Enables lazy loading of translations
     langDir: 'locales/', // Directory where your locale files are stored
     defaultLocale: 'km', // Default locale
     vueI18n: './i18n.config.ts',
