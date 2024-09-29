@@ -284,12 +284,12 @@ definePageMeta({
         <div class="relative rounded-xl overflow-hidden">
           <img :src="usePathImageUrl(thumbnail)" alt="" />
           <div
-            class="absolute top-0 left-0 w-full h-full flex flex-col justify-end p-4"
+            class="absolute top-0 left-0 w-full h-full flex flex-col justify-end"
           >
             <div class="p-4 bg-gray-700/70">
               <div class="text-3xl text-white font-semibold" v-text="title" />
               <span
-                class="text-base text-gray-200 font-medium leading-8"
+                class="text-base text-gray-200 font-medium leading-4"
                 v-text="short_description"
               />
             </div>
