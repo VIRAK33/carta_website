@@ -51,7 +51,7 @@ const onHandleScroll = (): void => {
 
 onMounted(() => {
   onGetNavbarHeight()
-  onSetNavbarAnimate()
+  // onSetNavbarAnimate()
   window.addEventListener('scroll', onHandleScroll, { passive: true })
 })
 
@@ -61,10 +61,25 @@ onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
 <template>
   <nav ref="$navbarRef" class="navbar">
     <!-- 👉🏼Logo -->
-    <AppLogo />
+    <AppLogo
+      v-motion
+      :delay="200"
+      :duration="1200"
+      :enter="{ opacity: 1, x: 0, scale: 1 }"
+      :initial="{ opacity: 0, x: -100 }"
+      :variants="{ custom: { scale: 2 } }"
+    />
 
     <!-- 👉🏼Menus -->
-    <ul class="navbar--menus">
+    <ul
+      v-motion
+      :delay="200"
+      :duration="1200"
+      :enter="{ opacity: 1, y: 0, scale: 1 }"
+      :initial="{ opacity: 0, y: -100 }"
+      :variants="{ custom: { scale: 2 } }"
+      class="navbar--menus"
+    >
       <li
         v-for="({ title, route, children }, $i) in $appStore.menus"
         :key="$i"
@@ -116,7 +131,15 @@ onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
     </ul>
 
     <!-- Theme Switcher -->
-    <div class="flex items-center gap-4">
+    <div
+      v-motion
+      :delay="200"
+      :duration="1200"
+      :enter="{ opacity: 1, x: 0, scale: 1 }"
+      :initial="{ opacity: 0, x: 100 }"
+      :variants="{ custom: { scale: 2 } }"
+      class="flex items-center gap-4"
+    >
       <LanguageSwitcher />
       <ThemeSwitcher />
       <BtnBurger class="md:hidden" />
