@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import gsap from 'gsap'
+import { gsap } from 'gsap'
 import { round } from 'lodash-es'
 import ThemeSwitcher from '~/layouts/components/ThemeSwitcher.vue'
 import BtnBurger from '~/layouts/components/BtnBurger.vue'
