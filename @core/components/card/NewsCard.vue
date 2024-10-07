@@ -67,15 +67,15 @@ defineProps<{
 
   &.loading {
     .card-inner .card-img {
-      @apply w-full h-32 bg-gray-200;
+      @apply w-full h-32 bg-gray-200 dark:bg-gray-700;
     }
 
     .card-block .title {
-      @apply w-1/2 h-7 bg-gray-200 rounded-md;
+      @apply w-1/2 h-4 bg-gray-200 dark:bg-gray-800 rounded-md;
     }
 
     .card-block .subtitle {
-      @apply w-full h-7 bg-gray-200 rounded-md mt-4;
+      @apply w-full h-6 bg-gray-200 dark:bg-gray-800 rounded-md mt-4;
     }
   }
 }
