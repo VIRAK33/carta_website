@@ -38,14 +38,6 @@ const infiniteHandler = async (
     $state.complete()
   }
 }
-
-// const { data, pending, error } = useAPI({
-//   method: 'GET',
-//   url: '/v1/public/news/news',
-//   // params: { limit: 10 } // Optional query parameters
-// })
-//
-// news.value = data.value?.results
 </script>
 
 <template>
@@ -73,17 +65,20 @@ const infiniteHandler = async (
         <NewsCard
           :date="$moment(created_date).format('MM-DD-YYYY')"
           :description="short_description"
-          :loading="pending"
           :thumbnail="usePathImageUrl(thumbnail)"
           :title="title"
         />
       </RouterLink>
     </div>
-    <InfiniteLoading :distance="10" @infinite="infiniteHandler">
+    <InfiniteLoading :distance="10" class="mb-14" @infinite="infiniteHandler">
       <template #complete>
         <span />
       </template>
-      <template #spinner> Loading...</template>
+      <template #spinner>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9">
+          <NewsCard v-for="$n in 5" :key="$n" loading title="" />
+        </div>
+      </template>
     </InfiniteLoading>
   </div>
 </template>
