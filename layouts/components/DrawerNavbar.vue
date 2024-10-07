@@ -20,7 +20,7 @@ const $appConfigStore = useAppConfigStore()
 // )
 
 function onRouteChange(): void {
-  setTimeout(() => $appConfigStore.onUpdateActiveDrawer(false), 500)
+  setTimeout(() => $appConfigStore.onUpdateActiveDrawer(false), 250)
 }
 </script>
 
@@ -40,6 +40,7 @@ function onRouteChange(): void {
         <li
           v-for="({ title, value, children }, $key) in $appConfigStore.menus"
           :key="$key"
+          @click="onRouteChange"
         >
           <RouterLink
             v-if="!children"
@@ -73,11 +74,11 @@ function onRouteChange(): void {
                   <li
                     v-for="({ title, icon, route }, $index) in children"
                     :key="$index"
+                    @click="onRouteChange"
                   >
                     <RouterLink
                       :to="{ name: route }"
                       class="flex items-center gap-4 text-lg"
-                      @click.prevent="onRouteChange"
                     >
                       <div
                         class="w-7 h-7 grid place-items-center rounded bg-primary-200/70"
