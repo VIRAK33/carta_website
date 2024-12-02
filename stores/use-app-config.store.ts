@@ -33,29 +33,29 @@ export const useAppConfigStore = defineStore('appStore', () => {
       route: 'members',
       title: 'menus.members',
     },
-    {
-      value: 'news',
-      route: 'news',
-      title: 'menus.news_and_events',
-    },
-    {
-      value: 'library',
-      route: 'library',
-      title: 'menus.library',
-      children: [
-        {
-          value: 'library-photos',
-          route: 'library-photos',
-          title: 'menus.photos',
-          icon: 'material-symbols:photo-prints',
-        },
-        // {
-        //   value: 'videos',
-        //   title: 'Videos',
-        //   icons: 'material-symbols:video-library-rounded',
-        // },
-      ],
-    },
+    // {
+    //   value: 'news',
+    //   route: 'news',
+    //   title: 'menus.news_and_events',
+    // },
+    // {
+    //   value: 'library',
+    //   route: 'library',
+    //   title: 'menus.library',
+    //   children: [
+    //     {
+    //       value: 'library-photos',
+    //       route: 'library-photos',
+    //       title: 'menus.photos',
+    //       icon: 'material-symbols:photo-prints',
+    //     },
+    //     // {
+    //     //   value: 'videos',
+    //     //   title: 'Videos',
+    //     //   icons: 'material-symbols:video-library-rounded',
+    //     // },
+    //   ],
+    // },
   ])
 
   const navbarHeight = ref<number>(0)

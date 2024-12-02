@@ -4,6 +4,8 @@ import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
 import { useAPI } from '~/@core/composables/useAPI'
 import type { INews } from '~/types/INews'
 import { usePathImageUrl } from '~/@core/composables/useFile'
+import ogImage from '~/assets/images/logo/logo.png'
+
 
 /* STATES */
 const data = ref([
@@ -53,6 +55,29 @@ const {
   params: { page: 1, size: 3 }, // Optional query parameters
 })
 news.value = resp.value?.results
+
+useHead({
+  title: 'CARTA - Empowering Cambodia with AI and Robotics',
+  meta: [
+    { property: 'og:title', content: 'CARTA - Empowering Cambodia with AI and Robotics' },
+    {
+      property: 'og:description',
+      content: 'Discover how CARTA fosters innovation in Cambodia through AI, robotics, and technology transfer, creating opportunities for education, industry, and research collaboration.'
+    },
+    { property: 'og:image', content: ogImage },
+    { property: 'og:url', content: 'https://carta.org.kh/' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'CARTA - Empowering Cambodia with AI and Robotics' },
+    { name: 'twitter:description', content: 'Discover how CARTA fosters innovation in Cambodia through AI and robotics.' },
+    { name: 'twitter:image', content: ogImage },
+    { name: 'telegram:title', content: 'CARTA - Empowering Cambodia with AI and Robotics' },
+    { name: 'telegram:description', content: 'Explore how CARTA supports Cambodia’s digital transformation.' },
+    { name: 'telegram:image', content: ogImage },
+    { name: 'contact:email', content: 'info@carta.org.kh' }, // Replace with your email
+    { name: 'contact:phone', content: '+85592346767' }, // Replace with your phone
+    { name: 'contact:address', content: 'Phnom Penh, Cambodia' }
+  ]
+})
 
 definePageMeta({
   layout: 'default',
@@ -271,7 +296,7 @@ definePageMeta({
   </div>
 
   <!-- 👉🏼Grid News -->
-  <div class="fixed-width py-14">
+  <div class="fixed-width py-14" v-if="false">
     <AppTitle text="News" />
     <div
       class="grid grid-rows-3 grid-flow-row md:grid-flow-col grid-cols-1 md:grid-cols-2 gap-8 mt-7"
