@@ -6,3 +6,11 @@ menus:
   news_and_events: News & Events
   library: Library
   photos: Photos
+
+meta:
+  home:
+    title: "CARTA - Empowering Cambodia with AI and Robotics"
+    description: "Discover how CARTA fosters innovation in Cambodia through AI and robotics."
+  about:
+    title: "About CARTA - Driving Technology Transfer in Cambodia"
+    description: "Learn about CARTA’s mission, vision, and efforts in advancing AI, robotics, and technology transfer."

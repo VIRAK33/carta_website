@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import banner from '@/assets/images/about/AI_Microsoft_Research_Header.webp'
+import ogImage from '~/assets/images/logo/logo.png'
+
 
 /* STATES */
 
@@ -25,6 +27,26 @@ const about = ref<string[]>([
     text: 'Through our efforts, CARTA is building a future where technology and collaboration are at the heart of Cambodia’s progress, driving sustainable development for the benefit of all.rk, creating vibrant Marketplace opportunities, and exemplifying Leadership in all our initiatives.',
   },
 ])
+
+useHead({
+  title: 'About CARTA - Driving Technology Transfer in Cambodia',
+  meta: [
+    { property: 'og:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
+    {
+      property: 'og:description',
+      content: 'Learn about CARTA’s mission, vision, and efforts in advancing AI, robotics, and technology transfer to enhance Cambodia\'s technological landscape.'
+    },
+    { property: 'og:image', content: ogImage },
+    { property: 'og:url', content: 'https://carta.org.kh/about' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
+    { name: 'twitter:description', content: 'Learn about CARTA’s mission and its role in Cambodia’s tech growth.' },
+    { name: 'twitter:image', content: ogImage },
+    { name: 'telegram:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
+    { name: 'telegram:description', content: 'Discover CARTA’s role in shaping Cambodia’s tech future.' },
+    { name: 'telegram:image', content: ogImage }
+  ]
+})
 
 const mission = ref<string[]>([
   {

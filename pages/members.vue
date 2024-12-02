@@ -1,9 +1,30 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import banner from '@/assets/images/about/AI_Microsoft_Research_Header.webp'
+import ogImage from '~/assets/icons/member/associate.webp'
+
 
 /* STATES */
 
+useHead({
+  title: 'Membership - Corporate, Professional, and Associate Options | CARTA',
+  meta: [
+    { property: 'og:title', content: 'Membership - Corporate, Professional, and Associate Options | CARTA' },
+    {
+      property: 'og:description',
+      content: 'Explore CARTA’s Membership options: Corporate, Professional, and Associate. Join to access industry insights, exclusive events, and networking opportunities tailored to your needs.'
+    },
+    { property: 'og:image', content: ogImage },
+    { property: 'og:url', content: 'https://carta.org.kh/membership' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Membership - Corporate, Professional, and Associate Options | CARTA' },
+    { name: 'twitter:description', content: 'Discover CARTA Membership benefits and find the best option for you.' },
+    { name: 'twitter:image', content: ogImage },
+    { name: 'telegram:title', content: 'Membership - Corporate, Professional, and Associate Options | CARTA' },
+    { name: 'telegram:description', content: 'Join CARTA and access tailored opportunities for businesses and individuals in the technology sector.' },
+    { name: 'telegram:image', content: ogImage }
+  ]
+})
 </script>
 
 <template>

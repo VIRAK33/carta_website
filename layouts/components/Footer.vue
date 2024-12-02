@@ -37,11 +37,11 @@
             <NuxtLink to="/members">Members</NuxtLink>
           </a>
         </li>
-        <li>
+        <li v-if="false">
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            <NuxtLink to="/news-events">News & Events</NuxtLink>
+            <NuxtLink to="/news">News & Events</NuxtLink>
           </a>
         </li>
       </ul>
@@ -64,7 +64,7 @@
           class="flex-none text-lg"
           name="material-symbols:alternate-email"
         />
-        <a class="text-sm" href="mailto:+85592346767">info@carta.org</a>
+        <a class="text-sm" href="mailto:+85592346767">info@carta.org.kh</a>
       </span>
       <span
         class="flex items-center gap-2 my-2 font-medium text-gray-500 dark:text-gray-400"

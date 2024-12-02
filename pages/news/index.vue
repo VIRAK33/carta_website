@@ -6,12 +6,26 @@ import NewsCard from '~/@core/components/card/NewsCard.vue'
 import type { INews } from '~/types/INews'
 import type { IInfiniteLoadingState } from '~/types/IComponent'
 import { isArray, isEmpty, isNull } from 'lodash-es'
+import ogImage from '~/assets/images/logo/logo.png'
 
 /* STATES */
 const news = ref<INews[]>([])
 const query = reactive<{ page: number; size: number }>({
   page: 1,
   size: 20,
+})
+
+useHead({
+  title: 'CARTA Blog - Insights on AI, Robotics, and Technology',
+  meta: [
+    { property: 'og:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
+    {
+      property: 'og:description',
+      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.'
+    },
+    { property: 'og:image', content: ogImage },
+    { property: 'og:url', content: 'https://carta.org.kh/news' }
+  ]
 })
 
 /* METHODS */

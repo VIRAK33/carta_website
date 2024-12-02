@@ -6,6 +6,30 @@ const $appConfigStore = useAppConfigStore()
 useHead({
   title: $config.public.APP_NAME,
   titleTemplate: `%s - Home`,
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "CARTA",
+        "url": "https://carta.org.kh",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+85592346767",
+          "email": "info@carta.org.kh",
+          "contactType": "Customer Service",
+          "areaServed": "KH",
+          "availableLanguage": ["English", "Khmer"]
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Phnom Penh",
+          "addressCountry": "Cambodia"
+        }
+      })
+    }
+  ]
 })
 </script>
 
