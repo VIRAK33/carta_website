@@ -10,12 +10,10 @@ import Voeurn_Yong_Ann from '@/assets/images/committees/Voeurn_Yong_Ann.jpeg'
     <div
       class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto"
     >
-      <AppTitle text="Our Organization Structure" />
+      <AppTitle :text="$t('committee.our_organization_structure')" />
 
       <span class="inline-block pt-4 subtitle text-center">
-        The Cambodia AI Robotics and Technology Transfer Association is
-        organized to efficiently achieve its mission and support its members.
-        The structure includes the following key components:
+        {{ $t('committee.our_organization_structure_des') }}
       </span>
     </div>
 

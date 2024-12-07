@@ -13,35 +13,35 @@
 
     <div class="footer--column text-left">
       <h5 class="text-lg text-gray-700 dark:text-gray-300 font-semibold">
-        Quick Links
+        {{$t('menus.quick_links')}}
       </h5>
       <ul class="flex flex-col gap-2 pt-4">
         <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            <NuxtLink to="/about">About</NuxtLink>
+            <NuxtLink to="/about">{{$t('menus.about')}}</NuxtLink>
           </a>
         </li>
         <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            <NuxtLink to="/our-committees">Our Committees</NuxtLink>
+            <NuxtLink to="/our-committees">{{$t('menus.our_committees')}}</NuxtLink>
           </a>
         </li>
         <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            <NuxtLink to="/members">Members</NuxtLink>
+            <NuxtLink to="/members">{{$t('menus.members')}}</NuxtLink>
           </a>
         </li>
         <li v-if="false">
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
-            <NuxtLink to="/news">News & Events</NuxtLink>
+            <NuxtLink to="/news">{{$t('menus.news_and_events')}}</NuxtLink>
           </a>
         </li>
       </ul>
@@ -49,7 +49,7 @@
 
     <div class="footer--contact">
       <h5 class="text-lg text-gray-700 dark:text-gray-300 font-semibold">
-        Get In Touch
+        {{$t('menus.get_in_touch')}}
       </h5>
       <span
         class="flex items-center gap-2 my-2 font-medium text-gray-500 dark:text-gray-400"
