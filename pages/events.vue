@@ -7,24 +7,54 @@ import { computed } from 'vue';
 /* STATES */
 
 useHead({
-  title: 'About CARTA - Driving Technology Transfer in Cambodia',
+  title: 'Event Calendar - Upcoming Robotics and Technology Events',
   meta: [
-    { property: 'og:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
+    {
+      property: 'og:title',
+      content: 'Event Calendar - Upcoming Robotics and Technology Events'
+    },
     {
       property: 'og:description',
-      content: 'Learn about CARTA’s mission, vision, and efforts in advancing AI, robotics, and technology transfer to enhance Cambodia\'s technological landscape.'
+      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
     },
-    { property: 'og:image', content: ogImage },
-    { property: 'og:url', content: 'https://carta.org.kh/about' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
-    { name: 'twitter:description', content: 'Learn about CARTA’s mission and its role in Cambodia’s tech growth.' },
-    { name: 'twitter:image', content: ogImage },
-    { name: 'telegram:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
-    { name: 'telegram:description', content: 'Discover CARTA’s role in shaping Cambodia’s tech future.' },
-    { name: 'telegram:image', content: ogImage }
+    {
+      property: 'og:image',
+      content: ogImage
+    },
+    {
+      property: 'og:url',
+      content: 'https://carta.org.kh/events'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image'
+    },
+    {
+      name: 'twitter:title',
+      content: 'Event Calendar - Upcoming Robotics and Technology Events'
+    },
+    {
+      name: 'twitter:description',
+      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
+    },
+    {
+      name: 'twitter:image',
+      content: ogImage
+    },
+    {
+      name: 'telegram:title',
+      content: 'Event Calendar - Upcoming Robotics and Technology Events'
+    },
+    {
+      name: 'telegram:description',
+      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
+    },
+    {
+      name: 'telegram:image',
+      content: ogImage
+    }
   ]
-})
+});
 
 
 const events = [
