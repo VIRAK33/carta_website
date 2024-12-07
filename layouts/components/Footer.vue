@@ -37,6 +37,13 @@
             <NuxtLink to="/members">{{$t('menus.members')}}</NuxtLink>
           </a>
         </li>
+        <li>
+          <a
+            class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
+          >
+            <NuxtLink to="/events">{{$t('menus.events')}}</NuxtLink>
+          </a>
+        </li>
         <li v-if="false">
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"

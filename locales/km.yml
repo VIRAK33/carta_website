@@ -3,6 +3,7 @@ menus:
   about: អំពីយើង
   our_committees: គណៈកម្មាធិការរបស់យើង
   members: សមាជិក
+  events: ព្រឹត្តិការណ៍
   news_and_events: ព័ត៌មាន និងព្រឹត្តិការណ៍
   library: បណ្ណាល័យ
   photos: រូបថត
@@ -98,3 +99,6 @@ membership:
   international_organization: "អង្គការអន្តរជាតិ"
   international_organization_des: "តាមរយៈការចូលរួមជាមួយស្ថាប័នពិភពលោក យើងនាំមកនូវជំនាញ និងឱកាសអន្តរជាតិមកកម្ពុជា បង្កើនលទ្ធភាពរបស់សមាជិករបស់យើងទៅកាន់ទីផ្សារពិភពលោក និងការអនុវត្តល្អបំផុត។"
 
+events:
+  our_events: "ព្រឹត្តិការណ៍របស់យើង"
+  events_calendar: "ប្រតិទិនព្រឹត្តិការណ៍"
