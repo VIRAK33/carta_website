@@ -35,7 +35,7 @@ useHead({
       class="w-full h-full bg-cover bg-center bg-no-repeat grid place-items-center"
     >
       <div class="text-4xl font-bold uppercase text-white">
-        Membership
+        {{ $t('membership.title') }}
       </div>
     </div>
   </div>
@@ -49,13 +49,10 @@ useHead({
         <div class="card rounded-lg text-center shadow-lg">
           <div class="card-content">
             <h2 class="mb-4 text-2xl font-bold text-red-700">
-              Corporate Membership
+              {{ $t('membership.corporate_membership') }}
             </h2>
             <p class="mb-4 text-gray-600">
-              Tailored for businesses looking to integrate advanced technologies,
-              gain access to exclusive events, and collaborate on innovative
-              projects. Corporate members benefit from networking opportunities,
-              industry insights, and tailored consultancy services.
+              {{ $t('membership.corporate_membership_des') }}
             </p>
             <img
               alt="Corporate Membership Icon"
@@ -69,13 +66,11 @@ useHead({
         <div class="card rounded-lg text-center shadow-lg">
           <div class="card-content">
             <h2 class="mb-4 text-2xl font-bold text-red-700">
-              Professional Membership
+              {{ $t('membership.professional_membership') }}
+
             </h2>
             <p class="mb-4 text-gray-600">
-              Designed for individuals working in the technology sector who seek
-              to stay at the forefront of industry trends, enhance their skills,
-              and connect with peers. Professional members gain access to
-              workshops, training sessions, and a network of industry experts.
+              {{ $t('membership.professional_membership_des') }}
             </p>
             <img
               alt="Professional Membership Icon"
@@ -89,14 +84,11 @@ useHead({
         <div class="card rounded-lg text-center shadow-lg">
           <div class="card-content">
             <h2 class="mb-4 text-2xl font-bold text-red-700">
-              Associate Membership
+              {{ $t('membership.associate_membership') }}
+
             </h2>
             <p class="mb-4 text-gray-600">
-              Ideal for organizations and individuals interested in supporting
-              CARTA’s mission and participating in our initiatives. Associate
-              members are involved in events, receive updates on industry
-              developments, and have opportunities to contribute to collaborative
-              projects.
+              {{ $t('membership.associate_membership_des') }}
             </p>
             <img
               alt="Associate Membership Icon"
@@ -110,7 +102,7 @@ useHead({
   </div>
 
   <!-- Our Partnership -->
-  <h1 class="text-5xl font-bold text-red-700 text-center mt-8">Our Partnership</h1>
+  <h1 class="text-5xl font-bold text-red-700 text-center mt-8">{{$t('membership.our_partnership')}}</h1>
   <div class="card flex flex-col items-center justify-center py-12">
     <div class="mx-auto max-w-7xl px-4 text-center">
       <!-- Partnership Section -->
@@ -129,12 +121,10 @@ useHead({
             </div>
           </div>
           <h2 class="mb-4 text-2xl font-bold text-red-700">
-            Government Partnerships
+            {{$t('membership.government_partnerships')}}
           </h2>
           <p class="mb-4 text-gray-600">
-            We collaborate with government agencies to promote high technology
-            education, implement technology transfer programs, and support
-            policy development that fosters innovation and growth.
+            {{$t('membership.government_partnerships_des')}}
           </p>
           <div class="flex justify-center space-x-4">
             <img
@@ -169,12 +159,10 @@ useHead({
             </div>
           </div>
           <h2 class="mb-4 text-2xl font-bold text-red-700">
-            Educational Partnerships
+            {{$t('membership.educational_partnerships')}}
           </h2>
           <p class="mb-4 text-gray-600">
-            Partnering with universities and research centers, we facilitate
-            knowledge exchange, advanced technology training, and collaborative
-            research efforts to drive technological innovation.
+            {{$t('membership.educational_partnerships_des')}}
           </p>
           <img alt="Education Logo" class="mx-auto h-16 w-auto" src="@/assets/icons/member/cit.png" />
         </div>
@@ -193,13 +181,11 @@ useHead({
             </div>
           </div>
           <h2 class="mb-4 text-2xl font-bold text-red-700">
-            Industry Partnerships
+            {{$t('membership.industry_partnerships')}}
+
           </h2>
           <p class="mb-4 text-gray-600">
-            We work closely with leading companies and industry organizations to
-            advance the adoption of AI, robotics, and smart cities. These
-            partnerships provide mutual benefits through joint projects,
-            research initiatives, and shared resources.
+            {{$t('membership.industry_partnerships_des')}}
           </p>
           <div class="flex justify-center space-x-4">
             <img alt="Industry Logo 1" class="h-16 w-auto" src="@/assets/icons/member/cognizer-cambodia.png" />
@@ -221,12 +207,10 @@ useHead({
             </div>
           </div>
           <h2 class="mb-4 text-2xl font-bold text-red-700">
-            International Organization
+            {{$t('membership.international_organization')}}
           </h2>
           <p class="mb-4 text-gray-600">
-            By engaging with global institutions, we bring international
-            expertise and opportunities to Cambodia, enhancing our members'
-            access to global markets and best practices.
+            {{$t('membership.international_organization_des')}}
           </p>
           <div class="card-img flex justify-center space-x-2">
             <img

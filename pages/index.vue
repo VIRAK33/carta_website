@@ -6,39 +6,35 @@ import type { INews } from '~/types/INews'
 import { usePathImageUrl } from '~/@core/composables/useFile'
 import ogImage from '~/assets/images/logo/logo.png'
 
+import { useI18n } from 'vue-i18n';
+
+const { t, locale } = useI18n();
+
+// // Function to change the language dynamically
+// const changeLanguage = (lang: string) => {
+//   locale.value = lang;
+// };
 
 /* STATES */
 const data = ref([
   {
-    title: 'Knowledge',
-    description: `
-          We are committed to advancing technological expertise and industry
-          insights, providing our members with valuable information and
-          resources to stay ahead in their fields.
-          `,
+    title: 'home.features.knowledge',
+    description: `home.features.knowledge_des`,
     img: 'https://cdn-icons-png.flaticon.com/512/2660/2660985.png',
   },
   {
-    title: 'Network',
-    description: `We build and sustain strong connections within Cambodia and across
-            the region, facilitating access to a broad network of local and
-            international partners and opportunities.`,
+    title: 'home.features.network',
+    description: `home.features.network_des`,
     img: 'https://cdn-icons-png.flaticon.com/512/4207/4207230.png',
   },
   {
-    title: 'Marketplace',
-    description: `
-    We create and support dynamic platforms for engagement, offering our
-            members a space to showcase their innovations, explore new markets,
-            and connect with potential clients and collaborators.`,
+    title: 'home.features.marketplace',
+    description: `home.features.marketplace_des`,
     img: 'https://cdn-icons-png.flaticon.com/512/9541/9541658.png',
   },
   {
-    title: 'Leadership',
-    description: `
-    We lead with vision and integrity, guiding our members through
-            strategic initiatives and fostering a culture of excellence that
-            drives progress and development in technology and business.`,
+    title: 'home.features.leadership',
+    description: `home.features.leadership_des`,
     img: 'https://cdn-icons-png.flaticon.com/512/860/860380.png',
   },
 ])
@@ -109,10 +105,10 @@ definePageMeta({
           <img :src="img" alt="Knowledge" />
         </div>
         <div class="text-xl text-center font-semibold tracking-wide leading-10">
-          {{ title }}
+          {{ $t(title) }}
         </div>
-        <p class="text-base text-gray-600 dark:text-gray-300">
-          {{ description }}
+        <p class="text-base text-center text-gray-600 dark:text-gray-300">
+          {{ $t(description) }}
         </p>
       </div>
     </div>
@@ -206,7 +202,7 @@ definePageMeta({
       <!-- Header Section -->
       <div class="text-center mb-12">
         <h1 class="text-4xl font-bold text-red-700">
-          Initiatives & Activities
+          {{ $t('home.init_and_act.title') }}
         </h1>
       </div>
 
@@ -215,27 +211,20 @@ definePageMeta({
         <!-- Left Column -->
         <div class="flex-1 space-y-6">
           <p class="text-lg font-semibold text-red-700">
-            At CARTA, our focus projects are designed to drive innovation and
-            growth across key areas:
+            {{ $t('home.init_and_act.at_carta') }}
           </p>
           <ul class="list-disc pl-6 space-y-4">
             <li>
-              <strong>Consultancy & Training:</strong> We provide expert
-              consultancy and tailored training programs to help businesses and
-              individuals enhance their technological capabilities and adapt to
-              evolving industry needs.
+              <strong>{{ $t('home.init_and_act.consultancy_and_training') }}:</strong>
+              {{ $t('home.init_and_act.consultancy_and_training_des') }}
             </li>
             <li>
-              <strong>Ecosystem Development:</strong> We build and strengthen a
-              robust ecosystem that fosters collaboration among industry
-              players, accelerates the adoption of advanced technologies, and
-              drives sustainable growth across sectors.
+              <strong>{{ $t('home.init_and_act.ecosystem_development') }}:</strong>
+              {{ $t('home.init_and_act.ecosystem_development_des') }}
             </li>
             <li>
-              <strong>Talent Development:</strong> We invest in talent by
-              offering targeted programs to develop skills in emerging
-              technologies, ensuring that the workforce is equipped to meet the
-              demands of the future.
+              <strong>{{ $t('home.init_and_act.talent_development') }}:</strong>
+              {{ $t('home.init_and_act.talent_development_des') }}
             </li>
           </ul>
         </div>
@@ -251,34 +240,28 @@ definePageMeta({
         <!-- Right Column -->
         <div class="flex-1 space-y-6">
           <p class="text-lg font-semibold text-red-700">
-            We host a diverse range of activities and events designed to foster
-            collaboration, knowledge sharing, and innovation:
+            {{ $t('home.init_and_act.we_host') }}
           </p>
           <ul class="list-disc pl-6 space-y-4">
             <li>
-              <strong>Workshops and Training:</strong> Hands-on sessions and
-              educational programs tailored to enhance skills and knowledge in
-              emerging technologies.
+              <strong>{{ $t('home.init_and_act.workshops_and_training') }}:</strong>
+              {{ $t('home.init_and_act.workshops_and_training_des') }}
             </li>
             <li>
-              <strong>Networking Events:</strong> Opportunities for members to
-              connect with industry leaders, potential partners, and peers to
-              build valuable relationships and explore new opportunities.
+              <strong>{{ $t('home.init_and_act.networking_events') }}:</strong>
+              {{ $t('home.init_and_act.networking_events_des') }}
             </li>
             <li>
-              <strong>Conferences and Seminars:</strong> In-depth discussions
-              and presentations on the latest trends, challenges, and
-              advancements in technology and business.
+              <strong>{{ $t('home.init_and_act.conferences_and_seminars') }}:</strong>
+              {{ $t('home.init_and_act.conferences_and_seminars_des') }}
             </li>
             <li>
-              <strong>Exhibitions and Showcases:</strong> Platforms for members
-              to showcase their innovations, products, and services to a wider
-              audience.
+              <strong>{{ $t('home.init_and_act.exhibitions_and_showcases') }}:</strong>
+              {{ $t('home.init_and_act.exhibitions_and_showcases_des') }}
             </li>
             <li>
-              <strong>Collaborative Projects:</strong> Joint initiatives with
-              industry and government partners to drive technological
-              advancements and address key challenges.
+              <strong>{{ $t('home.init_and_act.collaborative_projects') }}:</strong>
+              {{ $t('home.init_and_act.collaborative_projects_des') }}
             </li>
           </ul>
         </div>
@@ -287,9 +270,7 @@ definePageMeta({
       <!-- Footer Section -->
       <div class="mt-12 text-center">
         <p class="text-lg font-semibold text-red-700">
-          Our activities and events are designed to support our mission of
-          promoting technology, fostering industry growth, and facilitating
-          valuable connections.
+          {{ $t('home.our_activities') }}
         </p>
       </div>
     </div>
