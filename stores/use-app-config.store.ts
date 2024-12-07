@@ -33,6 +33,11 @@ export const useAppConfigStore = defineStore('appStore', () => {
       route: 'members',
       title: 'menus.members',
     },
+    {
+      value: 'events',
+      route: 'events',
+      title: 'menus.events',
+    },
     // {
     //   value: 'news',
     //   route: 'news',

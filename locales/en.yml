@@ -3,6 +3,7 @@ menus:
   about: About
   our_committees: Our Committees
   members: Members
+  events: Events
   news_and_events: News & Events
   library: Library
   photos: Photos
@@ -98,6 +99,9 @@ membership:
   international_organization: "International Organization"
   international_organization_des: "By engaging with global institutions, we bring international expertise and opportunities to Cambodia, enhancing our members' access to global markets and best practices."
 
+events:
+  our_events: "Our Events"
+  events_calendar: "Events Calendar"
 
 
 
