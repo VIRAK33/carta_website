@@ -155,7 +155,7 @@ onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
 
 .navbar {
   @apply fixed top-0 left-0 right-0 w-full flex items-center justify-between
-  px-4 md:px-10 py-4 transition-transform duration-500 bg-white dark:bg-gray-950;
+  px-4 md:px-10 py-4 transition-transform duration-500  bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg shadow-sm;
   z-index: 10;
   transition: all 0.2s ease;
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;

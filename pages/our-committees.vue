@@ -3,6 +3,8 @@ import MemberCard from '~/@core/components/card/MemberCard.vue'
 import Dr_Pheng_Sokliep from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
 import Heng_Sokunthy from '@/assets/images/committees/Heng_Sokunthy.png'
 import Voeurn_Yong_Ann from '@/assets/images/committees/Voeurn_Yong_Ann.jpeg'
+import Thinh_Raksmey from '@/assets/images/committees/Thinh_Raksmey.webp'
+
 </script>
 
 <template>
@@ -34,14 +36,14 @@ import Voeurn_Yong_Ann from '@/assets/images/committees/Voeurn_Yong_Ann.jpeg'
         title="Heng Thylavann"
       />
       <MemberCard
-        img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"
-        subtitle="Treasurer"
-        title="Sokhelly"
+        :img="Voeurn_Yong_Ann"
+        subtitle="Head Unit of AI and Robotics"
+        title="Voeurn Yong Ann"
       />
       <MemberCard
-        :img="Voeurn_Yong_Ann"
-        subtitle="Director General in charge Robotics"
-        title="Voeurn Yong Ann"
+        :img="Thinh_Raksmey"
+        subtitle="Head Unit of Technology and Transfer"
+        title="Thinh Raksmey"
       />
     </div>
   </section>
