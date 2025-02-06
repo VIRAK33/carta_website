@@ -46,12 +46,12 @@ useHead({
       <!-- Membership Section -->
       <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
         <!-- Corporate Membership -->
-        <div class="card rounded-lg text-center shadow-lg">
+        <div class="card rounded-lg text-center">
           <div class="card-content">
             <h2 class="mb-4 text-2xl font-bold text-red-700">
               {{ $t('membership.corporate_membership') }}
             </h2>
-            <p class="mb-4 text-gray-600">
+            <p class="mb-4 text-gray-600 dark:text-gray-300">
               {{ $t('membership.corporate_membership_des') }}
             </p>
             <img
@@ -63,13 +63,13 @@ useHead({
         </div>
 
         <!-- Professional Membership -->
-        <div class="card rounded-lg text-center shadow-lg">
+        <div class="card rounded-lg text-center">
           <div class="card-content">
             <h2 class="mb-4 text-2xl font-bold text-red-700">
               {{ $t('membership.professional_membership') }}
 
             </h2>
-            <p class="mb-4 text-gray-600">
+            <p class="mb-4 text-gray-600 dark:text-gray-300">
               {{ $t('membership.professional_membership_des') }}
             </p>
             <img
@@ -81,13 +81,13 @@ useHead({
         </div>
 
         <!-- Associate Membership -->
-        <div class="card rounded-lg text-center shadow-lg">
+        <div class="card rounded-lg text-center">
           <div class="card-content">
             <h2 class="mb-4 text-2xl font-bold text-red-700">
               {{ $t('membership.associate_membership') }}
 
             </h2>
-            <p class="mb-4 text-gray-600">
+            <p class="mb-4 text-gray-600 dark:text-gray-300">
               {{ $t('membership.associate_membership_des') }}
             </p>
             <img
@@ -120,10 +120,10 @@ useHead({
               />
             </div>
           </div>
-          <h2 class="mb-4 text-2xl font-bold text-red-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-red-700">
             {{$t('membership.government_partnerships')}}
           </h2>
-          <p class="mb-4 text-gray-600">
+          <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.government_partnerships_des')}}
           </p>
           <div class="flex justify-center space-x-4">
@@ -158,10 +158,10 @@ useHead({
               />
             </div>
           </div>
-          <h2 class="mb-4 text-2xl font-bold text-red-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-red-700">
             {{$t('membership.educational_partnerships')}}
           </h2>
-          <p class="mb-4 text-gray-600">
+          <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.educational_partnerships_des')}}
           </p>
           <img alt="Education Logo" class="mx-auto h-16 w-auto" src="@/assets/icons/member/cit.png" />
@@ -180,11 +180,11 @@ useHead({
               />
             </div>
           </div>
-          <h2 class="mb-4 text-2xl font-bold text-red-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-red-700">
             {{$t('membership.industry_partnerships')}}
 
           </h2>
-          <p class="mb-4 text-gray-600">
+          <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.industry_partnerships_des')}}
           </p>
           <div class="flex justify-center space-x-4">
@@ -206,10 +206,10 @@ useHead({
               />
             </div>
           </div>
-          <h2 class="mb-4 text-2xl font-bold text-red-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-red-700">
             {{$t('membership.international_organization')}}
           </h2>
-          <p class="mb-4 text-gray-600">
+          <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.international_organization_des')}}
           </p>
           <div class="card-img flex justify-center space-x-2">

@@ -16,7 +16,7 @@ useHead({
         "url": "https://carta.org.kh",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+85592346767",
+          "telephone": "+855 (61) 809 888",
           "email": "info@carta.org.kh",
           "contactType": "Customer Service",
           "areaServed": "KH",
@@ -35,7 +35,7 @@ useHead({
 
 <template>
   <Body
-    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-gray-950 dark:text-gray-200"
+    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-cool-800 dark:text-gray-200"
   >
     <NuxtLayout>
       <NuxtLoadingIndicator />

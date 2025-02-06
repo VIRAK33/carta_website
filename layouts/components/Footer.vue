@@ -62,7 +62,7 @@
         class="flex items-center gap-2 my-2 font-medium text-gray-500 dark:text-gray-400"
       >
         <Icon class="flex-none text-lg" name="material-symbols:call" />
-        <a class="text-sm" href="tel:+85592346767">+855 92 346 767</a>
+        <a class="text-sm" href="tel:+85561809888">+855 (61) 809 888</a>
       </span>
       <span
         class="flex items-center gap-2 my-2 font-medium text-gray-500 dark:text-gray-400"
@@ -71,7 +71,7 @@
           class="flex-none text-lg"
           name="material-symbols:alternate-email"
         />
-        <a class="text-sm" href="mailto:+85592346767">info@carta.org.kh</a>
+        <a class="text-sm" href="mailto:info@carta.org.kh">info@carta.org.kh</a>
       </span>
       <span
         class="flex items-center gap-2 my-2 font-medium text-gray-500 dark:text-gray-400"

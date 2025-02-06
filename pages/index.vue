@@ -70,7 +70,7 @@ useHead({
     { name: 'telegram:description', content: 'Explore how CARTA supports Cambodia’s digital transformation.' },
     { name: 'telegram:image', content: ogImage },
     { name: 'contact:email', content: 'info@carta.org.kh' }, // Replace with your email
-    { name: 'contact:phone', content: '+85592346767' }, // Replace with your phone
+    { name: 'contact:phone', content: '+855 (61) 809 888' }, // Replace with your phone
     { name: 'contact:address', content: 'Phnom Penh, Cambodia' }
   ]
 })
