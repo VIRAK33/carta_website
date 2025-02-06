@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import sun from '~/assets/icons/sun.png'
-import moon from '~/assets/icons/half-moon.png'
+import moon from '~/assets/icons/moon_icon.png'
 
 /* STATES */
 const $colorMode = useColorMode()
