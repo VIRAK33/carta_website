@@ -4,6 +4,8 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
+  target: 'static',
+  ssr: true,
   // Exp
   experimental: {
     localLayerAliases: true,
@@ -128,4 +130,8 @@ export default defineNuxtConfig({
       API_URL: process.env.NUXT_APP_API_URL ?? '',
     },
   },
+
+  buildModules: [
+    'nuxt-icon', // If using NuxtIcon or similar
+  ],
 })

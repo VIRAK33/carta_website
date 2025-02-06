@@ -95,7 +95,7 @@ const columns = computed(() => {
     </div>
   </div>
 
-  <div class="fixed-width my-4">
+  <div class="fixed-width my-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-7 w-full lg:w-2/3 mx-auto">
       <ul v-for="(column, colIndex) in columns" :key="colIndex" class="list-disc list-outside">
         <li v-for="(item, index) in column" :key="index" class="mb-4">
@@ -117,7 +117,7 @@ const columns = computed(() => {
           src="@/assets/icons/mission.png"
         />
         <h4
-          class="text-xl text-gray-800 dark:text-gray-300 font-semibold text-center"
+          class="text-xl mt-2 text-gray-800 dark:text-gray-300 font-semibold text-center"
         >
           {{$t('about.our_mission')}}
         </h4>
@@ -135,14 +135,14 @@ const columns = computed(() => {
           </li>
         </ul>
       </div>
-      <div class="w-full pl-0 md:pl-7 mt-16">
+      <div class="w-full pl-0 md:pl-7 mt-8">
         <img
           alt="Mission"
           class="w-24 h-24 object-cover mx-auto"
           src="@/assets/icons/vision.png"
         />
         <h4
-          class="text-xl text-gray-800 dark:text-gray-300 font-semibold text-center"
+          class="text-xl mt-2 text-gray-800 dark:text-gray-300 font-semibold text-center"
         >
           {{$t('about.our_vision')}}
         </h4>
