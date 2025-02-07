@@ -42,7 +42,7 @@ import Thinh_Raksmey from '@/assets/images/committees/Thinh_Raksmey.webp'
       />
       <MemberCard
         :img="Thinh_Raksmey"
-        subtitle="Head Unit of Technology and Transfer"
+        subtitle="Head Unit of Technology Transfer"
         title="Thinh Raksmey"
       />
     </div>
