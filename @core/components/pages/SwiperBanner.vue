@@ -10,7 +10,7 @@ import 'swiper/css/scrollbar'
 import { useAppConfigStore } from '~/stores/use-app-config.store'
 import slide1 from "@/assets/images/slide/slide1.png"
 import slide2 from "@/assets/images/slide/slide2.png"
-import slide3 from "@/assets/images/slide/slide3.png"
+import slide3 from "@/assets/images/logo/logo.webp"
 
 /* STATES */
 const $appStore = useAppConfigStore()

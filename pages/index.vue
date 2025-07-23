@@ -4,7 +4,7 @@ import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
 import { useAPI } from '~/@core/composables/useAPI'
 import type { INews } from '~/types/INews'
 import { usePathImageUrl } from '~/@core/composables/useFile'
-import ogImage from '~/assets/images/logo/logo.png'
+import ogImage from '~/assets/images/logo/logo.webp'
 
 import { useI18n } from 'vue-i18n';
 

@@ -6,7 +6,7 @@ import NewsCard from '~/@core/components/card/NewsCard.vue'
 import type { INews } from '~/types/INews'
 import type { IInfiniteLoadingState } from '~/types/IComponent'
 import { isArray, isEmpty, isNull } from 'lodash-es'
-import ogImage from '~/assets/images/logo/logo.png'
+import ogImage from '~/assets/images/logo/logo.webp'
 
 /* STATES */
 const news = ref<INews[]>([])

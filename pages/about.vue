@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import banner from '@/assets/images/about/AI_Microsoft_Research_Header.webp'
-import ogImage from '~/assets/images/logo/logo.png'
+import ogImage from '~/assets/images/logo/logo.webp'
 
 
 /* STATES */
