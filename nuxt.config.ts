@@ -143,9 +143,6 @@ export default defineNuxtConfig({
     fallback: 'light',
   },
 
-  unhead: {
-    legacy: false
-  },
 
   // --- RUNTIME CONFIG ---
   runtimeConfig: {
