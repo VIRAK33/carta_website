@@ -7,8 +7,11 @@ export default defineNuxtConfig({
   target: 'static',
   ssr: true,
 
-  router: {
-    middleware: ['loader'],
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      failOnError: false,
+    },
   },
 
   // Path aliases
@@ -107,7 +110,6 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', iso: 'en-US', file: 'en.yml' },
       { code: 'km', name: 'ភាសាខ្មែរ', iso: 'km-KH', file: 'km.yml' },
     ],
-    vueI18n: './i18n.config.ts',
     lazy: false,
     langDir: 'locales/',
     defaultLocale: 'km',
