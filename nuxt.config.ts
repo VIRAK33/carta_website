@@ -10,7 +10,6 @@ export default defineNuxtConfig({
   // Experimental features
   experimental: {
     localLayerAliases: true,
-    payloadExtraction: false,
   },
 
   // Configure Nitro for pre-rendering
@@ -18,46 +17,6 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
-    },
-  },
-  hooks: {
-    async 'build:before'(nuxt) {
-      try {
-        console.log('🔄 Fetching news slugs for pre-rendering...');
-
-        const response = await fetch(
-          'https://web-api.carta.org.kh/api/news?limit=100&fields=slug'
-        );
-
-        if (!response.ok) {
-          console.warn(`⚠️ Failed to fetch news: ${response.status}`);
-          return;
-        }
-
-        const data = await response.json();
-
-        if (!data?.data || !Array.isArray(data.data)) {
-          console.warn('⚠️ No news data found');
-          return;
-        }
-
-        const routes = data.data
-          .filter((item: any) => item.data?.slug)
-          .map((item: any) => `/news/${item.data.slug}`);
-
-        console.log(`✅ Found ${routes.length} news articles to pre-render`);
-
-        // Store in nuxt hook context for later use
-        if (!nuxt.options.nitro.prerender) {
-          nuxt.options.nitro.prerender = {};
-        }
-        if (!nuxt.options.nitro.prerender.routes) {
-          nuxt.options.nitro.prerender.routes = [];
-        }
-        nuxt.options.nitro.prerender.routes.push(...routes);
-      } catch (error) {
-        console.warn('⚠️ Error fetching news slugs:', error);
-      }
     },
   },
 
