@@ -11,9 +11,9 @@ const { locale } = useI18n()
 const $route = useRoute()
 const slug = computed(() => $route.params.slug as string)
 
-// Fetch news detail from worker proxy - only when slug is defined
+// Fetch news detail from worker proxy - query by slug for single article
 const { data: newsResponse, pending, error } = await useFetch<any>(
-  () => slug.value ? `https://web-api.carta.org.kh/api/news?limit=100&fields=thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,gallery,createdAt,updatedAt` : null,
+  () => slug.value ? `https://web-api.carta.org.kh/api/news?slug=${slug.value}&fields=thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,gallery,createdAt,updatedAt` : null,
   {
     method: 'GET',
     watch: [() => slug.value, () => locale.value],
@@ -30,41 +30,34 @@ const getFieldValue = (baseData: Record<string, any>, fieldName: string): any =>
 
 // Extract the news data from response
 const news = computed(() => {
-  if (!slug.value) {
+  if (!slug.value || pending.value || error.value) {
     return null;
   }
 
-  if (pending.value) {
+  // Check if response has data array with at least one article
+  if (!newsResponse.value?.data || !Array.isArray(newsResponse.value.data) || newsResponse.value.data.length === 0) {
     return null;
   }
 
-  if (error.value) {
+  // Get the first (and only) article from the response
+  const newsItem = newsResponse.value.data[0];
+  if (!newsItem) {
     return null;
   }
 
-  if (!newsResponse.value?.data || !Array.isArray(newsResponse.value.data)) {
-    return null;
-  }
+  const baseData = newsItem.data;
 
-  const newsItem = newsResponse.value.data.find((item: any) => item.data?.slug === slug.value);
-
-  if (newsItem) {
-    const baseData = newsItem.data;
-
-    return {
-      title: getFieldValue(baseData, 'title'),
-      content: getFieldValue(baseData, 'content'),
-      short_content: getFieldValue(baseData, 'short_content'),
-      thumbnail: baseData.thumbnail,
-      slug: baseData.slug,
-      gallery: baseData.gallery,
-      createdAt: newsItem.createdAt,
-      updatedAt: newsItem.updatedAt,
-      id: newsItem.id,
-    };
-  }
-
-  return null;
+  return {
+    title: getFieldValue(baseData, 'title'),
+    content: getFieldValue(baseData, 'content'),
+    short_content: getFieldValue(baseData, 'short_content'),
+    thumbnail: baseData.thumbnail,
+    slug: baseData.slug,
+    gallery: baseData.gallery,
+    createdAt: newsItem.createdAt,
+    updatedAt: newsItem.updatedAt,
+    id: newsItem.id,
+  };
 })
 
 // Helper function to extract excerpt from content
