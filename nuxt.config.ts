@@ -4,26 +4,11 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
-  // Disable SSR for static SPA deployment - allows refresh to work correctly with .htaccess routing
-  ssr: false,
+  target: 'static',
+  ssr: true,
 
-  // Experimental features
-  experimental: {
-    localLayerAliases: true,
-  },
-
-  // Configure Nitro for pre-rendering
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      failOnError: false,
-    },
-  },
-
-  // App-wide transitions and head metadata
-  app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' },
+  router: {
+    middleware: ['loader'],
   },
 
   // Path aliases
@@ -40,31 +25,26 @@ export default defineNuxtConfig({
   // Global CSS/SCSS
   css: [resolve('./@core/scss/_index.scss')],
 
+  // --- BUILD MODULES ---
+  buildModules: [
+    'nuxt-icon',
+  ],
+
   // --- MODULES ---
-  // All modules go here. `buildModules` is for Nuxt 2.
   modules: [
-    // Styling & UI
     '@nuxt/ui',
-    '@nuxt/icon',
-    'nuxt-headlessui',
-
-    // State Management
-    '@pinia/nuxt',
-    // 'pinia-plugin-persistedstate/nuxt', // This is often problematic. Use a custom plugin instead. See explanation.
-
-    // Utilities & Animations
-    '@vueuse/nuxt',
-    '@vueuse/motion/nuxt',
-    '@nuxtjs/google-fonts',
-
-    // Other
-    '@nuxtjs/i18n',
-    '@nuxtjs/color-mode',
     '@nuxt/eslint',
+    'nuxt-headlessui',
+    '@vueuse/motion/nuxt',
+    '@nuxtjs/color-mode',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
+    '@vueuse/nuxt',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/i18n',
   ],
 
   // --- BUILD CONFIGURATION ---
-  // The build key should only be defined ONCE.
   build: {
     transpile: ['axios'],
   },
@@ -110,7 +90,7 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       Quicksand: [300, 400, 500, 600, 700],
-      'Kantumruy Pro': [100, 200, 300, 400, 500, 600, 700], // Note: Removed '+' from family name
+      'Kantumruy Pro': [100, 200, 300, 400, 500, 600, 700],
     },
   },
 
@@ -127,6 +107,7 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', iso: 'en-US', file: 'en.yml' },
       { code: 'km', name: 'ភាសាខ្មែរ', iso: 'km-KH', file: 'km.yml' },
     ],
+    vueI18n: './i18n.config.ts',
     lazy: false,
     langDir: 'locales/',
     defaultLocale: 'km',
@@ -142,7 +123,6 @@ export default defineNuxtConfig({
     preference: 'system',
     fallback: 'light',
   },
-
 
   // --- RUNTIME CONFIG ---
   runtimeConfig: {
