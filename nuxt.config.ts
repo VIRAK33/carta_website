@@ -65,13 +65,6 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' },
-    // Disable payload extraction for pure SPA mode - prevents unnecessary _nuxt/builds/meta/*.json requests
-    rootId: 'app',
-  },
-
-  // Disable build metadata generation for SPA
-  routeRules: {
-    '/_nuxt/builds/**': { cache: { maxAge: 60 * 60 } }
   },
 
   // Path aliases

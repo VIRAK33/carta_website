@@ -1,11 +1,8 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
-import type { INews } from '~/types/INews'
-import { usePathImageUrl } from '~/@core/composables/useFile'
 import ogImage from '~/assets/images/logo/logo.webp'
 import { useI18n } from 'vue-i18n'
-import { useRuntimeConfig } from '#app'
 
 const { t, locale } = useI18n();
 
@@ -37,20 +34,6 @@ const data = ref([
     img: 'https://cdn-icons-png.flaticon.com/512/860/860380.png',
   },
 ])
-
-/* FETCHING */
-const { data: newsResponse, pending } = useFetch(
-  `https://web-api.carta.org.kh/api/news`,
-  {
-    params: { page: 1, limit: 3, fields: 'thumbnail,title,title_km,short_content,short_content_km,slug' },
-    key: 'home-news',
-  }
-)
-
-const news = computed(() => {
-  const data = newsResponse.value?.data || []
-  return Array.isArray(data) ? data : []
-})
 
 useHead({
   title: 'CARTA - Empowering Cambodia with AI and Robotics',
@@ -272,92 +255,6 @@ definePageMeta({
         <p class="text-lg font-semibold text-red-700">
           {{ $t('home.our_activities') }}
         </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 👉🏼Grid News -->
-  <div class="fixed-width py-14" v-if="false">
-    <AppTitle text="News" />
-    <div
-      class="grid grid-rows-3 grid-flow-row md:grid-flow-col grid-cols-1 md:grid-cols-2 gap-8 mt-7"
-    >
-      <div
-        v-for="({ title, short_description, thumbnail }, $i) in news"
-        :key="$i"
-        class="row-span-3 w-full h-full"
-      >
-        <div class="relative rounded-xl overflow-hidden">
-          <img :src="usePathImageUrl(thumbnail)" alt="" />
-          <div
-            class="absolute top-0 left-0 w-full h-full flex flex-col justify-end"
-          >
-            <div class="p-4 bg-gray-700/70">
-              <div class="text-3xl text-white font-semibold" v-text="title" />
-              <span
-                class="text-base text-gray-200 font-medium leading-4"
-                v-text="short_description"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-span-2 w-full h-full">
-        <div class="w-full flex items-center gap-7">
-          <img
-            alt=""
-            class="flex-none w-auto h-24 aspect-square rounded-xl"
-            src="https://business-cambodia.com/cms/assets/240ba2e4-4087-4c65-b470-0aa1d462c992"
-          />
-          <div class="flex-grow">
-            <h4 class="text-lg text-gray-700 font-semibold">
-              ចង់ធ្វើការនៅធនាគារខ្មែរទេ? ធនាគារអេស៊ីលីដា
-              ប្រកាសរើសបុគ្គ.លិកជាង១០០នាក់ឱ្យបម្រើការផ្នែកទាំងនេះ
-            </h4>
-            <span class="text-sm text-gray-500">
-              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
-              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-span-2 w-full h-full">
-        <div class="w-full flex items-center gap-7">
-          <img
-            alt=""
-            class="flex-none w-auto h-24 aspect-square rounded-xl"
-            src="https://business-cambodia.com/cms/assets/2bb676cd-1d94-4fb4-9c14-b795e9b79f03"
-          />
-          <div class="flex-grow">
-            <h4 class="text-lg text-gray-700 font-semibold">
-              ខេត្ដសំណាង! ក្រុមហ៊ុនយក្សរបស់ជប៉ុន
-              បើកការដ្ឋានសាងសង់រោងចក្រថ្មីមួយ​នៅខេត្តពោធិ៍​សាត់
-            </h4>
-            <span class="text-sm text-gray-500">
-              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
-              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-span-2 w-full h-full">
-        <div class="w-full flex items-center gap-7">
-          <img
-            alt=""
-            class="flex-none w-auto h-24 aspect-square rounded-xl"
-            src="https://business-cambodia.com/cms/assets/bc29c53c-d5e3-43c3-ab14-6e989b152572"
-          />
-          <div class="flex-grow">
-            <h4 class="text-lg text-gray-700 font-semibold">
-              នរណាខ្លះកំពុងប្រើ? វេទិកា Telegram អាចប្រឈមបញ្ហាធំៗ៣នេះ
-              ក្រោយស្ថាបនិកត្រូវបានចា.ប់ខ្លួន
-            </h4>
-            <span class="text-sm text-gray-500">
-              ទើបបើកការដ្ឋានសង់រោងចក្រថ្មីថ្ងៃមុន ពេលនេះក្រុមហ៊ុនជប៉ុន
-              ប្រកាសជ្រើសរើសបុគ្គលិកជិត ១០០ នាក់
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
