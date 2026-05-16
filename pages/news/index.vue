@@ -79,7 +79,7 @@ watch(() => locale.value, async () => {
         params: {
           page: 1,
           limit: 10,
-          fields: 'thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,createdAt',
+          fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
         },
       })
 
@@ -103,7 +103,7 @@ const infiniteHandler = async ($state: IInfiniteLoadingState): Promise<void> => 
       params: {
         page: query.page,
         limit: query.limit,
-        fields: 'thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,createdAt',
+        fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
       },
     })
 

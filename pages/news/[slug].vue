@@ -31,33 +31,25 @@ const getFieldValue = (baseData: Record<string, any>, fieldName: string): any =>
 // Extract the news data from response
 const news = computed(() => {
   if (!slug.value) {
-    console.log('⚠️ No slug available');
     return null;
   }
 
   if (pending.value) {
-    console.log('⏳ Data is loading...');
     return null;
   }
 
   if (error.value) {
-    console.error('❌ API Error:', error.value);
     return null;
   }
 
   if (!newsResponse.value?.data || !Array.isArray(newsResponse.value.data)) {
-    console.warn('⚠️ Invalid response format:', newsResponse.value);
     return null;
   }
-
-  console.log(`🔍 Searching for slug: "${slug.value}"`);
-  console.log(`📰 Available articles:`, newsResponse.value.data.map((item: any) => item.data?.slug));
 
   const newsItem = newsResponse.value.data.find((item: any) => item.data?.slug === slug.value);
 
   if (newsItem) {
     const baseData = newsItem.data;
-    console.log('✅ Found article:', baseData.slug);
 
     return {
       title: getFieldValue(baseData, 'title'),
@@ -72,7 +64,6 @@ const news = computed(() => {
     };
   }
 
-  console.warn(`❌ Article not found for slug: "${slug.value}"`);
   return null;
 })
 
