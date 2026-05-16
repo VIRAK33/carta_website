@@ -4,8 +4,8 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
-  // Enable SSR for pre-rendering with data fetching at build time
-  ssr: true,
+  // Disable SSR for static SPA deployment - allows refresh to work correctly with .htaccess routing
+  ssr: false,
 
   // Experimental features
   experimental: {

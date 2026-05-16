@@ -3,6 +3,7 @@
 defineProps<{
   title: string
   subtitle?: string
+  email?: string
   img: string
 }>()
 </script>
@@ -16,7 +17,9 @@ defineProps<{
     <!-- 👉🏼Card Content -->
     <div :class="`card-content`">
       <div class="title" v-text="title" />
-      <span class="subtitle" v-text="subtitle" />
+        <span class="subtitle" v-text="subtitle" />
+        <br>
+        <span class="email" v-text="email" />
 
       <div v-if="false" class="actions">
         <a class="block rounded-full cursor-pointer">

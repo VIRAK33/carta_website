@@ -137,11 +137,6 @@ useHead({
               class="h-16 w-16"
               src="@/assets/icons/member/moi-logo.webp"
             />
-            <img
-              alt="Gov Logo 3"
-              class="h-16 w-16"
-              src="@/assets/icons/member/moj-logo.webp"
-            />
           </div>
         </div>
 

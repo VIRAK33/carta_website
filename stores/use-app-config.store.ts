@@ -38,11 +38,11 @@ export const useAppConfigStore = defineStore('appStore', () => {
       route: 'events',
       title: 'menus.events',
     },
-    // {
-    //   value: 'news',
-    //   route: 'news',
-    //   title: 'menus.news_and_events',
-    // },
+    {
+      value: 'news',
+      route: 'news',
+      title: 'menus.news_and_events',
+    },
     // {
     //   value: 'library',
     //   route: 'library',

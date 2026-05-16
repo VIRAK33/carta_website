@@ -1,0 +1,7 @@
+name = "carta-cms-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "carta-cms-proxy-prod"
+route = "cms-proxy.seamvirak55.workers.dev/*"

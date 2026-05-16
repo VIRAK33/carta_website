@@ -36,5 +36,5 @@ export const useAPI = <T>({
     }
   }
 
-  return useAsyncData<T>(() => fetchData())
+  return useAsyncData<T>(() => fetchData(), { key: url })
 }

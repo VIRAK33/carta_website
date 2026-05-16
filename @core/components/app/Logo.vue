@@ -1,13 +1,30 @@
 <script lang="ts" setup>
 /* IMPORTS */
+import { ref, onMounted, onUnmounted } from 'vue'
 const $config = useRuntimeConfig()
+
+/* STATES */
+const isSmallScreen = ref(true)
+
+/* LIFECYCLE */
+onMounted(() => {
+  const checkScreenSize = () => {
+    isSmallScreen.value = window.innerWidth < 768
+  }
+  checkScreenSize()
+  window.addEventListener('resize', checkScreenSize)
+  onUnmounted(() => window.removeEventListener('resize', checkScreenSize))
+})
 </script>
 
 <template>
   <RouterLink class="app-logo" to="/">
     <!-- Logo Image -->
     <img alt="Carta" src="/logo.webp" />
-    <div class="text" v-text="$t('app_name')" />
+    <!-- Desktop: Full title -->
+    <div v-if="!isSmallScreen" class="text" v-text="$t('app_name')" />
+    <!-- Mobile: Abbreviated title -->
+    <div v-if="isSmallScreen" class="text" v-text="'CARTA'" />
   </RouterLink>
 </template>
 

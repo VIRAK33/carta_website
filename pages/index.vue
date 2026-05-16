@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
-import { useAPI } from '~/@core/composables/useAPI'
 import type { INews } from '~/types/INews'
 import { usePathImageUrl } from '~/@core/composables/useFile'
 import ogImage from '~/assets/images/logo/logo.webp'
-
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n'
+import { useRuntimeConfig } from '#app'
 
 const { t, locale } = useI18n();
 
@@ -38,19 +37,20 @@ const data = ref([
     img: 'https://cdn-icons-png.flaticon.com/512/860/860380.png',
   },
 ])
-const news = ref<INews[]>([])
 
 /* FETCHING */
-const {
-  data: resp,
-  pending,
-  error,
-} = useAPI({
-  method: 'GET',
-  url: '/v1/public/news/news',
-  params: { page: 1, size: 3 }, // Optional query parameters
+const { data: newsResponse, pending } = useFetch(
+  `https://web-api.carta.org.kh/api/news`,
+  {
+    params: { page: 1, limit: 3, fields: 'thumbnail,title,title_km,short_content,short_content_km,slug' },
+    key: 'home-news',
+  }
+)
+
+const news = computed(() => {
+  const data = newsResponse.value?.data || []
+  return Array.isArray(data) ? data : []
 })
-news.value = resp.value?.results
 
 useHead({
   title: 'CARTA - Empowering Cambodia with AI and Robotics',

@@ -15,6 +15,6 @@ export interface IInfiniteLoadingState {
 }
 
 export enum ILocale {
-  KM = 'km',
   EN = 'en',
+  KM = 'km'
 }

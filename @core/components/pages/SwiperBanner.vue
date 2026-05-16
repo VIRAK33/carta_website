@@ -8,9 +8,10 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { useAppConfigStore } from '~/stores/use-app-config.store'
-import slide1 from "@/assets/images/slide/slide1.png"
-import slide2 from "@/assets/images/slide/slide2.png"
-import slide3 from "@/assets/images/logo/logo.webp"
+import slide1 from "@/assets/images/slide/slide1.webp"
+import slide2 from "@/assets/images/slide/slide2.webp"
+import slide3 from "@/assets/images/slide/slide3.webp"
+import slide4 from "@/assets/images/slide/slide4.webp"
 
 /* STATES */
 const $appStore = useAppConfigStore()
@@ -22,7 +23,9 @@ const swiperModules = computed(() => [
   Pagination,
   Scrollbar,
 ])
-const slides = ref<{ name: string; image: string }[]>([
+
+// Default slides as fallback
+const defaultSlides = [
   {
     name: 'First Banner',
     image: slide1,
@@ -35,7 +38,44 @@ const slides = ref<{ name: string; image: string }[]>([
     name: 'Third Banner',
     image: slide3,
   },
-])
+  {
+    name: 'A JOURNEY OF GROWTH THROUGH EDUCATION AND EXCHANGE',
+    image: slide4,
+  },
+]
+
+// Fetch slides from worker proxy
+const { data: slideResponse } = useFetch<any>(
+  `https://web-api.carta.org.kh/api/slider`,
+  {
+    params: { fields: 'image' },
+    key: 'slider-data',
+  }
+)
+
+// Process slides data
+const slides = computed(() => {
+  try {
+    // Check if API returned valid data
+    if (slideResponse.value?.data && Array.isArray(slideResponse.value.data) && slideResponse.value.data.length > 0) {
+      const processedSlides = slideResponse.value.data.map((item: any, index: number) => ({
+        name: item.data?.name || `Slide ${index + 1}`,
+        image: item.data?.image || '',
+      })).filter((slide: any) => slide.image)
+
+      console.log('Using API slides:', processedSlides)
+      return processedSlides
+    } else {
+      console.log('No valid data from API, using default slides')
+    }
+  } catch (e) {
+    console.error('Error processing slides:', e)
+  }
+
+  // Fallback to default slides if API fails or returns invalid data
+  return defaultSlides
+})
+
 </script>
 
 <template>
@@ -130,8 +170,10 @@ const slides = ref<{ name: string; image: string }[]>([
 
 <style lang="scss">
 .swiper-banner {
-  @apply w-full h-[480px];
-  //md:h-[720px] lg:h-screen
+  @apply w-full h-[160px] md:h-[300px] lg:h-[380px] xl:h-[460px] 2xl:h-[460px] relative overflow-hidden;
+  //@apply w-full h-[160px] md:h-[300px] lg:h-[380px] xl:h-[460px] 2xl:h-[460px] relative overflow-hidden;
+    //@apply md:h-[480px];
+  //@apply sm:h-[200px] md:h-[320px] lg:h-[400px] xl:h-[400px] 2xl:h-[400px];
   //height: calc(100vh - var(--navbar-height));
 
   .swiper--item {
@@ -141,6 +183,7 @@ const slides = ref<{ name: string; image: string }[]>([
       @apply w-full h-full object-center object-cover;
     }
   }
+
 
   .swiper-pagination {
     .swiper-pagination-bullet {

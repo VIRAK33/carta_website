@@ -7,6 +7,10 @@ defineProps<{
   date?: string
   loading?: boolean
 }>()
+
+/* STATE */
+const imageError = ref(false)
+const imageLoaded = ref(false)
 </script>
 
 <template>
@@ -21,7 +25,26 @@ defineProps<{
     </div>
     <div v-else class="card-inner">
       <!-- 👉🏼 Card Image -->
-      <img :src="thumbnail" alt="" class="card-img" />
+      <div class="card-img-wrapper">
+        <img 
+          v-show="!imageError && imageLoaded"
+          :src="thumbnail" 
+          alt=""
+          class="card-img" 
+          @load="imageLoaded = true"
+          @error="imageError = true"
+        />
+        <div 
+          v-if="!imageLoaded" 
+          class="card-img card-img-placeholder"
+        >
+          <div class="flex items-center justify-center h-full text-gray-400">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
 
       <!-- 👉🏼 Card Info -->
       <div class="card-block">
@@ -42,8 +65,19 @@ defineProps<{
   &-inner {
     @apply p-0;
 
-    .card-img {
-      @apply w-full rounded-xl object-cover;
+    .card-img-wrapper {
+      @apply w-full rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800;
+      aspect-ratio: 4 / 3;
+      position: relative;
+
+      .card-img {
+        @apply w-full h-full rounded-xl object-cover;
+        display: block;
+      }
+
+      .card-img-placeholder {
+        @apply absolute inset-0 w-full h-full rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700;
+      }
     }
   }
 
@@ -52,11 +86,11 @@ defineProps<{
 
     .title {
       @apply text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide;
-      @include truncated-text(100%, 1);
+      @include truncated-text(100%, 2);
     }
 
     .subtitle {
-      @apply text-base text-gray-500;
+      @apply text-base text-gray-500 dark:text-gray-400;
       @include truncated-text(100%, 2);
     }
 
@@ -66,8 +100,8 @@ defineProps<{
   }
 
   &.loading {
-    .card-inner .card-img {
-      @apply w-full h-32 bg-gray-200 dark:bg-gray-700;
+    .card-inner .card-img-wrapper {
+      @apply w-full bg-gray-200 dark:bg-gray-700;
     }
 
     .card-block .title {

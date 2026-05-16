@@ -3,23 +3,21 @@
 import { ILocale } from '~/types/IComponent'
 
 /* STATES */
-const { locale } = useI18n()
+const { locale, setLocale } = useI18n()
 const i18nRedirected = useCookie('i18n_redirected')
 
 /* FUNCTIONS */
 function onToggleSwitch(): void {
-  locale.value === 'en'
-    ? (locale.value = ILocale.KM)
-    : (locale.value = ILocale.EN)
-
-  i18nRedirected.value = locale.value
+  const newLocale = locale.value === 'en' ? 'km' : 'en'
+  setLocale(newLocale)
+  i18nRedirected.value = newLocale
 }
 </script>
 
 <template>
   <button class="ls-btn" type="button" @click="onToggleSwitch">
     <img
-      v-if="locale === ILocale.KM"
+      v-if="locale === 'km'"
       alt="English"
       src="@/assets/icons/uk.png"
     />

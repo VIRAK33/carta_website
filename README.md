@@ -23,9 +23,9 @@ Nuxt 3 template and starter with a lot of useful features. Nuxt 3 + Tailwindcss 
   ```bash
   git clone git@github.com:tuongmengleang/cognizer.git
   ```
-- install dependencies
+- install dependencies: node 22
   ```bash
-  yarn install or npm install
+  yarn install
   ```
 - run development server
   ```bash

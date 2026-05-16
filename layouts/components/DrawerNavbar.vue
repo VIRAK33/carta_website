@@ -94,24 +94,57 @@ function onRouteChange(): void {
           </HeadlessDisclosure>
         </li>
       </ul>
+
+      <!-- Mobile Actions Footer -->
+      <div class="drawer-navbar--content--footer">
+        <a
+          href="https://www.carta.org.kh/webmail/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-email-mobile"
+          title="Open Webmail"
+        >
+          <img src="/assets/icons/email.png" alt="email icon" />
+        </a>
+      </div>
     </div>
   </Transition>
 </template>
 
 <style lang="scss" scoped>
+.btn-email-mobile {
+  @apply p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200;
+
+  img {
+    @apply w-7 h-7;
+  }
+}
+
 .drawer-navbar--overlay {
   @apply fixed w-full h-full top-0 bg-gray-700/50 z-[99];
 }
 
 .drawer-navbar--content {
-  @apply fixed bottom-0 w-full h-[70vh] bg-white dark:bg-gray-900 z-[999] text-white;
+  @apply fixed bottom-0 w-full h-[70vh] bg-white dark:bg-gray-900 z-[999] text-white flex flex-col;
   //height: calc(100vh - var(--navbar-height));
 
   &--menus {
-    @apply flex flex-col gap-5 w-full p-7 text-xl;
+    @apply flex flex-col gap-5 w-full p-7 text-xl flex-1 overflow-y-auto;
 
     li {
       @apply relative text-gray-700 dark:text-white font-semibold;
+    }
+  }
+
+  &--footer {
+    @apply border-t border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-center;
+
+    .footer-item {
+      @apply p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200;
+
+      img {
+        @apply h-6 w-6;
+      }
     }
   }
 }

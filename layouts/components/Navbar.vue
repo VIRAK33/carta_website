@@ -140,6 +140,16 @@ onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
       :variants="{ custom: { scale: 2 } }"
       class="flex items-center gap-4"
     >
+      <!-- Email Button -->
+      <a
+        href="https://www.carta.org.kh/webmail/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-email"
+        title="Open Webmail"
+      >
+        <img src="/assets/icons/email.png" alt="email icon" />
+      </a>
       <LanguageSwitcher />
       <ThemeSwitcher />
       <BtnBurger class="md:hidden" />
@@ -152,6 +162,14 @@ onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
 
 <style lang="scss" scoped>
 @import '@/@core/scss/_mixins.scss';
+
+.btn-email {
+  @apply h-8 aspect-square grid place-items-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200;
+
+  img {
+    @apply w-7 h-7;
+  }
+}
 
 .navbar {
   @apply fixed top-0 left-0 right-0 w-full flex items-center justify-between

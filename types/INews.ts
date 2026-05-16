@@ -1,14 +1,28 @@
 export interface INews {
-  slug: string
-  title: string
-  short_description: string
+  id: string
+  data: NewsData
+  createdAt: string
+  updatedAt: string
+}
+
+export interface NewsData {
   thumbnail: string
+  title: string
+  slug: string
+  short_content: string
   content: string
-  category_slug: string
-  category_name: string
-  created_by: string
-  created_date: string
-  media: Medum[]
+  gallery: string[]
+}
+
+export interface NewsResponse {
+  success: boolean
+  data: INews[]
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
 }
 
 export interface Medum {
