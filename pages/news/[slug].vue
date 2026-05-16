@@ -67,85 +67,43 @@ const getExcerpt = (content: string): string => {
   return plainText.substring(0, 160) + (plainText.length > 160 ? '...' : '')
 }
 
-// SEO Head
-useHead(() => ({
-  title: news.value ? `${news.value.title} | CARTA Blog` : 'CARTA Blog - News',
-  meta: [
-    {
-      name: 'description',
-      content: news.value ? getExcerpt(news.value.content) : 'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association',
-    },
-    {
-      name: 'og:title',
-      property: 'og:title',
-      content: news.value?.title || 'CARTA Blog',
-    },
-    {
-      name: 'og:description',
-      property: 'og:description',
-      content: news.value ? getExcerpt(news.value.content) : 'Read the latest insights and updates from CARTA',
-    },
-    {
-      name: 'og:image',
-      property: 'og:image',
-      content: news.value && news.value.thumbnail
-        ? (news.value.thumbnail.startsWith('http') ? news.value.thumbnail : `https://cms-api.graphmining.dev${news.value.thumbnail}`)
-        : 'https://carta.org.kh/og-image.png',
-    },
-    {
-      name: 'og:image:width',
-      property: 'og:image:width',
-      content: '1200',
-    },
-    {
-      name: 'og:image:height',
-      property: 'og:image:height',
-      content: '630',
-    },
-    {
-      name: 'og:url',
-      property: 'og:url',
-      content: news.value ? `https://carta.org.kh/news/${news.value.slug}` : 'https://carta.org.kh/news',
-    },
-    {
-      name: 'og:type',
-      property: 'og:type',
-      content: 'article',
-    },
-    {
-      name: 'article:published_time',
-      property: 'article:published_time',
-      content: news.value?.createdAt || '',
-    },
-    {
-      name: 'article:modified_time',
-      property: 'article:modified_time',
-      content: news.value?.updatedAt || '',
-    },
-    {
-      name: 'twitter:card',
-      content: 'summary_large_image',
-    },
-    {
-      name: 'twitter:title',
-      content: news.value?.title || 'CARTA Blog',
-    },
-    {
-      name: 'twitter:description',
-      content: news.value ? getExcerpt(news.value.content) : 'Read the latest insights and updates from CARTA',
-    },
-    {
-      name: 'twitter:image',
-      content: news.value ? news.value.thumbnail : 'https://carta.org.kh/og-image.png',
-    },
-  ],
-  link: [
-    {
-      rel: 'canonical',
-      href: news.value ? `https://carta.org.kh/news/${news.value.id}` : 'https://carta.org.kh/news',
-    },
-  ],
-}))
+const resolveImageUrl = (thumb: string | null | undefined): string => {
+  if (!thumb) return 'https://carta.org.kh/og-image.png'
+  return thumb.startsWith('http') ? thumb : `https://cms-api.graphmining.dev${thumb}`
+}
+
+const pageUrl = `https://carta.org.kh/news/${slug.value}`
+
+// Set SEO meta tags directly from resolved data so they are injected during SSR
+if (news.value) {
+  const pageTitle = `${news.value.title} | CARTA`
+  const pageDescription = getExcerpt(news.value.short_content || news.value.content)
+  const pageImage = resolveImageUrl(news.value.thumbnail)
+
+  useSeoMeta({
+    title: pageTitle,
+    ogTitle: news.value.title,
+    description: pageDescription,
+    ogDescription: pageDescription,
+    ogImage: pageImage,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogUrl: pageUrl,
+    ogType: 'article',
+    twitterCard: 'summary_large_image',
+    twitterTitle: news.value.title,
+    twitterDescription: pageDescription,
+    twitterImage: pageImage,
+  })
+} else {
+  useSeoMeta({
+    title: 'CARTA Blog - News',
+    ogTitle: 'CARTA Blog',
+    description: 'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association',
+    ogUrl: pageUrl,
+    ogType: 'article',
+  })
+}
 </script>
 
 <template>

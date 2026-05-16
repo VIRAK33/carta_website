@@ -4,8 +4,12 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
-  target: 'static',
   ssr: true,
+
+  routeRules: {
+    '/news/**': { ssr: true },
+    '/**': { ssr: false },
+  },
 
   nitro: {
     prerender: {
