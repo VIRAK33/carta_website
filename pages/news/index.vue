@@ -50,6 +50,11 @@ const formatDate = (date: string): string => {
   return moment(date).format('MM-DD-YYYY')
 }
 
+const resolveImageUrl = (thumb: string | null | undefined): string => {
+  if (!thumb) return ''
+  return thumb.startsWith('http') ? thumb : `https://cms-api.graphmining.dev${thumb}`
+}
+
 /* METHODS */
 const fetchNews = async (page: number) => {
   loading.value = true
@@ -117,7 +122,7 @@ watch(() => locale.value, () => {
         <NewsCard
           :date="formatDate(newsItem.createdAt)"
           :description="getFieldValue(newsItem.data, 'short_content') || extractShortContent(getFieldValue(newsItem.data, 'content'))"
-          :thumbnail="newsItem.data.thumbnail"
+          :thumbnail="resolveImageUrl(newsItem.data.thumbnail)"
           :title="getFieldValue(newsItem.data, 'title')"
         />
       </RouterLink>

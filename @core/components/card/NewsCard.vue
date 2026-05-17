@@ -11,6 +11,14 @@ defineProps<{
 /* STATE */
 const imageError = ref(false)
 const imageLoaded = ref(false)
+const imgRef = ref<HTMLImageElement>()
+
+onMounted(() => {
+  if (imgRef.value?.complete) {
+    if (imgRef.value.naturalWidth > 0) imageLoaded.value = true
+    else imageError.value = true
+  }
+})
 </script>
 
 <template>
@@ -26,11 +34,12 @@ const imageLoaded = ref(false)
     <div v-else class="card-inner">
       <!-- 👉🏼 Card Image -->
       <div class="card-img-wrapper">
-        <img 
+        <img
+          ref="imgRef"
           v-show="!imageError && imageLoaded"
-          :src="thumbnail" 
+          :src="thumbnail"
           alt=""
-          class="card-img" 
+          class="card-img"
           @load="imageLoaded = true"
           @error="imageError = true"
         />
