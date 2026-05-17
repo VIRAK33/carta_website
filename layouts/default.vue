@@ -13,7 +13,11 @@ nuxtApp.hook('page:finish', () => $appConfigStore.onUpdateLoading(false))
   <main id="main" class="main">
     <LayoutNavbar />
     <LayoutPageContent>
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component :is="Component" />
+        </KeepAlive>
+      </RouterView>
     </LayoutPageContent>
     <LayoutFooter />
   </main>

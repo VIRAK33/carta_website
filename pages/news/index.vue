@@ -3,9 +3,10 @@
 import NewsCard from '~/@core/components/card/NewsCard.vue'
 import type { IInfiniteLoadingState } from '~/types/IComponent'
 import { isArray, isEmpty } from 'lodash-es'
+import { onMounted, onUnmounted } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import moment from 'moment'
-import { useRuntimeConfig } from '#app'
+import { useState } from '#app'
 
 const ogImage = '/og-image.png'
 
@@ -13,11 +14,8 @@ const ogImage = '/og-image.png'
 const { locale } = useI18n()
 
 /* STATES */
-const news = ref<any[]>([])
-const query = reactive<{ page: number; limit: number }>({
-  page: 1,
-  limit: 10,
-})
+const news = useState<any[]>('news-list', () => [])
+const query = useState<{ page: number; limit: number }>('news-query', () => ({ page: 1, limit: 10 }))
 
 useHead({
   title: 'CARTA Blog - Insights on AI, Robotics, and Technology',
@@ -60,15 +58,28 @@ onBeforeRouteLeave(() => {
 })
 
 onMounted(() => {
-  setTimeout(() => {
-    enableInfiniteScroll.value = true
-  }, 500)
+  if (news.value.length === 0) {
+    setTimeout(() => {
+      enableInfiniteScroll.value = true
+    }, 500)
+  } else {
+    const handleScroll = () => {
+      const scrollBottom = window.scrollY + window.innerHeight
+      const docHeight = document.documentElement.scrollHeight
+      if (docHeight - scrollBottom < 300) {
+        enableInfiniteScroll.value = true
+        window.removeEventListener('scroll', handleScroll)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+  }
 })
 
 // Reset news list when language changes
 watch(() => locale.value, async () => {
   news.value = []
-  query.page = 1
+  query.value.page = 1
   enableInfiniteScroll.value = false
 
   // Load first page of news in new language
@@ -85,7 +96,7 @@ watch(() => locale.value, async () => {
 
       if (isArray(data?.data) && !isEmpty(data.data)) {
         news.value = [...data.data]
-        query.page = 2
+        query.value.page = 2
         enableInfiniteScroll.value = true
       }
     } catch (error) {
@@ -101,8 +112,8 @@ const infiniteHandler = async ($state: IInfiniteLoadingState): Promise<void> => 
     const data = await $fetch<any>(`https://web-api.carta.org.kh/api/news`, {
       method: 'GET',
       params: {
-        page: query.page,
-        limit: query.limit,
+        page: query.value.page,
+        limit: query.value.limit,
         fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
       },
     })
@@ -111,8 +122,8 @@ const infiniteHandler = async ($state: IInfiniteLoadingState): Promise<void> => 
       news.value.push(...data.data)
 
       const pagination = data.pagination
-      if (query.page < pagination.totalPages) {
-        query.page++
+      if (query.value.page < pagination.totalPages) {
+        query.value.page++
         $state.loaded()
       } else {
         $state.complete()
@@ -155,7 +166,7 @@ const infiniteHandler = async ($state: IInfiniteLoadingState): Promise<void> => 
         />
       </RouterLink>
     </div>
-    <InfiniteLoading :distance="10" class="mb-14" @infinite="infiniteHandler">
+    <InfiniteLoading v-if="enableInfiniteScroll" :distance="10" class="mb-14" @infinite="infiniteHandler">
       <template #complete>
         <span />
       </template>

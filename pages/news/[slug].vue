@@ -16,6 +16,7 @@ const { data: newsResponse, pending, error } = await useFetch<any>(
   () => slug.value ? `https://web-api.carta.org.kh/api/news?slug=${slug.value}&fields=thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,gallery,createdAt,updatedAt` : null,
   {
     method: 'GET',
+    key: () => `news-detail-${slug.value}`,
     watch: [() => slug.value, () => locale.value],
   }
 )

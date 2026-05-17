@@ -138,9 +138,9 @@ onMounted(() => {
 
 .navbar {
   @apply fixed top-0 left-0 right-0 w-full flex items-center justify-between
-  px-4 md:px-10 py-2 transition-transform duration-500  bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg shadow-sm;
+  px-4 md:px-10 py-2 bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg shadow-sm;
   z-index: 10;
-  transition: all 0.2s ease;
+  transform: translateZ(0);
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 
   &--menus {

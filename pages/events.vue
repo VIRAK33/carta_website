@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { computed, watch, onMounted } from 'vue'
+import { useState } from '#app'
 import ParticlesBanner from '~/@core/components/ParticlesBanner.vue'
 import ogImage from '~/assets/images/logo/logo.webp'
 
@@ -53,7 +54,7 @@ function mapEvents(rawList: any[]) {
   }))
 }
 
-const events = ref<any[]>([])
+const events = useState<any[]>('events-list', () => [])
 
 async function fetchEvents() {
   try {
@@ -151,8 +152,8 @@ const groupedEvents = computed(() => {
       const [bMonth, bYear] = bKey.split(", ");
       const yearDiff = Number(bYear) - Number(aYear); // Sort by year (descending)
       if (yearDiff !== 0) return yearDiff;
-      // If the same year, sort by month order (ascending)
-      return monthOrder.indexOf(aMonth) - monthOrder.indexOf(bMonth);
+      // If the same year, sort by month order (descending — latest month first)
+      return monthOrder.indexOf(bMonth) - monthOrder.indexOf(aMonth);
     })
     .map(([key, events]) => ({
       month: key,
