@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import { gsap } from 'gsap'
 import { round } from 'lodash-es'
 import ThemeSwitcher from '~/layouts/components/ThemeSwitcher.vue'
 import BtnBurger from '~/layouts/components/BtnBurger.vue'
@@ -10,7 +9,6 @@ import LanguageSwitcher from '~/layouts/components/LanguageSwitcher.vue'
 /* STATES */
 const $appStore = useAppConfigStore()
 const $navbarRef = ref<HTMLElement | null>(null)
-let lastScrollTop = 0
 
 /* METHODS */
 const onGetNavbarHeight = (): void => {
@@ -20,42 +18,9 @@ const onGetNavbarHeight = (): void => {
   })
 }
 
-const onSetNavbarAnimate = (): void => {
-  // 👉🏼GSAP animation for navbar (appears from top to bottom on load)
-  gsap.from($navbarRef.value, {
-    y: -100, // Start 100px above the viewport
-    opacity: 0, // Start fully transparent
-    duration: 1, // 1 second duration
-    ease: 'power3.out', // Smooth easing for the effect
-  })
-}
-
-const onHandleScroll = (): void => {
-  /* 👉🏼Set Navbar Sticky When Scroll To Top */
-  const { scrollY } = window
-
-  if (scrollY > lastScrollTop && scrollY > 100) {
-    // 👉🏼Scroll down - hide the navbar
-    gsap.to($navbarRef.value, {
-      y: -$appStore.navbarHeight,
-      duration: 0.2,
-      ease: 'power2.out',
-    })
-  } else {
-    // 👉🏼Scroll up - show the navbar
-    gsap.to($navbarRef.value, { y: 0, duration: 0.2, ease: 'power2.out' })
-  }
-
-  lastScrollTop = scrollY <= 0 ? 0 : scrollY
-}
-
 onMounted(() => {
   onGetNavbarHeight()
-  // onSetNavbarAnimate()
-  window.addEventListener('scroll', onHandleScroll, { passive: true })
 })
-
-onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
 </script>
 
 <template>
@@ -173,7 +138,7 @@ onUnmounted(() => window.removeEventListener('scroll', onHandleScroll))
 
 .navbar {
   @apply fixed top-0 left-0 right-0 w-full flex items-center justify-between
-  px-4 md:px-10 py-4 transition-transform duration-500  bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg shadow-sm;
+  px-4 md:px-10 py-2 transition-transform duration-500  bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg shadow-sm;
   z-index: 10;
   transition: all 0.2s ease;
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;

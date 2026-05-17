@@ -44,7 +44,7 @@
             <NuxtLink to="/events">{{$t('menus.events')}}</NuxtLink>
           </a>
         </li>
-        <li v-if="false">
+        <li>
           <a
             class="block text-sm text-gray-500 dark:text-gray-400 font-medium cursor-pointer hover:text-primary-400"
           >
