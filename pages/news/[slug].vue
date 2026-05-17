@@ -88,7 +88,6 @@ if (news.value) {
     ogImage: pageImage,
     ogImageWidth: 1200,
     ogImageHeight: 630,
-    ogUrl: pageUrl,
     ogType: 'article',
     twitterCard: 'summary_large_image',
     twitterTitle: news.value.title,
@@ -137,7 +136,7 @@ if (news.value) {
   </div>
 
   <!-- Content -->
-  <div v-if="!isEmpty(news) && !pending" class="mx-auto max-w-7xl px-4">
+  <div v-if="!isEmpty(news) && !pending" class="mx-auto max-w-6xl px-4">
     <!-- Hero Image -->
     <div class="w-full rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 mb-8">
       <div class="relative w-full pt-[56.25%]">

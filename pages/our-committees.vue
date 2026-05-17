@@ -25,7 +25,7 @@ import Thinh_Raksmey from '@/assets/images/committees/Thinh_Raksmey.webp'
         :img="Dr_Pheng_Sokliep"
         subtitle="President"
         title="Pheng Sokliep"
-        email="sokliep@carta.org.kh"
+        email="p.sokliep@carta.org.kh"
       />
       <MemberCard
         :img="Heng_Sokunthy"
@@ -37,7 +37,7 @@ import Thinh_Raksmey from '@/assets/images/committees/Thinh_Raksmey.webp'
             :img="Ly_Diamand"
             subtitle="Vice President"
             title="Ly Diamand"
-            email="diamand@carta.org.kh"
+            email="diamandly@carta.org.kh"
         />
       <MemberCard
         img="https://static.canva.com/web/images/87e22a62965f141aa08e93699b0b3527.jpg"

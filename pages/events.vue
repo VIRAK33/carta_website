@@ -1,10 +1,81 @@
 <script lang="ts" setup>
-import banner from '@/assets/images/about/AI_Microsoft_Research_Header.webp'
+import { ref, computed, watch, onMounted } from 'vue'
+import ParticlesBanner from '~/@core/components/ParticlesBanner.vue'
 import ogImage from '~/assets/images/logo/logo.webp'
-import { computed } from 'vue';
-
 
 /* STATES */
+const { locale } = useI18n()
+
+const GRADIENTS = [
+  { gradient: 'bg-gradient-to-r from-pink-500 to-purple-500', gradientColors: ['#ec4899', '#a855f7'] },
+  { gradient: 'bg-gradient-to-r from-green-400 to-blue-400',  gradientColors: ['#4ade80', '#3b82f6'] },
+  { gradient: 'bg-gradient-to-r from-blue-400 to-indigo-600', gradientColors: ['#3b82f6', '#6366f1'] },
+]
+
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+function formatEventDates(startIso: string, endIso: string) {
+  const start = new Date(startIso)
+  const end = new Date(endIso)
+
+  const startDay = start.getDate()
+  const endDay = end.getDate()
+  const startMonth = MONTH_NAMES[start.getMonth()]
+  const endMonth = MONTH_NAMES[end.getMonth()]
+  const year = start.getFullYear()
+
+  const date = String(startDay)
+  const month = `${startMonth}, ${year}`
+
+  let fullDate: string
+  if (startIso === endIso) {
+    fullDate = `${startMonth} ${startDay}, ${year}`
+  } else if (start.getMonth() === end.getMonth()) {
+    fullDate = `${startMonth} ${startDay} - ${endDay}, ${year}`
+  } else {
+    fullDate = `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${year}`
+  }
+
+  return { date, fullDate, month }
+}
+
+function mapEvents(rawList: any[]) {
+  return rawList.map((item: any, index: number) => ({
+    id: item.id,
+    title: locale.value === 'km' ? (item.data.title_km || item.data.title) : item.data.title,
+    description: locale.value === 'km' ? (item.data.description_km || item.data.description) : item.data.description,
+    location: item.data.location,
+    ...formatEventDates(item.data.start_date, item.data.end_date),
+    ...GRADIENTS[index % GRADIENTS.length],
+  }))
+}
+
+const events = ref<any[]>([])
+
+async function fetchEvents() {
+  try {
+    const data = await $fetch<any>('https://web-api.carta.org.kh/api/events', {
+      method: 'GET',
+      params: {
+        fields: 'title,title_km,description,description_km,location,start_date,end_date',
+      },
+    })
+    events.value = mapEvents(data?.data ?? [])
+  } catch (e) {
+    console.error('Error fetching events:', e)
+  }
+}
+
+onMounted(() => {
+  fetchEvents()
+})
+
+watch(() => locale.value, () => {
+  fetchEvents()
+})
 
 useHead({
   title: 'Event Calendar - Upcoming Robotics and Technology Events',
@@ -57,83 +128,16 @@ useHead({
 });
 
 
-const events = [
-  {
-    id: 1,
-    title: "ICanrob",
-    location: "Philippines",
-    date: "26",
-    fullDate: "September 26 - 28, 2024",
-    month: "September, 2024",
-    description:
-      "A regional robotics event focused on fostering collaboration, showcasing new technologies, and discussing the future of robotics in the industry.",
-    gradient: "bg-gradient-to-r from-pink-500 to-purple-500",
-    gradientColors: ["#ec4899", "#a855f7"], // For dynamic text colors
-  },
-  {
-    id: 2,
-    title: "Industrial Transformation ASIA-PACIFIC",
-    location: "Singapore",
-    date: "14",
-    fullDate: "October 14 - 16, 2024",
-    month: "October, 2024",
-    description:
-      "A premier event showcasing the latest in industrial transformation, including innovations in automation, IoT, and smart manufacturing.",
-    gradient: "bg-gradient-to-r from-green-400 to-blue-400",
-    gradientColors: ["#4ade80", "#3b82f6"],
-  },
-  {
-    id: 3,
-    title: "World Robotics Conference",
-    location: "Korea",
-    date: "23",
-    fullDate: "October 23 - 26, 2024",
-    month: "October, 2024",
-    description:
-      "An international conference dedicated to robotics research, technology advancements, and industry trends, featuring leading experts and cutting-edge developments.",
-    gradient: "bg-gradient-to-r from-blue-400 to-indigo-600",
-    gradientColors: ["#3b82f6", "#6366f1"],
-  },
-
-];
-
-// const groupedEvents = computed(() => {
-//   // Group events by month
-//   const grouped = {};
-//   events.forEach((event) => {
-//     if (!grouped[event.month]) {
-//       grouped[event.month] = [];
-//     }
-//     grouped[event.month].push(event);
-//   });
-//
-//   return Object.entries(grouped).map(([month, events]) => ({
-//     month,
-//     events,
-//   }));
-// });
 const groupedEvents = computed(() => {
-  // Predefined order of months
   const monthOrder = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ]
 
-  // Parse events and group by "Month, Year"
-  const grouped = {};
-  events.forEach((event) => {
-    const [month, year] = event.month.split(", "); // Split the month and year
-    const key = `${month}, ${year}`;
+  const grouped: Record<string, any[]> = {}
+  events.value.forEach((event: any) => {
+    const [month, year] = event.month.split(', ')
+    const key = `${month}, ${year}`
     if (!grouped[key]) {
       grouped[key] = [];
     }
@@ -162,16 +166,11 @@ const groupedEvents = computed(() => {
 
 <template>
   <!-- 👉🏼 Banner About -->
-  <div class="relative w-full h-[220px]">
-    <div
-      :style="{ backgroundImage: `url(${banner})` }"
-      class="w-full h-full bg-cover bg-center bg-no-repeat grid place-items-center"
-    >
-      <div class="text-4xl font-bold uppercase text-white">
-        {{$t('events.our_events')}}
-      </div>
+  <ParticlesBanner>
+    <div class="text-4xl font-bold uppercase text-white">
+      {{$t('events.our_events')}}
     </div>
-  </div>
+  </ParticlesBanner>
 
   <div>
     <div class="p-6 max-w-3xl mx-auto">

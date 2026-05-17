@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "nuxt build && rm -rf .output/public/_nuxt/builds",
+    "build": "nuxt generate",
     "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -24,6 +24,8 @@
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/i18n": "^8.5.5",
     "@pinia/nuxt": "^0.5.4",
+    "@tsparticles/engine": "^4.0.2",
+    "@tsparticles/slim": "^4.0.2",
     "@vueuse/core": "^11.0.3",
     "@vueuse/motion": "^2.2.3",
     "@vueuse/nuxt": "^11.0.3",

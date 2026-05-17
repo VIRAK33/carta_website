@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import banner from '@/assets/images/about/AI_Microsoft_Research_Header.webp'
+import ParticlesBanner from '~/@core/components/ParticlesBanner.vue'
 import ogImage from '~/assets/icons/member/associate.webp'
 
 
@@ -29,16 +29,11 @@ useHead({
 
 <template>
   <!-- 👉🏼 Banner -->
-  <div class="relative w-full h-[220px]">
-    <div
-      :style="{ backgroundImage: `url(${banner})` }"
-      class="w-full h-full bg-cover bg-center bg-no-repeat grid place-items-center"
-    >
-      <div class="text-4xl font-bold uppercase text-white">
-        {{ $t('membership.title') }}
-      </div>
+  <ParticlesBanner>
+    <div class="text-4xl font-bold uppercase text-white">
+      {{ $t('membership.title') }}
     </div>
-  </div>
+  </ParticlesBanner>
 
   <!-- Membership -->
   <div class="py-8">

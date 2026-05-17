@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import banner from '@/assets/images/about/AI_Microsoft_Research_Header.webp'
+import ParticlesBanner from '~/@core/components/ParticlesBanner.vue'
 import ogImage from '~/assets/images/logo/logo.webp'
 
 
@@ -84,16 +84,11 @@ const columns = computed(() => {
 
 <template>
   <!-- 👉🏼 Banner About -->
-  <div class="relative w-full h-[220px]">
-    <div
-      :style="{ backgroundImage: `url(${banner})` }"
-      class="w-full h-full bg-cover bg-center bg-no-repeat grid place-items-center"
-    >
-      <div class="text-4xl font-bold uppercase text-white">
-        {{$t('about.about_the_association')}}
-      </div>
+  <ParticlesBanner>
+    <div class="text-4xl font-bold uppercase text-white">
+      {{$t('about.about_the_association')}}
     </div>
-  </div>
+  </ParticlesBanner>
 
   <div class="fixed-width my-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-7 w-full lg:w-2/3 mx-auto">

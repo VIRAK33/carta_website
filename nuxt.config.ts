@@ -6,15 +6,26 @@ const { resolve } = createResolver(import.meta.url)
 export default defineNuxtConfig({
   ssr: true,
 
-  routeRules: {
-    '/news/**': { ssr: true },
-    '/**': { ssr: false },
-  },
-
   nitro: {
     prerender: {
       crawlLinks: true,
       failOnError: false,
+      routes: ['/news', '/events'],
+    },
+  },
+
+  hooks: {
+    async 'nitro:config'(nitroConfig: import('nitropack').NitroConfig) {
+      if (nitroConfig.dev) return
+      try {
+        const res = await fetch('https://web-api.carta.org.kh/api/news?fields=slug&limit=500')
+        const json = await res.json()
+        const slugRoutes = (json?.data ?? []).map((item: any) => `/news/${item.data?.slug}`).filter(Boolean)
+        nitroConfig.prerender = nitroConfig.prerender ?? {}
+        nitroConfig.prerender.routes = [...(nitroConfig.prerender.routes ?? []), ...slugRoutes]
+      } catch (e) {
+        console.warn('Could not prefetch news slugs for prerender:', e)
+      }
     },
   },
 
