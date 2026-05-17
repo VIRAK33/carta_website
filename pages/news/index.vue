@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 /* IMPORTS */
+import { ref, watch } from 'vue'
+import { useHead } from '#app'
+import { useI18n } from 'vue-i18n'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
-import type { IInfiniteLoadingState } from '~/types/IComponent'
-import { isArray, isEmpty } from 'lodash-es'
-import { onMounted, onUnmounted } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { isArray } from 'lodash-es'
 import moment from 'moment'
-import { useState } from '#app'
 
 const ogImage = '/og-image.png'
 
@@ -14,8 +13,12 @@ const ogImage = '/og-image.png'
 const { locale } = useI18n()
 
 /* STATES */
-const news = useState<any[]>('news-list', () => [])
-const query = useState<{ page: number; limit: number }>('news-query', () => ({ page: 1, limit: 10 }))
+const news = ref<any[]>([])
+const currentPage = ref(1)
+const totalPages = ref(1)
+const total = ref(0)
+const limit = 12
+const loading = ref(false)
 
 useHead({
   title: 'CARTA Blog - Insights on AI, Robotics, and Technology',
@@ -47,111 +50,64 @@ const formatDate = (date: string): string => {
   return moment(date).format('MM-DD-YYYY')
 }
 
-/* STATES */
-const isLeaving = ref(false)
-const enableInfiniteScroll = ref(false)
-
-/* LIFECYCLE HOOKS */
-onBeforeRouteLeave(() => {
-  isLeaving.value = true
-  enableInfiniteScroll.value = false
-})
-
-onMounted(() => {
-  if (news.value.length === 0) {
-    setTimeout(() => {
-      enableInfiniteScroll.value = true
-    }, 500)
-  } else {
-    const handleScroll = () => {
-      const scrollBottom = window.scrollY + window.innerHeight
-      const docHeight = document.documentElement.scrollHeight
-      if (docHeight - scrollBottom < 300) {
-        enableInfiniteScroll.value = true
-        window.removeEventListener('scroll', handleScroll)
-      }
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    onUnmounted(() => window.removeEventListener('scroll', handleScroll))
-  }
-})
-
-// Reset news list when language changes
-watch(() => locale.value, async () => {
-  news.value = []
-  query.value.page = 1
-  enableInfiniteScroll.value = false
-
-  // Load first page of news in new language
-  setTimeout(async () => {
-    try {
-      const data = await $fetch<any>(`https://web-api.carta.org.kh/api/news`, {
-        method: 'GET',
-        params: {
-          page: 1,
-          limit: 10,
-          fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
-        },
-      })
-
-      if (isArray(data?.data) && !isEmpty(data.data)) {
-        news.value = [...data.data]
-        query.value.page = 2
-        enableInfiniteScroll.value = true
-      }
-    } catch (error) {
-      console.error('Error loading news:', error)
-      enableInfiniteScroll.value = true
-    }
-  }, 300)
-})
-
 /* METHODS */
-const infiniteHandler = async ($state: IInfiniteLoadingState): Promise<void> => {
+const fetchNews = async (page: number) => {
+  loading.value = true
   try {
-    const data = await $fetch<any>(`https://web-api.carta.org.kh/api/news`, {
+    const data = await $fetch<any>('https://web-api.carta.org.kh/api/news', {
       method: 'GET',
       params: {
-        page: query.value.page,
-        limit: query.value.limit,
+        page,
+        limit,
         fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
       },
     })
 
-    if (isArray(data?.data) && !isEmpty(data.data)) {
-      news.value.push(...data.data)
-
+    if (isArray(data?.data)) {
+      news.value = data.data
       const pagination = data.pagination
-      if (query.value.page < pagination.totalPages) {
-        query.value.page++
-        $state.loaded()
-      } else {
-        $state.complete()
-      }
-    } else {
-      $state.complete()
+      totalPages.value = pagination.totalPages
+      total.value = pagination.total
+      currentPage.value = pagination.page
     }
   } catch (error) {
     console.error('Error loading news:', error)
-    $state.complete()
+  } finally {
+    loading.value = false
   }
 }
+
+const onPageChange = async (page: number) => {
+  currentPage.value = page
+  await fetchNews(page)
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+/* LIFECYCLE */
+await fetchNews(1)
+
+watch(() => locale.value, () => {
+  fetchNews(currentPage.value)
+})
 </script>
 
 <template>
   <div class="fixed-width py-14">
-    <div
-      class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto"
-    >
+    <div class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto">
       <AppTitle text="Our Latest News" />
-
       <span class="inline-block pt-4 subtitle text-center">
         Effective teams communication openly, leverage strength, and embrace
         diversity for success.
       </span>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 py-14">
+    <!-- Loading skeletons -->
+    <div v-if="loading" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 py-14">
+      <NewsCard v-for="$n in limit" :key="$n" loading title="" />
+    </div>
+
+    <!-- News grid -->
+    <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 py-14">
       <RouterLink
         v-for="(newsItem, $i) in news"
         :key="$i"
@@ -166,16 +122,16 @@ const infiniteHandler = async ($state: IInfiniteLoadingState): Promise<void> => 
         />
       </RouterLink>
     </div>
-    <InfiniteLoading v-if="enableInfiniteScroll" :distance="10" class="mb-14" @infinite="infiniteHandler">
-      <template #complete>
-        <span />
-      </template>
-      <template #spinner>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-9">
-          <NewsCard v-for="$n in 5" :key="$n" loading title="" />
-        </div>
-      </template>
-    </InfiniteLoading>
+
+    <!-- Pagination -->
+    <div v-if="totalPages > 1" class="flex justify-center pb-14">
+      <UPagination
+        :model-value="currentPage"
+        :page-count="limit"
+        :total="total"
+        @update:model-value="onPageChange"
+      />
+    </div>
   </div>
 </template>
 

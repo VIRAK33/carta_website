@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, watch, onMounted } from 'vue'
-import { useState } from '#app'
+import { ref, computed, watch } from 'vue'
+import { useHead } from '#app'
+import { useI18n } from 'vue-i18n'
 import ParticlesBanner from '~/@core/components/ParticlesBanner.vue'
 import ogImage from '~/assets/images/logo/logo.webp'
 
@@ -43,91 +44,86 @@ function formatEventDates(startIso: string, endIso: string) {
   return { date, fullDate, month }
 }
 
-function mapEvents(rawList: any[]) {
+function mapEvents(rawList: any[], offset = 0) {
   return rawList.map((item: any, index: number) => ({
     id: item.id,
     title: locale.value === 'km' ? (item.data.title_km || item.data.title) : item.data.title,
     description: locale.value === 'km' ? (item.data.description_km || item.data.description) : item.data.description,
     location: item.data.location,
     ...formatEventDates(item.data.start_date, item.data.end_date),
-    ...GRADIENTS[index % GRADIENTS.length],
+    ...GRADIENTS[(offset + index) % GRADIENTS.length],
   }))
 }
 
-const events = useState<any[]>('events-list', () => [])
+const events = ref<any[]>([])
+const currentPage = ref(1)
+const totalPages = ref(1)
+const total = ref(0)
+const limit = 10
+const loading = ref(false)
 
-async function fetchEvents() {
+async function fetchEvents(page: number) {
+  loading.value = true
   try {
     const data = await $fetch<any>('https://web-api.carta.org.kh/api/events', {
       method: 'GET',
       params: {
+        page,
+        limit,
         fields: 'title,title_km,description,description_km,location,start_date,end_date',
       },
     })
-    events.value = mapEvents(data?.data ?? [])
+    events.value = mapEvents(data?.data ?? [], (page - 1) * limit)
+    const pagination = data?.pagination
+    if (pagination) {
+      totalPages.value = pagination.totalPages
+      total.value = pagination.total
+      currentPage.value = pagination.page
+    }
   } catch (e) {
     console.error('Error fetching events:', e)
+  } finally {
+    loading.value = false
   }
 }
 
-onMounted(() => {
-  fetchEvents()
-})
+const onPageChange = async (page: number) => {
+  currentPage.value = page
+  await fetchEvents(page)
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+await fetchEvents(1)
 
 watch(() => locale.value, () => {
-  fetchEvents()
+  fetchEvents(currentPage.value)
 })
 
 useHead({
   title: 'Event Calendar - Upcoming Robotics and Technology Events',
   meta: [
-    {
-      property: 'og:title',
-      content: 'Event Calendar - Upcoming Robotics and Technology Events'
-    },
+    { property: 'og:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
     {
       property: 'og:description',
       content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
     },
-    {
-      property: 'og:image',
-      content: ogImage
-    },
-    {
-      property: 'og:url',
-      content: 'https://carta.org.kh/events'
-    },
-    {
-      name: 'twitter:card',
-      content: 'summary_large_image'
-    },
-    {
-      name: 'twitter:title',
-      content: 'Event Calendar - Upcoming Robotics and Technology Events'
-    },
+    { property: 'og:image', content: ogImage },
+    { property: 'og:url', content: 'https://carta.org.kh/events' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
     {
       name: 'twitter:description',
       content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
     },
-    {
-      name: 'twitter:image',
-      content: ogImage
-    },
-    {
-      name: 'telegram:title',
-      content: 'Event Calendar - Upcoming Robotics and Technology Events'
-    },
+    { name: 'twitter:image', content: ogImage },
+    { name: 'telegram:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
     {
       name: 'telegram:description',
       content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
     },
-    {
-      name: 'telegram:image',
-      content: ogImage
-    }
+    { name: 'telegram:image', content: ogImage }
   ]
-});
-
+})
 
 const groupedEvents = computed(() => {
   const monthOrder = [
@@ -139,76 +135,79 @@ const groupedEvents = computed(() => {
   events.value.forEach((event: any) => {
     const [month, year] = event.month.split(', ')
     const key = `${month}, ${year}`
-    if (!grouped[key]) {
-      grouped[key] = [];
-    }
-    grouped[key].push(event);
-  });
+    if (!grouped[key]) grouped[key] = []
+    grouped[key].push(event)
+  })
 
-  // Sort groups by year (descending) and month order (ascending)
-  const sortedGroups = Object.entries(grouped)
+  return Object.entries(grouped)
     .sort(([aKey], [bKey]) => {
-      const [aMonth, aYear] = aKey.split(", ");
-      const [bMonth, bYear] = bKey.split(", ");
-      const yearDiff = Number(bYear) - Number(aYear); // Sort by year (descending)
-      if (yearDiff !== 0) return yearDiff;
-      // If the same year, sort by month order (descending — latest month first)
-      return monthOrder.indexOf(bMonth) - monthOrder.indexOf(aMonth);
+      const [aMonth, aYear] = aKey.split(', ')
+      const [bMonth, bYear] = bKey.split(', ')
+      const yearDiff = Number(bYear) - Number(aYear)
+      if (yearDiff !== 0) return yearDiff
+      return monthOrder.indexOf(bMonth) - monthOrder.indexOf(aMonth)
     })
-    .map(([key, events]) => ({
-      month: key,
-      events,
-    }));
-
-  return sortedGroups;
-});
-
+    .map(([month, evts]) => ({ month, events: evts }))
+})
 </script>
 
 <template>
-  <!-- 👉🏼 Banner About -->
+  <!-- Banner -->
   <ParticlesBanner>
     <div class="text-4xl font-bold uppercase text-white">
-      {{$t('events.our_events')}}
+      {{ $t('events.our_events') }}
     </div>
   </ParticlesBanner>
 
   <div>
     <div class="p-6 max-w-3xl mx-auto">
-      <!-- Event Calendar Header -->
-      <h1 class="text-2xl font-bold text-gray-800 mb-6">{{$t('events.events_calendar')}}</h1>
+      <h1 class="text-2xl font-bold text-gray-800 mb-6">{{ $t('events.events_calendar') }}</h1>
 
-      <!-- Dynamic Event Loop -->
-      <div v-for="(monthEvents, index) in groupedEvents" :key="index">
-        <h2 class="text-lg font-semibold text-gray-600 mb-4">{{ monthEvents.month }}</h2>
-        <div
-          v-for="event in monthEvents.events"
-          :key="event.id"
-          :class="event.gradient"
-          class="text-white rounded-lg shadow-lg p-4 flex items-start mb-6"
-        >
-          <!-- Date Section -->
+      <!-- Loading skeleton -->
+      <div v-if="loading" class="space-y-6">
+        <div v-for="$n in 4" :key="$n" class="animate-pulse bg-gray-200 rounded-lg h-24" />
+      </div>
+
+      <!-- Event list -->
+      <template v-else>
+        <div v-for="(monthEvents, index) in groupedEvents" :key="index">
+          <h2 class="text-lg font-semibold text-gray-600 mb-4">{{ monthEvents.month }}</h2>
           <div
-            class="flex-shrink-0 w-16 h-16 bg-white flex items-center justify-center rounded-md"
-            :style="{ color: event.gradientColors[0] }"
+            v-for="event in monthEvents.events"
+            :key="event.id"
+            :class="event.gradient"
+            class="text-white rounded-lg shadow-lg p-4 flex items-start mb-6"
           >
-            <p class="text-3xl font-bold">{{ event.date }}</p>
-          </div>
+            <!-- Date -->
+            <div
+              class="flex-shrink-0 w-16 h-16 bg-white flex items-center justify-center rounded-md"
+              :style="{ color: event.gradientColors[0] }"
+            >
+              <p class="text-3xl font-bold">{{ event.date }}</p>
+            </div>
 
-          <!-- Event Details -->
-          <div class="ml-4 flex-1">
-            <h3 class="text-2xl font-semibold text-white"><strong>{{ event.title }}</strong></h3>
-            <p class="text-base text-white mt-2">{{ event.description }}</p>
-            <p class="text-sm text-white mt-2">Location: <strong>{{ event.location }}</strong></p>
-            <p class="text-sm text-white"><strong>{{ event.fullDate }}</strong></p>
+            <!-- Details -->
+            <div class="ml-4 flex-1">
+              <h3 class="text-2xl font-semibold text-white"><strong>{{ event.title }}</strong></h3>
+              <p class="text-base text-white mt-2">{{ event.description }}</p>
+              <p class="text-sm text-white mt-2">Location: <strong>{{ event.location }}</strong></p>
+              <p class="text-sm text-white"><strong>{{ event.fullDate }}</strong></p>
+            </div>
           </div>
         </div>
+      </template>
+
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="flex justify-center mt-8 mb-4">
+        <UPagination
+          :model-value="currentPage"
+          :page-count="limit"
+          :total="total"
+          @update:model-value="onPageChange"
+        />
       </div>
     </div>
   </div>
-
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
