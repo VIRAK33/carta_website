@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+
 /* PROPS */
 defineProps<{
   thumbnail?: string
