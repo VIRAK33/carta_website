@@ -6,8 +6,7 @@ import { useI18n } from 'vue-i18n'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
 import { isArray } from 'lodash-es'
 import moment from 'moment'
-
-const ogImage = '/og-image.png'
+import ogImage from '~/assets/images/logo/logo.webp'
 
 /* COMPOSABLES */
 const { locale } = useI18n()
@@ -55,9 +54,8 @@ const resolveImageUrl = (thumb: string | null | undefined): string => {
   return thumb.startsWith('http') ? thumb : `https://cms-api.graphmining.dev${thumb}`
 }
 
-// Featured article = the latest one, shown as a hero card on page 1
-const featured = computed(() => (currentPage.value === 1 ? news.value[0] ?? null : null))
-const gridNews = computed(() => (currentPage.value === 1 ? news.value.slice(1) : news.value))
+// All news items render with the same card layout (no separate featured hero).
+const gridNews = computed(() => news.value)
 
 /* METHODS */
 const fetchNews = async (page: number) => {
@@ -114,40 +112,6 @@ watch(() => locale.value, () => {
         diversity for success.
       </span>
     </div>
-
-    <!-- Featured article -->
-    <RouterLink
-      v-if="!loading && featured"
-      :to="{ name: 'news-slug', params: { slug: featured.data.slug } }"
-      class="card-modern group grid grid-cols-1 lg:grid-cols-2 overflow-hidden my-14"
-    >
-      <div class="relative overflow-hidden aspect-video lg:aspect-auto bg-gray-100 dark:bg-gray-800">
-        <img
-          :src="resolveImageUrl(featured.data.thumbnail)"
-          :alt="getFieldValue(featured.data, 'title')"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-      <div class="p-8 md:p-10 flex flex-col justify-center">
-        <span class="eyebrow">{{ $t('news.latest') }}</span>
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-3 leading-snug">
-          {{ getFieldValue(featured.data, 'title') }}
-        </h2>
-        <p class="text-gray-500 dark:text-gray-400 mb-6">
-          {{ getFieldValue(featured.data, 'short_content') || extractShortContent(getFieldValue(featured.data, 'content')) }}
-        </p>
-        <div class="flex items-center justify-between gap-4">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs font-semibold text-gray-500 dark:text-gray-400">
-            <Icon class="text-base" name="material-symbols:calendar-today-rounded" />
-            {{ formatDate(featured.createdAt) }}
-          </span>
-          <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 dark:text-primary-400">
-            {{ $t('news.read_more') }}
-            <Icon class="transition-transform duration-300 group-hover:translate-x-1" name="material-symbols:arrow-forward-rounded" />
-          </span>
-        </div>
-      </div>
-    </RouterLink>
 
     <!-- Loading skeletons -->
     <div v-if="loading" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 py-14">

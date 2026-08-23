@@ -768,9 +768,6 @@ watch(
     role="img"
     :aria-label="t('about.network.aria')"
   >
-    <!-- soft backdrop -->
-    <div class="pn-backdrop" aria-hidden="true" />
-
     <!-- rotating ring -->
     <div class="pn-ring" aria-hidden="true" />
 
@@ -819,13 +816,6 @@ watch(
   isolation: isolate;
 }
 
-.pn-backdrop {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 120% at 50% 50%, color-mix(in srgb, var(--pn-primary) 6%, transparent) 0%, transparent 62%);
-  pointer-events: none;
-}
-
 .pn-ring {
   position: absolute;
   left: 50%;
@@ -837,9 +827,6 @@ watch(
   border: 1px solid color-mix(in srgb, var(--pn-primary) 16%, transparent);
   border-top-color: color-mix(in srgb, var(--pn-primary) 75%, transparent);
   border-bottom-color: color-mix(in srgb, var(--pn-primary) 75%, transparent);
-  box-shadow:
-    0 0 30px color-mix(in srgb, var(--pn-primary) 12%, transparent),
-    inset 0 0 30px color-mix(in srgb, var(--pn-primary) 12%, transparent);
   animation: pn-spin 46s linear infinite;
   pointer-events: none;
 }

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import { useAppConfigStore } from '~/stores/use-app-config.store'
-import PageSkeleton from '~/@core/components/PageSkeleton.vue'
 
 /* STATES */
 const nuxtApp = useNuxtApp()
@@ -14,7 +13,6 @@ nuxtApp.hook('page:finish', () => $appConfigStore.onUpdateLoading(false))
   <main id="main" class="main">
     <LayoutNavbar />
     <LayoutPageContent>
-      <PageSkeleton />
       <RouterView v-slot="{ Component }">
         <KeepAlive>
           <component :is="Component" />

@@ -3,6 +3,7 @@
 import { isEmpty } from 'lodash-es'
 import { useRoute } from 'vue-router'
 import moment from 'moment'
+import fallbackOgImage from '~/assets/images/logo/logo.webp'
 
 /* COMPOSABLES */
 const { locale } = useI18n()
@@ -18,6 +19,9 @@ const { data: newsResponse, pending, error } = await useFetch<any>(
     method: 'GET',
     key: () => `news-detail-${slug.value}`,
     watch: [() => slug.value, () => locale.value],
+    // Lazy on the client so the loading skeleton is shown while fetching;
+    // blocking on the server so SSR/prerendered HTML still has the full article.
+    lazy: import.meta.client,
   }
 )
 
@@ -69,41 +73,29 @@ const getExcerpt = (content: string): string => {
 }
 
 const resolveImageUrl = (thumb: string | null | undefined): string => {
-  if (!thumb) return 'https://carta.org.kh/og-image.png'
+  if (!thumb) return fallbackOgImage
   return thumb.startsWith('http') ? thumb : `https://cms-api.graphmining.dev${thumb}`
 }
 
 const pageUrl = `https://carta.org.kh/news/${slug.value}`
+const fallbackDescription = 'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association'
 
-// Set SEO meta tags directly from resolved data so they are injected during SSR
-if (news.value) {
-  const pageTitle = `${news.value.title} | CARTA`
-  const pageDescription = getExcerpt(news.value.short_content || news.value.content)
-  const pageImage = resolveImageUrl(news.value.thumbnail)
-
-  useSeoMeta({
-    title: pageTitle,
-    ogTitle: news.value.title,
-    description: pageDescription,
-    ogDescription: pageDescription,
-    ogImage: pageImage,
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    ogType: 'article',
-    twitterCard: 'summary_large_image',
-    twitterTitle: news.value.title,
-    twitterDescription: pageDescription,
-    twitterImage: pageImage,
-  })
-} else {
-  useSeoMeta({
-    title: 'CARTA Blog - News',
-    ogTitle: 'CARTA Blog',
-    description: 'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association',
-    ogUrl: pageUrl,
-    ogType: 'article',
-  })
-}
+// Reactive SEO meta — updates once the article data resolves (lazy fetch on client).
+useSeoMeta({
+  title: () => (news.value ? `${news.value.title} | CARTA` : 'CARTA Blog - News'),
+  ogTitle: () => news.value?.title ?? 'CARTA Blog',
+  description: () => (news.value ? getExcerpt(news.value.short_content || news.value.content) : fallbackDescription),
+  ogDescription: () => (news.value ? getExcerpt(news.value.short_content || news.value.content) : fallbackDescription),
+  ogImage: () => (news.value ? resolveImageUrl(news.value.thumbnail) : fallbackOgImage),
+  ogUrl: pageUrl,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => news.value?.title ?? 'CARTA Blog',
+  twitterDescription: () => (news.value ? getExcerpt(news.value.short_content || news.value.content) : fallbackDescription),
+  twitterImage: () => (news.value ? resolveImageUrl(news.value.thumbnail) : fallbackOgImage),
+})
 </script>
 
 <template>

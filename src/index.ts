@@ -1,16 +1,41 @@
+const ALLOWED_ORIGINS = new Set([
+  'https://www.carta.org.kh',
+  'https://carta.org.kh',
+  'https://carta-4vz.pages.dev',
+  'http://localhost:3000',
+  'http://localhost:5173',
+]);
+
+function resolveCorsOrigin(origin: string | null): string {
+  if (origin) {
+    // Allow the Cloudflare Pages project (production + any deployment/preview subdomains)
+    if (origin === 'https://carta-4vz.pages.dev' || origin.endsWith('.carta-4vz.pages.dev')) {
+      return origin;
+    }
+    if (ALLOWED_ORIGINS.has(origin)) {
+      return origin;
+    }
+  }
+  return 'https://www.carta.org.kh';
+}
+
+function corsHeaders(origin: string | null, extra: Record<string, string> = {}): Record<string, string> {
+  return {
+    'Access-Control-Allow-Origin': resolveCorsOrigin(origin),
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    ...extra,
+  };
+}
+
 export default {
   async fetch(request: Request, env: any): Promise<Response> {
     const url = new URL(request.url);
+    const origin = request.headers.get('Origin');
 
     // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: {
-          'Access-Control-Allow-Origin': 'https://www.carta.org.kh',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
-        },
-      });
+      return new Response(null, { headers: corsHeaders(origin) });
     }
 
     // Only allow /api/* paths
@@ -46,13 +71,10 @@ export default {
       // Return with proper CORS headers
       return new Response(data, {
         status: response.status,
-        headers: {
+        headers: corsHeaders(origin, {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://www.carta.org.kh',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
           'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
-        },
+        }),
       });
     } catch (error) {
       console.error('Proxy error:', error);
@@ -63,10 +85,7 @@ export default {
         }),
         {
           status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://www.carta.org.kh',
-          },
+          headers: corsHeaders(origin, { 'Content-Type': 'application/json' }),
         }
       );
     }
