@@ -27,8 +27,12 @@ function onToggleSwitch(): void {
 
 <style lang="scss" scoped>
 .ls-btn {
-  @apply w-7 h-7 aspect-square rounded-full p-0.5 hover:outline-2
-  outline-gray-300 hover:outline-primary-500 dark:outline-gray-700
-  hover:dark:outline-primary-500;
+  @apply w-9 h-9 rounded-xl grid place-items-center ring-1 ring-black/5 dark:ring-white/10
+  hover:ring-primary-200 dark:hover:ring-primary-700 hover:bg-primary-50 dark:hover:bg-gray-800
+  transition-all duration-200 overflow-hidden;
+
+  img {
+    @apply w-6 h-6 rounded-full object-cover;
+  }
 }
 </style>

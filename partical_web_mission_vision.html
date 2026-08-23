@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tech Network with Tooltips</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+
+        :root {
+            --primary: #00d2ff;
+            --primary-glow: rgba(0, 210, 255, 0.5);
+            --bg-color: #030712;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-image: radial-gradient(circle at center, rgba(0, 210, 255, 0.08) 0%, transparent 60%);
+        }
+
+        .network-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glowing-ring {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-top: 1px solid rgba(0, 210, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.1), inset 0 0 30px rgba(0, 210, 255, 0.1);
+            animation: rotateRing 40s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes rotateRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .center-node {
+            position: absolute;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .center-circle {
+            width: 80px;
+            height: 80px;
+            background: rgba(3, 7, 18, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px var(--primary-glow), inset 0 0 15px var(--primary-glow);
+            position: relative;
+        }
+        
+        .center-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0.1;
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.1; }
+            100% { transform: scale(1.1); opacity: 0.25; }
+        }
+
+        .center-circle span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            z-index: 2;
+        }
+
+        .center-text {
+            margin-top: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-main);
+            text-align: center;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            line-height: 1.4;
+        }
+
+        /* Modern Tooltip Styles */
+        .node-tooltip {
+            position: absolute;
+            background: rgba(10, 15, 30, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.2rem;
+            width: 260px;
+            pointer-events: none; /* Let clicks pass through */
+            opacity: 0;
+            z-index: 20;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 210, 255, 0.1);
+            transform: translate(15px, -50%);
+            transition: opacity 0.2s ease, transform 0.1s ease-out;
+        }
+
+        .node-tooltip.active {
+            opacity: 1;
+        }
+
+        .tooltip-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .tooltip-desc {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+        
+        .hint-text {
+            position: absolute;
+            bottom: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            animation: pulseText 2s infinite alternate;
+            pointer-events: none;
+        }
+        
+        @keyframes pulseText {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="network-wrapper" id="network-container">
+        <div class="glowing-ring"></div>
+        <div class="center-node">
+            <div class="center-circle"><span>C</span></div>
+            <div class="center-text">TECH ADVANCEMENT<br>NETWORK</div>
+        </div>
+        <canvas id="web-canvas"></canvas>
+        
+        <div class="hint-text">HOVER OVER NODES TO EXPLORE</div>
+
+        <!-- Floating Tooltip -->
+        <div class="node-tooltip" id="custom-tooltip">
+            <div class="tooltip-title" id="tt-title">TITLE</div>
+            <div class="tooltip-desc" id="tt-desc">Description goes here.</div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('web-canvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('network-container');
+        const tooltip = document.getElementById('custom-tooltip');
+        const ttTitle = document.getElementById('tt-title');
+        const ttDesc = document.getElementById('tt-desc');
+
+        let width, height, centerX, centerY, maxRadius;
+        let innerNodes = [];
+        let outerNodes = [];
+        let time = 0;
+        let hoveredNode = null;
+
+        // Structured data directly from Mission & Vision
+        const networkData = [
+            // Inner Ring (Core Missions)
+            { title: "GOV COLLABORATION", desc: "Partner with government bodies to enhance education and training in high technology sectors." },
+            { title: "TECH IMPLEMENTATION", desc: "Facilitate the adoption of AI, robotics, and smart cities through effective business practices and technology transfer." },
+            { title: "GLOBAL PARTNERSHIPS", desc: "Work with institutions both locally and globally to share knowledge and conduct advanced technology training." },
+            { title: "HR DEVELOPMENT", desc: "Assist in the mobilization and development of skilled professionals in AI, robotics, and smart cities to support Cambodia's technological advancement." },
+            
+            // Outer Ring (Vision & Outcomes)
+            { title: "ECONOMIC GROWTH", desc: "Contribute to the rapid growth of the national economy by promoting innovative practices and fostering a collaborative environment." },
+            { title: "ADVANCE LANDSCAPE", desc: "Advance Cambodia's technological landscape by collaborating with the government to enhance education and training." },
+            { title: "AI & ROBOTICS", desc: "Promote the effective integration of AI, robotics, and smart cities across various sectors." },
+            { title: "SOCIAL DEVELOPMENT", desc: "Foster a culture of participation that drives both economic and social development." },
+            { title: "SKILLED PROFESSIONALS", desc: "Mobilize and develop top-tier talent to support the nation's technological advancement." },
+            { title: "INNOVATION PRACTICES", desc: "Promote innovative business practices and collaborative environments for tech startups and enterprises." },
+            { title: "KNOWLEDGE SHARING", desc: "Build a robust network of local and global institutions dedicated to sharing technological knowledge." },
+            { title: "TECH INTEGRATION", desc: "Ensure the seamless and effective integration of advanced technologies into daily civic and business life." }
+        ];
+
+        function resize() {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            // High DPI resolution
+            canvas.width = width * 2;
+            canvas.height = height * 2;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.scale(2, 2);
+            
+            centerX = width / 2;
+            centerY = height / 2;
+            maxRadius = (Math.min(width, height) * 0.9) / 2; 
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initNetwork();
+        });
+
+        class WebNode {
+            constructor(data, ringType, index, total) {
+                this.data = data;
+                this.ringType = ringType; 
+                
+                this.baseAngle = (Math.PI * 2 / total) * index;
+                if (ringType === 'outer') {
+                    this.baseAngle += Math.PI / total;
+                }
+                
+                this.baseRadius = ringType === 'inner' ? maxRadius * 0.45 : maxRadius * 0.85;
+                
+                this.randomOffset = Math.random() * Math.PI * 2;
+                this.floatSpeed = 0.5 + Math.random() * 0.5;
+                
+                this.x = 0;
+                this.y = 0;
+                this.isHovered = false;
+            }
+
+            update() {
+                const floatingAngle = this.baseAngle + Math.cos(time * this.floatSpeed * 0.5 + this.randomOffset) * 0.05;
+                const floatingRadius = this.baseRadius + Math.sin(time * this.floatSpeed + this.randomOffset) * 12;
+                
+                this.x = centerX + Math.cos(floatingAngle) * floatingRadius;
+                this.y = centerY + Math.sin(floatingAngle) * floatingRadius;
+            }
+
+            drawPoint() {
+                ctx.beginPath();
+                // Increase radius slightly if hovered
+                const currentRadius = this.isHovered ? 6 : 4;
+                ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
+                ctx.fillStyle = this.isHovered ? '#ffffff' : '#00d2ff';
+                ctx.shadowBlur = this.isHovered ? 25 : 15;
+                ctx.shadowColor = '#00d2ff';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.isHovered ? 14 : 10, 0, Math.PI * 2);
+                ctx.strokeStyle = this.isHovered ? 'rgba(0, 210, 255, 0.8)' : 'rgba(0, 210, 255, 0.3)';
+                ctx.lineWidth = this.isHovered ? 2 : 1;
+                ctx.stroke();
+            }
+
+            drawText() {
+                ctx.font = this.isHovered ? "600 11px 'Inter', sans-serif" : "500 10px 'Inter', sans-serif";
+                ctx.fillStyle = this.isHovered ? "#ffffff" : "#cbd5e1"; 
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                
+                const textDist = this.ringType === 'inner' ? 25 : 30;
+                const tx = this.x + Math.cos(this.baseAngle) * textDist;
+                const ty = this.y + Math.sin(this.baseAngle) * textDist;
+                
+                const words = this.data.title.split(" ");
+                if(words.length > 1) {
+                    ctx.fillText(words[0], tx, ty - 6);
+                    ctx.fillText(words.slice(1).join(" "), tx, ty + 6);
+                } else {
+                    ctx.fillText(this.data.title, tx, ty);
+                }
+            }
+        }
+
+        function initNetwork() {
+            innerNodes = [];
+            outerNodes = [];
+            
+            for(let i=0; i<4; i++) {
+                innerNodes.push(new WebNode(networkData[i], 'inner', i, 4));
+            }
+            for(let i=0; i<8; i++) {
+                outerNodes.push(new WebNode(networkData[i+4], 'outer', i, 8));
+            }
+        }
+
+        function drawConnections() {
+            ctx.lineWidth = 1.2;
+            
+            innerNodes.forEach(node => {
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(node.x, node.y);
+                let grad = ctx.createLinearGradient(centerX, centerY, node.x, node.y);
+                grad.addColorStop(0, "rgba(0, 210, 255, 0.6)");
+                grad.addColorStop(1, "rgba(0, 210, 255, 0.15)");
+                ctx.strokeStyle = grad;
+                ctx.stroke();
+            });
+
+            ctx.beginPath();
+            ctx.moveTo(innerNodes[0].x, innerNodes[0].y);
+            for(let i = 1; i < innerNodes.length; i++) {
+                ctx.lineTo(innerNodes[i].x, innerNodes[i].y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = "rgba(0, 210, 255, 0.25)";
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(outerNodes[0].x, outerNodes[0].y);
+            for(let i = 1; i < outerNodes.length; i++) {
+                ctx.lineTo(outerNodes[i].x, outerNodes[i].y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = "rgba(0, 210, 255, 0.15)";
+            ctx.stroke();
+
+            for(let i = 0; i < innerNodes.length; i++) {
+                const inner = innerNodes[i];
+                const outer1 = outerNodes[(i * 2) % 8];
+                const outer2 = outerNodes[(i * 2 + 1) % 8];
+                const outerPrev = outerNodes[(i * 2 - 1 + 8) % 8];
+                
+                ctx.beginPath();
+                ctx.moveTo(inner.x, inner.y);
+                ctx.lineTo(outer1.x, outer1.y);
+                ctx.moveTo(inner.x, inner.y);
+                ctx.lineTo(outer2.x, outer2.y);
+                ctx.moveTo(inner.x, inner.y);
+                ctx.lineTo(outerPrev.x, outerPrev.y);
+                ctx.strokeStyle = "rgba(0, 210, 255, 0.2)";
+                ctx.stroke();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            time += 0.015;
+
+            innerNodes.forEach(n => n.update());
+            outerNodes.forEach(n => n.update());
+            
+            drawConnections();
+
+            [...innerNodes, ...outerNodes].forEach(node => {
+                node.drawPoint();
+                node.drawText();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // --- INTERACTION LOGIC (HOVER TOOLTIP) --- //
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            // Get mouse coordinates relative to canvas
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let isHovering = false;
+            hoveredNode = null;
+
+            [...innerNodes, ...outerNodes].forEach(node => {
+                // Calculate distance from mouse to node center
+                const dist = Math.hypot(node.x - mouseX, node.y - mouseY);
+                // Hit radius of 25px
+                if (dist < 25) {
+                    node.isHovered = true;
+                    isHovering = true;
+                    hoveredNode = node;
+                } else {
+                    node.isHovered = false;
+                }
+            });
+
+            // Update Tooltip Display
+            if (isHovering && hoveredNode) {
+                canvas.style.cursor = 'pointer';
+                
+                // Populate text
+                ttTitle.textContent = hoveredNode.data.title;
+                ttDesc.textContent = hoveredNode.data.desc;
+                
+                // Smart positioning: try to display right of the mouse, unless too close to edge
+                let ttX = mouseX + 15; 
+                let ttY = mouseY;
+                
+                if (mouseX > width - 280) {
+                    // Shift tooltip to the left side of the cursor if on the right edge
+                    ttX = mouseX - 280; 
+                }
+
+                tooltip.style.left = ttX + 'px';
+                tooltip.style.top = ttY + 'px';
+                tooltip.classList.add('active');
+            } else {
+                canvas.style.cursor = 'default';
+                tooltip.classList.remove('active');
+            }
+        });
+
+        // Hide tooltip if mouse leaves the canvas area entirely
+        canvas.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('active');
+            [...innerNodes, ...outerNodes].forEach(node => node.isHovered = false);
+        });
+
+        // Initialize and Start
+        resize();
+        initNetwork();
+        animate();
+    </script>
+</body>
+</html>

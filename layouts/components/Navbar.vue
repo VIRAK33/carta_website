@@ -103,14 +103,14 @@ onMounted(() => {
       :enter="{ opacity: 1, x: 0, scale: 1 }"
       :initial="{ opacity: 0, x: 100 }"
       :variants="{ custom: { scale: 2 } }"
-      class="flex items-center gap-4"
+      class="navbar--controls"
     >
       <!-- Email Button -->
       <a
         href="https://www.carta.org.kh/webmail/"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn-email"
+        class="navbar--controls__btn"
         title="Open Webmail"
       >
         <img src="/assets/icons/email.png" alt="email icon" />
@@ -128,20 +128,12 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import '@/@core/scss/_mixins.scss';
 
-.btn-email {
-  @apply h-8 aspect-square grid place-items-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200;
-
-  img {
-    @apply w-7 h-7;
-  }
-}
-
 .navbar {
   @apply fixed top-0 left-0 right-0 w-full flex items-center justify-between
-  px-4 md:px-10 py-2 bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg shadow-sm;
+  px-4 md:px-10 py-2 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border-b border-black/5 dark:border-white/10;
   z-index: 10;
   transform: translateZ(0);
-  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -12px rgba(185, 28, 28, 0.18);
 
   &--menus {
     @apply hidden md:flex items-center gap-9;
@@ -186,6 +178,21 @@ onMounted(() => {
         .icon {
           @apply w-8 h-8 grid place-items-center rounded-full bg-primary-200/70;
         }
+      }
+    }
+  }
+
+  /* 👉🏼Refined right-side controls */
+  &--controls {
+    @apply flex items-center gap-1.5;
+
+    &__btn {
+      @apply h-9 aspect-square grid place-items-center rounded-xl ring-1 ring-black/5 dark:ring-white/10
+      hover:bg-primary-50 hover:ring-primary-200 dark:hover:bg-gray-800 dark:hover:ring-primary-700
+      transition-all duration-200;
+
+      img {
+        @apply w-6 h-6;
       }
     }
   }

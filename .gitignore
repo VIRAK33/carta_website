@@ -20,6 +20,16 @@ logs
 .fleet
 .idea
 
+# macOS AppleDouble metadata (created when copying to external drives)
+._*
+
+# Static site build archives
+carta-static*.zip
+carta-static-build.tar.gz
+
+# Local junk dir (only contains ignored files)
+3003
+
 # Local env files
 .env
 .env.*

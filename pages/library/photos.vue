@@ -72,8 +72,12 @@ const medias = ref<ICard[]>([
 <template>
   <div class="fixed-width py-14">
     <div
+      v-motion
+      :initial="{ opacity: 0, y: 24 }"
+      :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
       class="w-full md:w-1/2 flex flex-col items-center justify-center mx-auto"
     >
+      <span class="eyebrow">Gallery</span>
       <AppTitle text="Our Event Media" />
 
       <span class="inline-block pt-4 subtitle text-center">

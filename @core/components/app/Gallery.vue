@@ -31,9 +31,9 @@ onMounted(() => onInitialLightGallery())
       v-for="(img, $i) in photos"
       :key="$i"
       :href="img"
-      class="rounded-xl overflow-hidden"
+      class="group rounded-2xl ring-1 ring-black/5 dark:ring-white/10 overflow-hidden"
     >
-      <img :src="img" alt="" />
+      <img :src="img" alt="" class="transition-transform duration-500 group-hover:scale-105" />
     </a>
   </div>
 </template>

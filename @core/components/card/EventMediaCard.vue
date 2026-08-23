@@ -49,7 +49,7 @@ function onViewSource(): void {
   @apply w-full;
 
   &--inner {
-    @apply relative rounded-xl overflow-hidden;
+    @apply relative rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10;
 
     img {
       @apply w-full max-h-56 object-cover;

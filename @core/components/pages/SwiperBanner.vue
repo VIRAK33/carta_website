@@ -170,7 +170,7 @@ const slides = computed(() => {
 
 <style lang="scss">
 .swiper-banner {
-  @apply w-full h-[160px] md:h-[300px] lg:h-[380px] xl:h-[460px] 2xl:h-[460px] relative overflow-hidden;
+  @apply w-full h-[260px] sm:h-[320px] md:h-[380px] lg:h-[460px] xl:h-[520px] relative overflow-hidden;
   //@apply w-full h-[160px] md:h-[300px] lg:h-[380px] xl:h-[460px] 2xl:h-[460px] relative overflow-hidden;
     //@apply md:h-[480px];
   //@apply sm:h-[200px] md:h-[320px] lg:h-[400px] xl:h-[400px] 2xl:h-[400px];

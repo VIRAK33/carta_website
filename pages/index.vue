@@ -15,25 +15,75 @@ const { t, locale } = useI18n();
 const data = ref([
   {
     title: 'home.features.knowledge',
-    description: `home.features.knowledge_des`,
-    img: 'https://cdn-icons-png.flaticon.com/512/2660/2660985.png',
+    description: 'home.features.knowledge_des',
+    icon: 'material-symbols:psychology-rounded',
+    gradient: 'from-primary-400 to-primary-600',
   },
   {
     title: 'home.features.network',
-    description: `home.features.network_des`,
-    img: 'https://cdn-icons-png.flaticon.com/512/4207/4207230.png',
+    description: 'home.features.network_des',
+    icon: 'material-symbols:hub-rounded',
+    gradient: 'from-primary-500 to-primary-700',
   },
   {
     title: 'home.features.marketplace',
-    description: `home.features.marketplace_des`,
-    img: 'https://cdn-icons-png.flaticon.com/512/9541/9541658.png',
+    description: 'home.features.marketplace_des',
+    icon: 'material-symbols:storefront-rounded',
+    gradient: 'from-rose-400 to-primary-600',
   },
   {
     title: 'home.features.leadership',
-    description: `home.features.leadership_des`,
-    img: 'https://cdn-icons-png.flaticon.com/512/860/860380.png',
+    description: 'home.features.leadership_des',
+    icon: 'material-symbols:groups-rounded',
+    gradient: 'from-red-600 to-primary-800',
   },
 ])
+
+const initiatives = [
+  {
+    title: 'home.init_and_act.consultancy_and_training',
+    desc: 'home.init_and_act.consultancy_and_training_des',
+    icon: 'material-symbols:support-agent-rounded',
+  },
+  {
+    title: 'home.init_and_act.ecosystem_development',
+    desc: 'home.init_and_act.ecosystem_development_des',
+    icon: 'material-symbols:eco-rounded',
+  },
+  {
+    title: 'home.init_and_act.talent_development',
+    desc: 'home.init_and_act.talent_development_des',
+    icon: 'material-symbols:school-rounded',
+  },
+]
+
+const activities = [
+  {
+    title: 'home.init_and_act.workshops_and_training',
+    desc: 'home.init_and_act.workshops_and_training_des',
+    icon: 'material-symbols:co-present-rounded',
+  },
+  {
+    title: 'home.init_and_act.networking_events',
+    desc: 'home.init_and_act.networking_events_des',
+    icon: 'material-symbols:group-rounded',
+  },
+  {
+    title: 'home.init_and_act.conferences_and_seminars',
+    desc: 'home.init_and_act.conferences_and_seminars_des',
+    icon: 'material-symbols:forum-rounded',
+  },
+  {
+    title: 'home.init_and_act.exhibitions_and_showcases',
+    desc: 'home.init_and_act.exhibitions_and_showcases_des',
+    icon: 'material-symbols:storefront-rounded',
+  },
+  {
+    title: 'home.init_and_act.collaborative_projects',
+    desc: 'home.init_and_act.collaborative_projects_des',
+    icon: 'material-symbols:handshake-rounded',
+  },
+]
 
 useHead({
   title: 'CARTA - Empowering Cambodia with AI and Robotics',
@@ -69,190 +119,86 @@ definePageMeta({
 
   <!-- 👉🏼Core Value -->
   <div class="fixed-width py-14">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-7 py-7">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <!-- 👉🏼Card -->
-      <div
-        v-for="({ title, description, img }, $key) in data"
+      <AppReveal
+        v-for="({ title, description, icon, gradient }, $key) in data"
         :key="$key"
-        class="w-full"
+        :delay="$key * 70"
       >
-        <div
-          :class="{
-            'from-primary-500 to-pink-500': $key === 0,
-            'from-blue-500 to-green-500': $key === 1,
-            'from-yellow-500 to-lime-500': $key === 2,
-            'from-green-500 to-teal-500': $key === 3,
-          }"
-          class="w-24 h-24 p-4 mx-auto rounded-full bg-gradient-to-r"
-        >
-          <img :src="img" alt="Knowledge" />
+        <div class="card-modern p-6 group h-full">
+          <div
+            :class="`bg-gradient-to-br ${gradient}`"
+            class="w-14 h-14 rounded-2xl grid place-items-center shadow-lg shadow-primary-500/20 transition-transform duration-300 group-hover:scale-105 mb-5"
+          >
+            <Icon :name="icon" class="w-7 h-7 text-white" aria-hidden="true" />
+          </div>
+          <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">{{ $t(title) }}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ $t(description) }}</p>
         </div>
-        <div class="text-xl text-center font-semibold tracking-wide leading-10">
-          {{ $t(title) }}
-        </div>
-        <p class="text-base text-center text-gray-600 dark:text-gray-300">
-          {{ $t(description) }}
-        </p>
-      </div>
+      </AppReveal>
     </div>
   </div>
-  <div v-if="false" class="py-8">
-    <div class="max-w-7xl mx-auto px-4">
-      <!-- Header Section -->
-      <div class="text-center mb-12">
-        <h1 class="text-5xl font-bold text-red-700">Our Core Values</h1>
-        <p class="text-lg text-gray-700 mt-2">
-          Knowledge, Network, Marketplace, Leadership
-        </p>
-      </div>
-
-      <!-- Card Section -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Knowledge Card -->
-        <div
-          class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center"
-        >
-          <img
-            alt="Knowledge Icon"
-            class="w-16 h-16 mb-4"
-            src="@/assets/icons/home/knowledge.png"
-          />
-          <h2 class="text-xl font-semibold text-blue-700">Knowledge</h2>
-          <p class="text-gray-600 mt-2">
-            We are committed to advancing technological expertise and industry
-            insights, providing our members with valuable information and
-            resources to stay ahead in their fields.
-          </p>
-        </div>
-
-        <!-- Network Card -->
-        <div
-          class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center"
-        >
-          <img
-            alt="Network Icon"
-            class="w-16 h-16 mb-4"
-            src="@/assets/icons/home/networking.png"
-          />
-          <h2 class="text-xl font-semibold text-blue-700">Network</h2>
-          <p class="text-gray-600 mt-2">
-            We build and sustain strong connections within Cambodia and across
-            the region, facilitating access to a broad network of local and
-            international partners and opportunities.
-          </p>
-        </div>
-
-        <!-- Marketplace Card -->
-        <div
-          class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center"
-        >
-          <img
-            alt="Marketplace Icon"
-            class="w-16 h-16 mb-4"
-            src="@/assets/icons/home/cart.png"
-          />
-          <h2 class="text-xl font-semibold text-blue-700">Marketplace</h2>
-          <p class="text-gray-600 mt-2">
-            We create and support dynamic platforms for engagement, offering our
-            members a space to showcase their innovations, explore new markets,
-            and connect with potential clients and collaborators.
-          </p>
-        </div>
-
-        <!-- Leadership Card -->
-        <div
-          class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center"
-        >
-          <img
-            alt="Leadership Icon"
-            class="w-16 h-16 mb-4"
-            src="@/assets/icons/home/leadership-development.png"
-          />
-          <h2 class="text-xl font-semibold text-blue-700">Leadership</h2>
-          <p class="text-gray-600 mt-2">
-            We lead with vision and integrity, guiding our members through
-            strategic initiatives and fostering a culture of excellence that
-            drives progress and development in technology and business.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- 👉🏼Initiatives & Activities -->
   <div class="my-4 fixed-width">
     <div class="max-w-6xl mx-auto">
       <!-- Header Section -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-red-700">
-          {{ $t('home.init_and_act.title') }}
-        </h1>
+      <div
+        v-motion
+        :initial="{ opacity: 0, y: 24 }"
+        :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
+        class="flex flex-col items-center text-center mb-12"
+      >
+        <span class="eyebrow">{{ $t('home.init_and_act.eyebrow') }}</span>
+        <AppTitle :text="$t('home.init_and_act.title')" centered />
       </div>
 
       <!-- Content Section -->
-      <div class="flex flex-col md:flex-row md:space-x-8">
-        <!-- Left Column -->
-        <div class="flex-1 space-y-6">
-          <p class="text-lg font-semibold text-red-700">
-            {{ $t('home.init_and_act.at_carta') }}
-          </p>
-          <ul class="list-disc pl-6 space-y-4">
-            <li>
-              <strong>{{ $t('home.init_and_act.consultancy_and_training') }}:</strong>
-              {{ $t('home.init_and_act.consultancy_and_training_des') }}
-            </li>
-            <li>
-              <strong>{{ $t('home.init_and_act.ecosystem_development') }}:</strong>
-              {{ $t('home.init_and_act.ecosystem_development_des') }}
-            </li>
-            <li>
-              <strong>{{ $t('home.init_and_act.talent_development') }}:</strong>
-              {{ $t('home.init_and_act.talent_development_des') }}
-            </li>
-          </ul>
-        </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Initiatives -->
+        <AppReveal :delay="100">
+          <div class="card-modern group p-8">
+            <p class="text-lg font-semibold text-primary-700 dark:text-primary-400 mb-6">
+              {{ $t('home.init_and_act.at_carta') }}
+            </p>
+            <ul class="space-y-5">
+              <li v-for="item in initiatives" :key="item.title" class="flex items-start gap-4">
+                <span class="flex-none w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/40 grid place-items-center transition-transform duration-300 group-hover:scale-110">
+                  <Icon :name="item.icon" class="text-xl text-primary-600 dark:text-primary-400" />
+                </span>
+                <span>
+                  <strong class="block text-gray-800 dark:text-gray-200">{{ $t(item.title) }}</strong>
+                  <span class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{{ $t(item.desc) }}</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </AppReveal>
 
-        <!-- Middle Column (Image as Background) -->
-        <div
-          class="hidden md:flex justify-center w-64 h-64 bg-center bg-no-repeat bg-cover"
-          style="
-            background-image: url('https://media-public.canva.com/NJusY/MAEl1yNJusY/1/s3.jpg');
-          "
-        ></div>
-
-        <!-- Right Column -->
-        <div class="flex-1 space-y-6">
-          <p class="text-lg font-semibold text-red-700">
-            {{ $t('home.init_and_act.we_host') }}
-          </p>
-          <ul class="list-disc pl-6 space-y-4">
-            <li>
-              <strong>{{ $t('home.init_and_act.workshops_and_training') }}:</strong>
-              {{ $t('home.init_and_act.workshops_and_training_des') }}
-            </li>
-            <li>
-              <strong>{{ $t('home.init_and_act.networking_events') }}:</strong>
-              {{ $t('home.init_and_act.networking_events_des') }}
-            </li>
-            <li>
-              <strong>{{ $t('home.init_and_act.conferences_and_seminars') }}:</strong>
-              {{ $t('home.init_and_act.conferences_and_seminars_des') }}
-            </li>
-            <li>
-              <strong>{{ $t('home.init_and_act.exhibitions_and_showcases') }}:</strong>
-              {{ $t('home.init_and_act.exhibitions_and_showcases_des') }}
-            </li>
-            <li>
-              <strong>{{ $t('home.init_and_act.collaborative_projects') }}:</strong>
-              {{ $t('home.init_and_act.collaborative_projects_des') }}
-            </li>
-          </ul>
-        </div>
+        <!-- Activities -->
+        <AppReveal :delay="180">
+          <div class="card-modern group p-8">
+            <p class="text-lg font-semibold text-primary-700 dark:text-primary-400 mb-6">
+              {{ $t('home.init_and_act.we_host') }}
+            </p>
+            <ul class="space-y-5">
+              <li v-for="item in activities" :key="item.title" class="flex items-start gap-4">
+                <span class="flex-none w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/40 grid place-items-center transition-transform duration-300 group-hover:scale-110">
+                  <Icon :name="item.icon" class="text-xl text-primary-600 dark:text-primary-400" />
+                </span>
+                <span>
+                  <strong class="block text-gray-800 dark:text-gray-200">{{ $t(item.title) }}</strong>
+                  <span class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{{ $t(item.desc) }}</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </AppReveal>
       </div>
 
       <!-- Footer Section -->
       <div class="mt-12 text-center">
-        <p class="text-lg font-semibold text-red-700">
+        <p class="text-lg font-semibold text-primary-700 dark:text-primary-400">
           {{ $t('home.our_activities') }}
         </p>
       </div>

@@ -13,6 +13,9 @@ export default <Partial<Config>>{
       colors: {
         primary: colors.red,
       },
+      fontFamily: {
+        sans: ['Quicksand', 'Kantumruy Pro', 'sans-serif'],
+      },
     },
   },
 }

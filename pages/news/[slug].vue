@@ -138,8 +138,17 @@ if (news.value) {
 
   <!-- Content -->
   <div v-if="!isEmpty(news) && !pending" class="mx-auto max-w-6xl px-4">
+    <!-- Back link -->
+    <NuxtLink
+      :to="{ name: 'news' }"
+      class="group inline-flex items-center gap-2 mb-6 text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 transition-colors"
+    >
+      <Icon class="text-lg transition-transform duration-300 group-hover:-translate-x-1" name="material-symbols:arrow-back-rounded" />
+      {{ $t('news.back_to_news') }}
+    </NuxtLink>
+
     <!-- Hero Image -->
-    <div class="w-full rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 mb-8">
+    <div class="w-full rounded-2xl ring-1 ring-black/5 dark:ring-white/10 shadow-sm overflow-hidden bg-gray-100 dark:bg-gray-800 mb-8">
       <div class="relative w-full pt-[56.25%]">
         <img
           :src="news.thumbnail"
@@ -153,11 +162,12 @@ if (news.value) {
 
     <!-- Header Section -->
     <div class="mb-8">
-      <h1 class="text-3xl md:text-2xl lg:text-2xl text-gray-800 dark:text-gray-100 font-bold mb-4">
+      <h1 class="text-xl sm:text-2xl lg:text-3xl text-gray-800 dark:text-gray-100 font-bold leading-snug mb-4">
         {{ news.title }}
       </h1>
       <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-        <span class="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+          <Icon class="text-base" name="material-symbols:calendar-today-rounded" />
           {{ moment(news.createdAt).format('MMM DD, YYYY') }}
         </span>
       </div>
@@ -170,12 +180,15 @@ if (news.value) {
 
     <!-- Gallery -->
     <div v-if="news.gallery && news.gallery.length > 0" class="mb-8">
-      <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Gallery</h2>
+      <div class="flex flex-col items-start mb-4">
+        <span class="eyebrow">Gallery</span>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">{{ $t('news.gallery') }}</h2>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div
           v-for="(image, index) in news.gallery"
           :key="index"
-          class="rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800"
+          class="rounded-2xl ring-1 ring-black/5 dark:ring-white/10 overflow-hidden bg-gray-100 dark:bg-gray-800"
         >
           <div class="relative w-full pt-[75%] overflow-hidden group cursor-pointer">
             <img

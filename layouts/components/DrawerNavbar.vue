@@ -121,11 +121,11 @@ function onRouteChange(): void {
 }
 
 .drawer-navbar--overlay {
-  @apply fixed w-full h-full top-0 bg-gray-700/50 z-[99];
+  @apply fixed w-full h-full top-0 bg-gray-700/50 backdrop-blur-sm z-[99];
 }
 
 .drawer-navbar--content {
-  @apply fixed bottom-0 w-full h-[70vh] bg-white dark:bg-gray-900 z-[999] text-white flex flex-col;
+  @apply fixed bottom-0 w-full h-[70vh] bg-white dark:bg-gray-900 z-[999] text-white flex flex-col rounded-t-2xl shadow-2xl;
   //height: calc(100vh - var(--navbar-height));
 
   &--menus {
@@ -133,6 +133,10 @@ function onRouteChange(): void {
 
     li {
       @apply relative text-gray-700 dark:text-white font-semibold;
+
+      a:hover {
+        @apply text-primary-500;
+      }
     }
   }
 

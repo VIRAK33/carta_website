@@ -1,67 +1,91 @@
 <script lang="ts" setup>
 /* PROPS */
-defineProps<{
+const props = defineProps<{
   title: string
   subtitle?: string
   email?: string
   img: string
 }>()
+
+/* STATES */
+const imgFailed = ref(false)
+
+const initials = computed(() =>
+  props.title
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.charAt(0))
+    .slice(0, 2)
+    .join('')
+    .toUpperCase(),
+)
 </script>
 
 <template>
-  <div class="card">
-    <!-- 👉🏼Card Image -->
-    <div class="card-img">
-      <img :src="img" alt="" />
-    </div>
-    <!-- 👉🏼Card Content -->
-    <div :class="`card-content`">
-      <div class="title" v-text="title" />
-        <span class="subtitle" v-text="subtitle" />
-        <br>
-        <span class="email" v-text="email" />
-
-      <div v-if="false" class="actions">
-        <a class="block rounded-full cursor-pointer">
-          <Icon class="text-gray-800" name="bi:twitter-x" />
-        </a>
-        <a class="block rounded-full cursor-pointer">
-          <Icon class="text-gray-800" name="simple-icons:instagram" />
-        </a>
-        <a class="block rounded-full cursor-pointer">
-          <Icon class="text-gray-800" name="cib:facebook" />
-        </a>
+  <div class="member-card group">
+    <!-- 👉🏼Avatar -->
+    <div class="member-card__avatar">
+      <div v-if="imgFailed || !img" class="member-card__fallback" aria-hidden="true">
+        {{ initials }}
       </div>
+      <img v-else :src="img" :alt="title" loading="lazy" @error="imgFailed = true" >
+    </div>
+
+    <!-- 👉🏼Card Content -->
+    <div class="member-card__content">
+      <span v-if="subtitle" class="member-card__role" v-text="subtitle" />
+      <h3 class="member-card__title" v-text="title" />
+      <a
+        v-if="email"
+        class="member-card__email"
+        :href="`mailto:${email}`"
+      >
+        <Icon name="material-symbols:mail-rounded" class="w-4 h-4" aria-hidden="true" />
+        <span v-text="email" />
+      </a>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.card {
-  @apply relative w-full p-4 mt-12;
+.member-card {
+  @apply relative flex flex-col items-center text-center h-full;
 
-  &-img {
-    @apply absolute -top-12 left-1/2 transform -translate-x-1/2 p-1 bg-white rounded-full;
+  /* 👉🏼Gradient-ring avatar, overlapping the card */
+  &__avatar {
+    @apply relative z-10 transition-transform duration-300 group-hover:scale-105;
+
+    &::before {
+      content: '';
+      @apply absolute -inset-1.5 rounded-full bg-gradient-to-br from-primary-500 to-primary-700;
+      z-index: -1;
+    }
 
     img {
-      @apply w-24 aspect-square rounded-full object-cover;
+      @apply w-24 h-24 rounded-full object-cover ring-4 ring-white dark:ring-gray-900 shadow-lg;
     }
   }
 
-  &-content {
-    @apply w-full rounded-lg pt-12 pb-7 px-4 text-center bg-gray-100 dark:bg-gray-900;
+  /* 👉🏼Initials fallback when no image */
+  &__fallback {
+    @apply w-24 h-24 rounded-full ring-4 ring-white dark:ring-gray-900 shadow-lg grid place-items-center bg-gradient-to-br from-primary-600 to-primary-800 text-2xl font-bold text-white;
+  }
 
-    .title {
-      @apply text-base tracking-wide font-semibold dark:text-gray-300;
-    }
+  /* 👉🏼Card body */
+  &__content {
+    @apply w-full rounded-2xl pt-14 pb-6 px-4 bg-white dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/10 shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl;
+  }
 
-    .subtitle {
-      @apply text-sm font-medium leading-7 text-gray-500 dark:text-gray-400;
-    }
+  &__role {
+    @apply inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/40 mb-3;
+  }
 
-    .actions {
-      @apply flex items-center justify-center gap-3 pt-5;
-    }
+  &__title {
+    @apply text-lg font-bold tracking-tight text-gray-800 dark:text-gray-100;
+  }
+
+  &__email {
+    @apply mt-3 inline-flex items-center justify-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors break-all;
   }
 }
 </style>

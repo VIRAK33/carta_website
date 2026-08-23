@@ -2,16 +2,16 @@
 import { ref, computed, watch } from 'vue'
 import { useHead } from '#app'
 import { useI18n } from 'vue-i18n'
-import ParticlesBanner from '~/@core/components/ParticlesBanner.vue'
 import ogImage from '~/assets/images/logo/logo.webp'
 
 /* STATES */
 const { locale } = useI18n()
 
+// Red-family gradients to keep the brand color consistent and modern
 const GRADIENTS = [
-  { gradient: 'bg-gradient-to-r from-pink-500 to-purple-500', gradientColors: ['#ec4899', '#a855f7'] },
-  { gradient: 'bg-gradient-to-r from-green-400 to-blue-400',  gradientColors: ['#4ade80', '#3b82f6'] },
-  { gradient: 'bg-gradient-to-r from-blue-400 to-indigo-600', gradientColors: ['#3b82f6', '#6366f1'] },
+  { gradient: 'bg-gradient-to-r from-primary-500 to-primary-700', gradientColors: ['#dc2626', '#991b1b'] },
+  { gradient: 'bg-gradient-to-r from-rose-500 to-primary-600',   gradientColors: ['#e11d48', '#dc2626'] },
+  { gradient: 'bg-gradient-to-r from-primary-600 to-rose-500',   gradientColors: ['#dc2626', '#e11d48'] },
 ]
 
 const MONTH_NAMES = [
@@ -152,16 +152,29 @@ const groupedEvents = computed(() => {
 </script>
 
 <template>
-  <!-- Banner -->
-  <ParticlesBanner>
-    <div class="text-4xl font-bold uppercase text-white">
-      {{ $t('events.our_events') }}
+  <!-- 👉🏼 Intro -->
+  <section class="fixed-width py-14">
+    <div
+      v-motion
+      :initial="{ opacity: 0, y: 24 }"
+      :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
+      class="w-full md:w-2/3 flex flex-col items-center justify-center mx-auto text-center"
+    >
+      <span class="eyebrow">{{ $t('events.eyebrow') }}</span>
+      <AppTitle :text="$t('events.events_calendar')" centered />
+      <span
+        v-motion
+        :initial="{ opacity: 0, y: 16 }"
+        :visible="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200, ease: 'easeOut' } }"
+        class="inline-block pt-4 subtitle text-center"
+      >
+        {{ $t('events.events_calendar_des') }}
+      </span>
     </div>
-  </ParticlesBanner>
+  </section>
 
   <div>
     <div class="p-6 max-w-3xl mx-auto">
-      <h1 class="text-2xl font-bold text-gray-800 mb-6">{{ $t('events.events_calendar') }}</h1>
 
       <!-- Loading skeleton -->
       <div v-if="loading" class="space-y-6">
@@ -173,25 +186,36 @@ const groupedEvents = computed(() => {
         <div v-for="(monthEvents, index) in groupedEvents" :key="index">
           <h2 class="text-lg font-semibold text-gray-600 mb-4">{{ monthEvents.month }}</h2>
           <div
-            v-for="event in monthEvents.events"
+            v-for="(event, eIndex) in monthEvents.events"
             :key="event.id"
+            v-motion
+            :initial="{ opacity: 0, y: 16 }"
+            :visible="{ opacity: 1, y: 0, transition: { duration: 400, delay: eIndex * 70, ease: 'easeOut' } }"
             :class="event.gradient"
-            class="text-white rounded-lg shadow-lg p-4 flex items-start mb-6"
+            class="text-white rounded-2xl shadow-lg ring-1 ring-black/5 p-5 sm:p-6 flex items-start mb-6 transition-transform duration-300 hover:-translate-y-1"
           >
             <!-- Date -->
             <div
-              class="flex-shrink-0 w-16 h-16 bg-white flex items-center justify-center rounded-md"
+              class="flex-shrink-0 w-16 h-16 bg-white/95 flex items-center justify-center rounded-xl shadow-sm"
               :style="{ color: event.gradientColors[0] }"
             >
-              <p class="text-3xl font-bold">{{ event.date }}</p>
+              <p class="text-3xl font-bold leading-none">{{ event.date }}</p>
             </div>
 
             <!-- Details -->
-            <div class="ml-4 flex-1">
-              <h3 class="text-2xl font-semibold text-white"><strong>{{ event.title }}</strong></h3>
-              <p class="text-base text-white mt-2">{{ event.description }}</p>
-              <p class="text-sm text-white mt-2">Location: <strong>{{ event.location }}</strong></p>
-              <p class="text-sm text-white"><strong>{{ event.fullDate }}</strong></p>
+            <div class="ml-4 sm:ml-5 flex-1">
+              <h3 class="text-xl sm:text-2xl font-semibold text-white leading-snug">{{ event.title }}</h3>
+              <p class="text-base text-white/95 mt-2">{{ event.description }}</p>
+              <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 mt-3 text-sm text-white/90">
+                <span class="inline-flex items-center gap-1.5">
+                  <Icon class="text-base" name="material-symbols:location-on-rounded" />
+                  <strong>{{ event.location }}</strong>
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <Icon class="text-base" name="material-symbols:calendar-today-rounded" />
+                  <strong>{{ event.fullDate }}</strong>
+                </span>
+              </div>
             </div>
           </div>
         </div>

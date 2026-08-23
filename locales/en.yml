@@ -4,11 +4,20 @@ menus:
   our_committees: Our Committees
   members: Members
   events: Events
-  news_and_events: News & Events
+  news: News
   library: Library
   photos: Photos
   quick_links: Quick Links
   get_in_touch: Get in touch
+
+footer:
+  tagline: "The Cambodia AI Robotics and Technology Transfer Association — advancing technology, innovation, and collaboration in Cambodia."
+  newsletter_title: "Stay in the loop"
+  newsletter_des: "Get the latest on CARTA events, news, and opportunities."
+  newsletter_placeholder: "Your email address"
+  newsletter_btn: "Subscribe"
+  rights: "All rights reserved."
+  caption: "Cambodia AI Robotics & Technology Transfer Association"
 
 meta:
   home:
@@ -19,6 +28,11 @@ meta:
     description: "Learn about CARTA’s mission, vision, and efforts in advancing AI, robotics, and technology transfer."
 
 home:
+  hero:
+    eyebrow: "CARTA"
+    title: "Advancing AI, Robotics & Technology in Cambodia"
+    subtitle: "Empowering innovation through education, industry, and research collaboration."
+    cta: "Learn More"
   features:
     knowledge: "Knowledge"
     knowledge_des: "We are committed to advancing technological expertise and industry insights, providing our members with valuable information and resources to stay ahead in their fields."
@@ -30,6 +44,7 @@ home:
     leadership_des: "We lead with vision and integrity, guiding our members through strategic initiatives and fostering a culture of excellence that drives progress and development in technology and business."
 
   init_and_act:
+    eyebrow: "What we do"
     title: "Initiatives & Activities"
     at_carta: "At CARTA, our focus projects are designed to drive innovation and growth across key areas:"
     we_host: "We host a diverse range of activities and events designed to foster collaboration, knowledge sharing, and innovation:"
@@ -54,12 +69,33 @@ home:
 
 
 about:
+  intro_eyebrow: "About CARTA"
+  intro_des: "The Cambodia AI Robotics and Technology Transfer Association (CARTA) drives technological advancement by uniting government, industry, and academia."
+  purpose_eyebrow: "Our purpose"
+  purpose_title: "Mission & Vision"
   about_the_association: "About The Association"
   about_1: "The Cambodia Al Robotics and Technology Transfer Association (CARTA) is committed to driving technological advancement in Cambodia. We collaborate with the government to promote education and training in high technology, facilitating the exchange of expertise that is essential for the nation's growth."
   about_2: "Our goal is to foster strong cooperation between industry and government, ensuring the seamless implementation of artificial intelligence (AI), robotics, smart cities, and technology transfer. These initiatives are designed to stimulate economic and social development, positioning Cambodia as a key player in the regional tech landscape."
   about_3: "CARTA also works to organize and support agents and traders across the country, helping them fulfill business obligations effectively. By promoting a culture of participation and innovation, we aim to accelerate the growth of the national economy, making it more resilient and dynamic."
   about_4: "We are dedicated to driving technological advancement and economic growth by fostering Knowledge, building a strong Network, creating vibrant Marketplace opportunities, and exemplifying Leadership in all our initiatives."
   about_5: "Through our efforts, CARTA is building a future where technology and collaboration are at the heart of Cambodia's progress, driving sustainable development for the benefit of all."
+
+  hero_badge_title: "Uniting Government, Industry & Academia"
+  hero_badge_des: "A national platform for AI, robotics, and technology transfer in Cambodia."
+  stat_founded: "Established"
+  stat_pillars: "Mission Pillars"
+  stat_units: "Leadership Units"
+  stat_tiers: "Membership Tiers"
+  story_eyebrow: "Our Story"
+  story_title: "Who we are & what drives us"
+  pillars_eyebrow: "What We Do"
+  pillars_title: "Driven by four core pillars"
+  pillars_des: "Everything CARTA does is built on four pillars that guide how we support members, partners, and the nation."
+  cta_eyebrow: "Get involved"
+  cta_title: "Be part of Cambodia's tech future"
+  cta_des: "Join CARTA as a member or partner and help shape the AI and robotics landscape in Cambodia."
+  cta_btn_membership: "Become a Member"
+  cta_btn_events: "Explore Events"
 
   our_mission: "Our Mission"
   our_mission_1: "Government Collaboration"
@@ -75,13 +111,58 @@ about:
 
   our_vision: "Our Vision"
   our_vision_1: "To advance Cambodia's technological landscape by collaborating with the government to enhance education and training in high technology, promoting the effective integration of Al, robotics, and smart cities, and fostering a culture of participation that drives economic and social development."
+  our_vision_2: "Empowering a digitally inclusive society where every Cambodian can access the benefits of emerging technology."
+  our_vision_3: "Positioning Cambodia as a regional hub for AI, robotics, and smart-city innovation."
+
+  # Interactive mission & vision network (About hero)
+  network:
+    aria: "Interactive mission and vision network of CARTA"
+    hint: "Hover over nodes to explore"
+    hint_mobile: "Tap a node to explore"
+    center_sub: "CARTA"
+    center_title: "Mission & Vision"
+    legend_mission: "Core Missions"
+    legend_vision: "Vision & Outcomes"
+    mission_1_title: "Government Collaboration"
+    mission_1_des: "Partner with government bodies to enhance education and training in high technology sectors."
+    mission_2_title: "Tech Implementation"
+    mission_2_des: "Facilitate the adoption of AI, robotics, and smart cities through effective business practices and technology transfer."
+    mission_3_title: "Global Partnerships"
+    mission_3_des: "Work with institutions locally and globally to share knowledge and conduct advanced technology training."
+    mission_4_title: "HR Development"
+    mission_4_des: "Assist in mobilizing and developing skilled professionals in AI, robotics, and smart cities to support Cambodia's technological advancement."
+    vision_1_title: "Economic Growth"
+    vision_1_des: "Contribute to the rapid growth of the national economy by promoting innovative practices and fostering a collaborative environment."
+    vision_2_title: "Advanced Landscape"
+    vision_2_des: "Advance Cambodia's technological landscape by collaborating with government and industry to enhance education and training."
+    vision_3_title: "AI & Robotics"
+    vision_3_des: "Promote the effective integration of AI, robotics, and smart cities across various sectors."
+    vision_4_title: "Social Development"
+    vision_4_des: "Foster a culture of participation that drives both economic and social development."
+    vision_5_title: "Skilled Professionals"
+    vision_5_des: "Mobilize and develop top-tier talent to support the nation's technological advancement."
+    vision_6_title: "Innovation Practices"
+    vision_6_des: "Promote innovative business practices and collaborative environments for tech startups and enterprises."
+    vision_7_title: "Knowledge Sharing"
+    vision_7_des: "Build a robust network of local and global institutions dedicated to sharing technological knowledge."
+    vision_8_title: "Tech Integration"
+    vision_8_des: "Ensure the seamless and effective integration of advanced technologies into daily civic and business life."
 
 committee:
+  eyebrow: "Leadership"
   our_organization_structure: "Our Organization Structure"
   our_organization_structure_des: "The Cambodia AI Robotics and Technology Transfer Association is organized to efficiently achieve its mission and support its members. The structure includes the following key components:"
+  role_president: "President"
+  role_vice_president: "Vice President"
+  role_administration: "Administration"
+  role_head_ai_robotics: "Head Unit of AI and Robotics"
+  role_head_tech_transfer: "Head Unit of Technology Transfer"
 
 membership:
+  eyebrow: "Partners"
+  join_now: "Join Now"
   title: "Membership"
+  title_des: "Join CARTA to access exclusive opportunities, industry insights, and a growing network of technology leaders."
   corporate_membership: "Corporate Membership"
   corporate_membership_des: "Tailored for businesses looking to integrate advanced technologies, gain access to exclusive events, and collaborate on innovative projects. Corporate members benefit from networking opportunities, industry insights, and tailored consultancy services."
   professional_membership: "Professional Membership"
@@ -100,8 +181,16 @@ membership:
   international_organization_des: "By engaging with global institutions, we bring international expertise and opportunities to Cambodia, enhancing our members' access to global markets and best practices."
 
 events:
+  eyebrow: "Events"
   our_events: "Our Events"
   events_calendar: "Events Calendar"
+  events_calendar_des: "Stay up to date with CARTA's workshops, conferences, and networking events."
+
+news:
+  back_to_news: "Back to News"
+  gallery: "Gallery"
+  latest: "Latest News"
+  read_more: "Read more"
 
 
 

@@ -93,23 +93,10 @@
 
 .title {
   font-size: clamp(1rem, -0.875rem + 8.333vw, 2rem);
-  @apply font-semibold;
+  @apply font-semibold text-primary-700 dark:text-primary-400;
 }
 
 .btn {
-  @apply relative inline-block text-base font-semibold tracking-tight py-2 px-7
-  dark:text-gray-900 border-2 dark:border-gray-500 rounded cursor-pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-
-  &:after {
-    content: '';
-    @apply absolute top-1.5 left-1.5 w-full h-full bg-primary-500 -z-10 transition-all duration-300;
-  }
-
-  &:hover:after {
-    @apply top-0 left-0;
-  }
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm md:text-base transition-colors duration-200;
 }
 </style>

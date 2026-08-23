@@ -35,7 +35,7 @@ onMounted(() => {
     </div>
     <div v-else class="card-inner">
       <!-- 👉🏼 Card Image -->
-      <div class="card-img-wrapper">
+      <div class="card-img-wrapper group">
         <img
           ref="imgRef"
           v-show="!imageError && imageLoaded"
@@ -77,12 +77,12 @@ onMounted(() => {
     @apply p-0;
 
     .card-img-wrapper {
-      @apply w-full rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800;
+      @apply w-full rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/10;
       aspect-ratio: 4 / 3;
       position: relative;
 
       .card-img {
-        @apply w-full h-full rounded-xl object-cover;
+        @apply w-full h-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-110;
         display: block;
       }
 
@@ -106,7 +106,7 @@ onMounted(() => {
     }
 
     .date-text {
-      @apply inline-block mt-4 text-sm text-gray-400 font-medium;
+      @apply inline-flex items-center mt-4 px-3 py-1 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800;
     }
   }
 

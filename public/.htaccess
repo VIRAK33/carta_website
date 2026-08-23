@@ -5,6 +5,10 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
 
-  # Rewrite all other requests to index.html
-  RewriteRule ^ index.html [QSA,L]
+  # SPA fallback: serve 404.html instead of index.html.
+  # index.html is the prerendered home page and its __NUXT__.path ("/")
+  # makes the Nuxt client redirect non-prerendered deep links (e.g. new
+  # news articles) to the home page. 404.html has no __NUXT__.path, so
+  # the client router renders the requested route (fetching news at runtime).
+  RewriteRule ^ 404.html [QSA,L]
 </IfModule>
