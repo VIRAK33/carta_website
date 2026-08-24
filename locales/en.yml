@@ -191,6 +191,14 @@ news:
   gallery: "Gallery"
   latest: "Latest News"
   read_more: "Read more"
+  eyebrow: "CARTA Journal"
+  min_read: "{count} min read"
+  share: "Share"
+  copy_link: "Copy link"
+  copied: "Copied!"
+  gallery_eyebrow: "Media"
+  related_eyebrow: "Keep Reading"
+  related: "More from CARTA"
 
 
 
