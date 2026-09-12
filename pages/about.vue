@@ -75,8 +75,9 @@ const columns = computed(() => {
 </script>
 
 <template>
-  <!-- 👉🏼 Hero -->
-  <section class="fixed-width py-14 mb-12 lg:mb-0">
+  <div>
+    <!-- 👉🏼 Hero -->
+    <section class="fixed-width py-14 mb-12 lg:mb-0">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <!-- Text -->
       <div
@@ -116,7 +117,7 @@ const columns = computed(() => {
             </template>
           </ClientOnly>
         </div>
-        <div class="absolute -bottom-22 -left-4 md:-left-6 card-modern p-4 flex items-center gap-3">
+        <div class="absolute -bottom-8 md:-bottom-10 -left-4 md:-left-6 card-modern p-4 flex items-center gap-3 z-30">
           <span class="flex-none w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center">
             <Icon name="material-symbols:handshake-rounded" class="text-white text-xl" />
           </span>
@@ -278,6 +279,7 @@ const columns = computed(() => {
       </div>
     </div>
   </section>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
