@@ -107,7 +107,7 @@ onMounted(() => {
     >
       <!-- Email Button -->
       <a
-        href="https://www.carta.org.kh/webmail/"
+        href="https://mail.carta.org.kh/webmail"
         target="_blank"
         rel="noopener noreferrer"
         class="navbar--controls__btn"

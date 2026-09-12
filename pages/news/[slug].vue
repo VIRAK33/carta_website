@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import { isEmpty } from 'lodash-es'
 import { useRoute } from 'vue-router'
 import moment from 'moment'
 import { useEventListener } from '@vueuse/core'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
-import fallbackOgImage from '~/assets/images/logo/logo.webp'
+
+/* CONSTANTS */
+const DEFAULT_OG_IMAGE = 'https://carta.org.kh/logo.png'
+const SITE_NAME = 'CARTA'
+const FALLBACK_DESCRIPTION =
+  'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association'
 
 /* TYPES */
 interface NewsDetailItem {
@@ -43,7 +47,10 @@ const { locale } = useI18n()
 
 /* STATES */
 const $route = useRoute()
-const slug = computed(() => $route.params.slug as string)
+const slug = computed(() => {
+  const param = $route.params.slug
+  return (Array.isArray(param) ? param[0] : param) || ''
+})
 const copied = ref(false)
 let copyTimer: ReturnType<typeof setTimeout> | undefined
 
@@ -55,7 +62,7 @@ const {
 } = await useFetch<{ data: NewsDetailItem[] }>(
   () =>
     slug.value
-      ? `https://web-api.carta.org.kh/api/news?slug=${slug.value}&fields=thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,gallery,createdAt,updatedAt`
+      ? `https://web-api.carta.org.kh/api/news?slug=${encodeURIComponent(slug.value)}&fields=thumbnail,title,title_km,short_content,short_content_km,content,content_km,slug,gallery,createdAt,updatedAt`
       : null,
   {
     method: 'GET',
@@ -84,41 +91,74 @@ const { data: relatedResponse } = await useFetch<{ data: NewsListEntry[] }>(
 /* FIELD HELPERS */
 // Get field value based on current language
 const getFieldValue = (
-  baseData: Record<string, any>,
+  baseData: Record<string, unknown>,
   fieldName: string
-): any => {
+): string => {
   const suffix = locale.value === 'km' ? '_km' : ''
   const langField = `${fieldName}${suffix}`
-  // Try language-specific field first, then fallback to base field
-  return baseData[langField] || baseData[fieldName]
+  return (baseData[langField] || baseData[fieldName] || '') as string
 }
 
+// Ensures an absolute URL for Open Graph and Twitter crawlers
 const resolveImageUrl = (thumb: string | null | undefined): string => {
-  if (!thumb) return fallbackOgImage
-  return thumb.startsWith('http')
-    ? thumb
-    : `https://cms-api.graphmining.dev${thumb}`
+  if (!thumb || typeof thumb !== 'string') return DEFAULT_OG_IMAGE
+  const trimmed = thumb.trim()
+  if (!trimmed || trimmed === 'null' || trimmed === 'undefined') return DEFAULT_OG_IMAGE
+
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed.replace(/^http:\/\//i, 'https://')
+  }
+  if (trimmed.startsWith('//')) {
+    return `https:${trimmed}`
+  }
+  const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  return `https://cms-api.graphmining.dev${cleanPath}`
+}
+
+const getImageMimeType = (url: string): string => {
+  const clean = url.split('?')[0]?.toLowerCase() || ''
+  if (clean.endsWith('.png')) return 'image/png'
+  if (clean.endsWith('.webp')) return 'image/webp'
+  if (clean.endsWith('.gif')) return 'image/gif'
+  return 'image/jpeg'
+}
+
+// Helper function to extract a clean plain text excerpt from HTML/text
+const cleanExcerpt = (raw: string | null | undefined, maxLength = 160): string => {
+  if (!raw) return ''
+  const text = raw
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  if (text.length <= maxLength) return text
+  return `${text.slice(0, maxLength).trim()}...`
 }
 
 /* COMPUTED */
 // Extract the news data from response
 const news = computed(() => {
-  if (!slug.value || pending.value || error.value) {
+  if (!slug.value || error.value) {
     return null
   }
 
   // Check if response has data array with at least one article
-  if (
-    !newsResponse.value?.data ||
-    !Array.isArray(newsResponse.value.data) ||
-    newsResponse.value.data.length === 0
-  ) {
+  const items = newsResponse.value?.data
+  if (!Array.isArray(items) || items.length === 0) {
     return null
   }
 
   // Get the first (and only) article from the response
-  const newsItem = newsResponse.value.data[0]
-  if (!newsItem) {
+  const newsItem = items[0]
+  if (!newsItem || !newsItem.data) {
     return null
   }
 
@@ -164,20 +204,29 @@ const readingTime = computed(() => {
   return Math.max(1, Math.round(text.split(/\s+/).length / 200))
 })
 
-// Helper function to extract excerpt from content
-const getExcerpt = (content: string): string => {
-  if (!content) return ''
-  const plainText = content.replace(/<[^>]*>/g, '')
-  return plainText.substring(0, 160) + (plainText.length > 160 ? '...' : '')
-}
+const pageUrl = computed(() => `https://carta.org.kh/news/${encodeURIComponent(slug.value)}`)
 
-const pageUrl = `https://carta.org.kh/news/${slug.value}`
-const fallbackDescription =
-  'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association'
+const pageTitle = computed(() => {
+  return news.value?.title ? `${news.value.title} | ${SITE_NAME}` : 'CARTA Blog - News'
+})
+
+const rawTitle = computed(() => {
+  return news.value?.title || 'CARTA Blog'
+})
+
+const pageDescription = computed(() => {
+  if (!news.value) return FALLBACK_DESCRIPTION
+  const text = news.value.short_content || news.value.content
+  return cleanExcerpt(text, 160) || FALLBACK_DESCRIPTION
+})
+
+const pageImage = computed(() => {
+  return news.value?.thumbnail || DEFAULT_OG_IMAGE
+})
 
 /* SHARE */
 const shareLinks = computed(() => {
-  const url = encodeURIComponent(pageUrl)
+  const url = encodeURIComponent(pageUrl.value)
   const title = encodeURIComponent(news.value?.title ?? '')
   return [
     {
@@ -207,7 +256,7 @@ const openShare = (href: string): void => {
 
 const copyLink = async (): Promise<void> => {
   try {
-    await navigator.clipboard.writeText(pageUrl)
+    await navigator.clipboard.writeText(pageUrl.value)
     copied.value = true
     clearTimeout(copyTimer)
     copyTimer = setTimeout(() => (copied.value = false), 2000)
@@ -230,32 +279,101 @@ onMounted(() => {
   useEventListener(window, 'resize', updateScrollProgress, { passive: true })
 })
 
-/* SEO */
-// Reactive SEO meta — updates once the article data resolves (lazy fetch on client).
+/* SEO & OPEN GRAPH */
 useSeoMeta({
-  title: () =>
-    news.value ? `${news.value.title} | CARTA` : 'CARTA Blog - News',
-  ogTitle: () => news.value?.title ?? 'CARTA Blog',
-  description: () =>
-    news.value
-      ? getExcerpt(news.value.short_content || news.value.content)
-      : fallbackDescription,
-  ogDescription: () =>
-    news.value
-      ? getExcerpt(news.value.short_content || news.value.content)
-      : fallbackDescription,
-  ogImage: () => (news.value ? news.value.thumbnail : fallbackOgImage),
-  ogUrl: pageUrl,
+  title: () => pageTitle.value,
+  ogTitle: () => rawTitle.value,
+  description: () => pageDescription.value,
+  ogDescription: () => pageDescription.value,
+  ogType: 'article',
+  ogUrl: () => pageUrl.value,
+  ogSiteName: SITE_NAME,
+  ogLocale: () => (locale.value === 'km' ? 'km_KH' : 'en_US'),
+
+  // OpenGraph Image
+  ogImage: () => pageImage.value,
+  ogImageSecureUrl: () => pageImage.value,
+  ogImageType: () => getImageMimeType(pageImage.value),
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogType: 'article',
+  ogImageAlt: () => rawTitle.value,
+
+  // Twitter Cards
   twitterCard: 'summary_large_image',
-  twitterTitle: () => news.value?.title ?? 'CARTA Blog',
-  twitterDescription: () =>
-    news.value
-      ? getExcerpt(news.value.short_content || news.value.content)
-      : fallbackDescription,
-  twitterImage: () => (news.value ? news.value.thumbnail : fallbackOgImage),
+  twitterTitle: () => rawTitle.value,
+  twitterDescription: () => pageDescription.value,
+  twitterImage: () => pageImage.value,
+  twitterImageAlt: () => rawTitle.value,
+
+  // Article metadata
+  articlePublishedTime: () => news.value?.createdAt,
+  articleModifiedTime: () => news.value?.updatedAt || news.value?.createdAt,
+  articleAuthor: [SITE_NAME],
+  articleSection: 'Technology & AI',
+
+  // Robots indexing
+  robots: () => (news.value ? 'index, follow' : 'noindex, nofollow'),
+})
+
+useHead({
+  titleTemplate: '%s',
+  link: [
+    {
+      rel: 'canonical',
+      href: () => pageUrl.value,
+    },
+  ],
+  meta: [
+    {
+      name: 'telegram:title',
+      content: () => rawTitle.value,
+    },
+    {
+      name: 'telegram:description',
+      content: () => pageDescription.value,
+    },
+    {
+      name: 'telegram:image',
+      content: () => pageImage.value,
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: () =>
+        news.value
+          ? JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'NewsArticle',
+              headline: news.value.title,
+              description: pageDescription.value,
+              image: [pageImage.value],
+              datePublished: news.value.createdAt,
+              dateModified: news.value.updatedAt || news.value.createdAt,
+              mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': pageUrl.value,
+              },
+              author: [
+                {
+                  '@type': 'Organization',
+                  name: SITE_NAME,
+                  url: 'https://carta.org.kh',
+                },
+              ],
+              publisher: {
+                '@type': 'Organization',
+                name: SITE_NAME,
+                url: 'https://carta.org.kh',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: DEFAULT_OG_IMAGE,
+                },
+              },
+            })
+          : undefined,
+    },
+  ],
 })
 </script>
 
@@ -269,7 +387,7 @@ useSeoMeta({
     />
 
     <!-- Loading Skeleton -->
-    <div v-if="pending" class="mx-auto max-w-6xl px-4">
+    <div v-if="pending && !news" class="mx-auto max-w-6xl px-4">
       <!-- Back link skeleton -->
       <USkeleton class="h-8 w-28 rounded-full mt-8 mb-6" />
 
@@ -343,7 +461,7 @@ useSeoMeta({
     </div>
 
     <!-- Content -->
-    <div v-else-if="!isEmpty(news)" class="mx-auto max-w-6xl px-4">
+    <div v-else-if="news" class="mx-auto max-w-6xl px-4">
       <!-- Back link -->
       <NuxtLink
         :to="{ name: 'news' }"
@@ -369,13 +487,13 @@ useSeoMeta({
           <div class="relative w-full aspect-video md:aspect-[21/9]">
             <img
               :src="news.thumbnail"
-              alt=""
+              :alt="news.title"
               class="absolute inset-0 w-full h-full object-cover"
               loading="eager"
               @error="
-                (e) => ((e.target as HTMLImageElement).src = '/placeholder.png')
+                (e) => ((e.target as HTMLImageElement).src = '/logo.png')
               "
-            />
+            >
             <div
               class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"
             />
@@ -542,7 +660,7 @@ useSeoMeta({
         <div class="inline-block">
           <div
             class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"
-          ></div>
+          />
           <p>Loading article...</p>
         </div>
       </div>

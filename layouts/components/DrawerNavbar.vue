@@ -98,7 +98,7 @@ function onRouteChange(): void {
       <!-- Mobile Actions Footer -->
       <div class="drawer-navbar--content--footer">
         <a
-          href="https://www.carta.org.kh/webmail/"
+          href="https://mail.carta.org.kh/webmail"
           target="_blank"
           rel="noopener noreferrer"
           class="btn-email-mobile"

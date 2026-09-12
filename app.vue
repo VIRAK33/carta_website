@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 /* STATES */
 const $config = useRuntimeConfig()
-const $appConfigStore = useAppConfigStore()
 
 useHead({
-  title: $config.public.APP_NAME,
-  titleTemplate: `%s - Home`,
+  title: $config.public.APP_NAME || 'CARTA',
+  titleTemplate: (titleChunk?: string) => {
+    if (!titleChunk || titleChunk === 'Carta' || titleChunk === 'CARTA') {
+      return 'CARTA - Cambodia AI Robotics and Technology Transfer Association'
+    }
+    return titleChunk.includes('CARTA') ? titleChunk : `${titleChunk} | CARTA`
+  },
   script: [
     {
       type: 'application/ld+json',

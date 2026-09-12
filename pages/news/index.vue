@@ -6,13 +6,36 @@ import { useI18n } from 'vue-i18n'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
 import { isArray } from 'lodash-es'
 import moment from 'moment'
-import ogImage from '~/assets/images/logo/logo.webp'
+
+const OG_IMAGE = 'https://carta.org.kh/logo.png'
+
+/* TYPES */
+interface NewsListItem {
+  id: string
+  createdAt: string
+  data: {
+    slug: string
+    thumbnail?: string | null
+    title?: string
+    title_km?: string
+    short_content?: string
+    short_content_km?: string
+  }
+}
+
+interface NewsApiResponse {
+  data: NewsListItem[]
+  pagination?: {
+    total?: number
+    totalPages?: number
+  }
+}
 
 /* COMPOSABLES */
 const { locale } = useI18n()
 
 /* STATES */
-const news = ref<any[]>([])
+const news = ref<NewsListItem[]>([])
 const currentPage = ref(1)
 const totalPages = ref(1)
 const total = ref(0)
@@ -21,22 +44,44 @@ const loading = ref(false)
 
 useHead({
   title: 'CARTA Blog - Insights on AI, Robotics, and Technology',
+  titleTemplate: '%s',
+  link: [
+    { rel: 'canonical', href: 'https://carta.org.kh/news' },
+  ],
   meta: [
     { property: 'og:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
     {
       property: 'og:description',
-      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.'
+      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.',
     },
-    { property: 'og:image', content: ogImage },
-    { property: 'og:url', content: 'https://carta.org.kh/news' }
-  ]
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: OG_IMAGE },
+    { property: 'og:image:secure_url', content: OG_IMAGE },
+    { property: 'og:image:width', content: '640' },
+    { property: 'og:image:height', content: '640' },
+    { property: 'og:image:alt', content: 'CARTA Blog' },
+    { property: 'og:url', content: 'https://carta.org.kh/news' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
+    {
+      name: 'twitter:description',
+      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.',
+    },
+    { name: 'twitter:image', content: OG_IMAGE },
+    { name: 'telegram:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
+    {
+      name: 'telegram:description',
+      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.',
+    },
+    { name: 'telegram:image', content: OG_IMAGE },
+  ],
 })
 
 /* HELPER FUNCTIONS */
-const getFieldValue = (data: Record<string, any>, fieldName: string): any => {
+const getFieldValue = (data: Record<string, unknown>, fieldName: string): string => {
   const suffix = locale.value === 'km' ? '_km' : ''
   const langField = `${fieldName}${suffix}`
-  return data[langField] || data[fieldName]
+  return (data[langField] || data[fieldName] || '') as string
 }
 
 const extractShortContent = (content: string): string => {
@@ -61,7 +106,7 @@ const gridNews = computed(() => news.value)
 const fetchNews = async (page: number) => {
   loading.value = true
   try {
-    const data = await $fetch<any>('https://web-api.carta.org.kh/api/news', {
+    const data = await $fetch<NewsApiResponse>('https://web-api.carta.org.kh/api/news', {
       method: 'GET',
       params: {
         page,
