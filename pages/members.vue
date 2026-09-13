@@ -276,6 +276,10 @@ useHead({
     .title {
       @apply text-base tracking-wide font-semibold dark:text-gray-200;
     }
+
+    img {
+      @apply dark:bg-white/95 dark:p-1.5 dark:rounded-xl transition-all duration-200;
+    }
   }
 
   &-img {

@@ -4,23 +4,33 @@ import { useAppConfigStore } from '~/stores/use-app-config.store'
 
 /* STATES */
 const $appConfigStore = useAppConfigStore()
-// const $route = useRoute()
+const $route = useRoute()
 
-/* WATCH */
-// watch(
-//   () => $route.name,
-//   (newRouteName) => {
-//     console.log({ newRouteName })
-//     $appConfigStore.onUpdateActiveDrawer(false)
-//   },
-//   {
-//     deep: true,
-//     immediate: true,
-//   }
-// )
+// Immediately close drawer on route navigation
+watch(
+  () => $route.fullPath,
+  () => {
+    $appConfigStore.onUpdateActiveDrawer(false)
+  },
+)
 
 function onRouteChange(): void {
-  setTimeout(() => $appConfigStore.onUpdateActiveDrawer(false), 250)
+  $appConfigStore.onUpdateActiveDrawer(false)
+}
+
+onMounted(() => {
+  window.addEventListener('resize', onWindowResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', onWindowResize)
+  $appConfigStore.onUpdateActiveDrawer(false)
+})
+
+function onWindowResize(): void {
+  if (window.innerWidth >= 768 && $appConfigStore.activeDrawer) {
+    $appConfigStore.onUpdateActiveDrawer(false)
+  }
 }
 </script>
 

@@ -6,6 +6,15 @@ const { resolve } = createResolver(import.meta.url)
 export default defineNuxtConfig({
   ssr: true,
 
+  app: {
+    head: {
+      meta: [
+        { name: 'color-scheme', content: 'light dark' },
+        { name: 'darkreader-lock', content: 'true' },
+      ],
+    },
+  },
+
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -20,7 +29,7 @@ export default defineNuxtConfig({
       try {
         const res = await fetch('https://web-api.carta.org.kh/api/news?fields=slug&limit=500')
         const json = await res.json()
-        const slugRoutes = (json?.data ?? []).map((item: any) => `/news/${item.data?.slug}`).filter(Boolean)
+        const slugRoutes = (json?.data ?? []).map((item: { data?: { slug?: string } }) => item.data?.slug ? `/news/${item.data.slug}` : '').filter(Boolean)
         nitroConfig.prerender = nitroConfig.prerender ?? {}
         nitroConfig.prerender.routes = [...(nitroConfig.prerender.routes ?? []), ...slugRoutes]
       } catch (e) {

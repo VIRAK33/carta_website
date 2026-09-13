@@ -10,6 +10,10 @@ useHead({
     }
     return titleChunk.includes('CARTA') ? titleChunk : `${titleChunk} | CARTA`
   },
+  meta: [
+    { name: 'color-scheme', content: 'light dark' },
+    { name: 'darkreader-lock', content: 'true' },
+  ],
   script: [
     {
       type: 'application/ld+json',
@@ -39,7 +43,7 @@ useHead({
 
 <template>
   <Body
-    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-[#0B0F19] dark:text-gray-100"
+    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-[#0d1527] dark:text-gray-100"
   >
     <NuxtLayout>
       <NuxtLoadingIndicator />

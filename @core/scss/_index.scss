@@ -53,6 +53,14 @@ body {
   transition-all duration-200 text-xs sm:text-sm cursor-pointer;
 }
 
+:root {
+  color-scheme: light dark;
+}
+
+html.dark {
+  background-color: #0d1527;
+}
+
 .card-modern {
   @apply relative rounded-2xl transition-all duration-300 overflow-hidden;
   background-color: #FCFAF7;
@@ -63,6 +71,7 @@ body {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 0;
     pointer-events: none;
     opacity: 0.065;
     background-image: url("/patterns/phkar-chan-crimson.svg");
@@ -71,6 +80,11 @@ body {
     background-position: center;
     mask-image: linear-gradient(to right, transparent 10%, black 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 10%, black 100%);
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
   }
 
   &:hover {
@@ -151,6 +165,22 @@ button {
 
 img {
   @apply w-full h-full object-cover;
+  color-scheme: light;
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+.dark img,
+html.dark img,
+.dark picture,
+.dark video {
+  color-scheme: light !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
 }
 
 .subtitle {

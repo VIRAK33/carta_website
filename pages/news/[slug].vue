@@ -495,7 +495,7 @@ useHead({
               "
             >
             <div
-              class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"
+              class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent dark:hidden pointer-events-none"
             />
           </div>
         </div>

@@ -107,6 +107,7 @@ const initials = computed(() =>
       content: "";
       position: absolute;
       inset: 0;
+      z-index: 0;
       pointer-events: none;
       opacity: 0.055;
       background-image: url("/patterns/phkar-chan-crimson.svg");
@@ -115,6 +116,11 @@ const initials = computed(() =>
       background-position: center;
       mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
       -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
     }
   }
 
