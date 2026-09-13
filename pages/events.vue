@@ -1,8 +1,54 @@
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useHead } from '#app'
 import { useI18n } from 'vue-i18n'
-import ogImage from '~/assets/images/logo/logo.webp'
+
+const OG_IMAGE = 'https://carta.org.kh/logo.png'
+
+/* TYPES */
+interface RawEventData {
+  id: string
+  data: {
+    title: string
+    title_km?: string
+    description: string
+    description_km?: string
+    location: string
+    start_date: string
+    end_date: string
+  }
+}
+
+interface EventsApiResponse {
+  data?: RawEventData[]
+  pagination?: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
+}
+
+interface FormattedEventDates {
+  date: string
+  fullDate: string
+  month: string
+}
+
+interface EventItem extends FormattedEventDates {
+  id: string
+  title: string
+  description: string
+  location: string
+  gradient: string
+  gradientColors: string[]
+  isUpcoming: boolean
+}
+
+interface MonthGroup {
+  month: string
+  events: EventItem[]
+}
 
 /* STATES */
 const { locale } = useI18n()
@@ -19,7 +65,15 @@ const MONTH_NAMES = [
   'July', 'August', 'September', 'October', 'November', 'December',
 ]
 
-function formatEventDates(startIso: string, endIso: string) {
+function isEventUpcoming(endIso: string): boolean {
+  if (!endIso) return false
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const end = new Date(endIso)
+  return end >= today
+}
+
+function formatEventDates(startIso: string, endIso: string): FormattedEventDates {
   const start = new Date(startIso)
   const end = new Date(endIso)
 
@@ -44,95 +98,86 @@ function formatEventDates(startIso: string, endIso: string) {
   return { date, fullDate, month }
 }
 
-function mapEvents(rawList: any[], offset = 0) {
-  return rawList.map((item: any, index: number) => ({
+function mapEvents(rawList: RawEventData[], offset = 0): EventItem[] {
+  return rawList.map((item: RawEventData, index: number) => ({
     id: item.id,
     title: locale.value === 'km' ? (item.data.title_km || item.data.title) : item.data.title,
     description: locale.value === 'km' ? (item.data.description_km || item.data.description) : item.data.description,
     location: item.data.location,
     ...formatEventDates(item.data.start_date, item.data.end_date),
     ...GRADIENTS[(offset + index) % GRADIENTS.length],
+    isUpcoming: isEventUpcoming(item.data.end_date || item.data.start_date),
   }))
 }
 
-const events = ref<any[]>([])
 const currentPage = ref(1)
-const totalPages = ref(1)
-const total = ref(0)
 const limit = 10
-const loading = ref(false)
 
-async function fetchEvents(page: number) {
-  loading.value = true
-  try {
-    const data = await $fetch<any>('https://web-api.carta.org.kh/api/events', {
-      method: 'GET',
-      params: {
-        page,
-        limit,
-        fields: 'title,title_km,description,description_km,location,start_date,end_date',
-      },
-    })
-    events.value = mapEvents(data?.data ?? [], (page - 1) * limit)
-    const pagination = data?.pagination
-    if (pagination) {
-      totalPages.value = pagination.totalPages
-      total.value = pagination.total
-      currentPage.value = pagination.page
-    }
-  } catch (e) {
-    console.error('Error fetching events:', e)
-  } finally {
-    loading.value = false
-  }
-}
+const { data: eventsData, pending: loading } = await useFetch<EventsApiResponse>('https://web-api.carta.org.kh/api/events', {
+  lazy: import.meta.client,
+  query: computed(() => ({
+    page: currentPage.value,
+    limit,
+    fields: 'title,title_km,description,description_km,location,start_date,end_date',
+  })),
+  watch: [currentPage, locale],
+})
 
-const onPageChange = async (page: number) => {
+const events = computed<EventItem[]>(() => {
+  const list = eventsData.value?.data ?? []
+  return mapEvents(list, (currentPage.value - 1) * limit)
+})
+
+const totalPages = computed(() => eventsData.value?.pagination?.totalPages ?? 1)
+const total = computed(() => eventsData.value?.pagination?.total ?? 0)
+
+const onPageChange = (page: number) => {
   currentPage.value = page
-  await fetchEvents(page)
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-await fetchEvents(1)
-
-watch(() => locale.value, () => {
-  fetchEvents(currentPage.value)
-})
-
 useHead({
   title: 'Event Calendar - Upcoming Robotics and Technology Events',
+  link: [
+    { rel: 'canonical', href: 'https://carta.org.kh/events' },
+  ],
   meta: [
     { property: 'og:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
     {
       property: 'og:description',
-      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
+      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.',
     },
-    { property: 'og:image', content: ogImage },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: OG_IMAGE },
+    { property: 'og:image:secure_url', content: OG_IMAGE },
+    { property: 'og:image:width', content: '640' },
+    { property: 'og:image:height', content: '640' },
+    { property: 'og:image:alt', content: 'CARTA Event Calendar' },
     { property: 'og:url', content: 'https://carta.org.kh/events' },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
     {
       name: 'twitter:description',
-      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
+      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.',
     },
-    { name: 'twitter:image', content: ogImage },
+    { name: 'twitter:image', content: OG_IMAGE },
     { name: 'telegram:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
     {
       name: 'telegram:description',
-      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
+      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.',
     },
-    { name: 'telegram:image', content: ogImage }
-  ]
+    { name: 'telegram:image', content: OG_IMAGE },
+  ],
 })
 
-const groupedEvents = computed(() => {
+const groupedEvents = computed<MonthGroup[]>(() => {
   const monthOrder = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
   ]
 
-  const grouped: Record<string, any[]> = {}
-  events.value.forEach((event: any) => {
+  const grouped: Record<string, EventItem[]> = {}
+  events.value.forEach((event: EventItem) => {
     const [month, year] = event.month.split(', ')
     const key = `${month}, ${year}`
     if (!grouped[key]) grouped[key] = []
@@ -152,83 +197,134 @@ const groupedEvents = computed(() => {
 </script>
 
 <template>
-  <!-- 👉🏼 Intro -->
-  <section class="fixed-width py-14">
-    <div
-      v-motion
-      :initial="{ opacity: 0, y: 24 }"
-      :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
-      class="w-full md:w-2/3 flex flex-col items-center justify-center mx-auto text-center"
-    >
-      <span class="eyebrow">{{ $t('events.eyebrow') }}</span>
-      <AppTitle :text="$t('events.events_calendar')" centered />
-      <span
-        v-motion
-        :initial="{ opacity: 0, y: 16 }"
-        :visible="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200, ease: 'easeOut' } }"
-        class="inline-block pt-4 subtitle text-center"
-      >
-        {{ $t('events.events_calendar_des') }}
-      </span>
-    </div>
-  </section>
-
   <div>
-    <div class="p-6 max-w-3xl mx-auto">
-
-      <!-- Loading skeleton -->
-      <div v-if="loading" class="space-y-6">
-        <div v-for="$n in 4" :key="$n" class="animate-pulse bg-gray-200 rounded-lg h-24" />
+    <!-- 👉🏼 Intro -->
+    <section class="fixed-width py-14">
+      <div
+        v-motion
+        :initial="{ opacity: 0, y: 24 }"
+        :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
+        class="w-full md:w-2/3 flex flex-col items-center justify-center mx-auto text-center"
+      >
+        <span class="eyebrow">{{ $t('events.eyebrow') }}</span>
+        <AppTitle :text="$t('events.events_calendar')" centered />
+        <span
+          v-motion
+          :initial="{ opacity: 0, y: 16 }"
+          :visible="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200, ease: 'easeOut' } }"
+          class="inline-block pt-4 subtitle text-center"
+        >
+          {{ $t('events.events_calendar_des') }}
+        </span>
       </div>
+    </section>
 
-      <!-- Event list -->
-      <template v-else>
-        <div v-for="(monthEvents, index) in groupedEvents" :key="index">
-          <h2 class="text-lg font-semibold text-gray-600 mb-4">{{ monthEvents.month }}</h2>
+    <div>
+      <div class="p-6 max-w-3xl mx-auto">
+        <!-- Loading skeleton -->
+        <div v-if="loading" class="space-y-6">
+          <USkeleton class="h-6 w-36 rounded-md mb-4" />
           <div
-            v-for="(event, eIndex) in monthEvents.events"
-            :key="event.id"
-            v-motion
-            :initial="{ opacity: 0, y: 16 }"
-            :visible="{ opacity: 1, y: 0, transition: { duration: 400, delay: eIndex * 70, ease: 'easeOut' } }"
-            :class="event.gradient"
-            class="text-white rounded-2xl shadow-lg ring-1 ring-black/5 p-5 sm:p-6 flex items-start mb-6 transition-transform duration-300 hover:-translate-y-1"
+            v-for="$n in 4"
+            :key="$n"
+            class="rounded-2xl p-5 sm:p-6 flex items-start gap-4 sm:gap-5 mb-6 bg-white dark:bg-[#161f30] ring-1 ring-black/5 dark:ring-white/10 shadow-sm"
           >
-            <!-- Date -->
-            <div
-              class="flex-shrink-0 w-16 h-16 bg-white/95 flex items-center justify-center rounded-xl shadow-sm"
-              :style="{ color: event.gradientColors[0] }"
-            >
-              <p class="text-3xl font-bold leading-none">{{ event.date }}</p>
-            </div>
+            <!-- Date skeleton -->
+            <USkeleton class="flex-shrink-0 w-16 h-16 rounded-xl" />
 
-            <!-- Details -->
-            <div class="ml-4 sm:ml-5 flex-1">
-              <h3 class="text-xl sm:text-2xl font-semibold text-white leading-snug">{{ event.title }}</h3>
-              <p class="text-base text-white/95 mt-2">{{ event.description }}</p>
-              <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 mt-3 text-sm text-white/90">
-                <span class="inline-flex items-center gap-1.5">
-                  <Icon class="text-base" name="material-symbols:location-on-rounded" />
-                  <strong>{{ event.location }}</strong>
-                </span>
-                <span class="inline-flex items-center gap-1.5">
-                  <Icon class="text-base" name="material-symbols:calendar-today-rounded" />
-                  <strong>{{ event.fullDate }}</strong>
-                </span>
+            <!-- Details skeleton -->
+            <div class="flex-1 space-y-3">
+              <USkeleton class="h-6 w-3/4 sm:w-1/2 rounded-md" />
+              <div class="space-y-2">
+                <USkeleton class="h-4 w-full rounded-md" />
+                <USkeleton class="h-4 w-4/5 rounded-md" />
+              </div>
+              <div class="flex flex-wrap items-center gap-4 pt-1">
+                <USkeleton class="h-5 w-28 rounded-full" />
+                <USkeleton class="h-5 w-36 rounded-full" />
               </div>
             </div>
           </div>
         </div>
-      </template>
 
-      <!-- Pagination -->
-      <div v-if="totalPages > 1" class="flex justify-center mt-8 mb-4">
-        <UPagination
-          :model-value="currentPage"
-          :page-count="limit"
-          :total="total"
-          @update:model-value="onPageChange"
-        />
+        <!-- Event list -->
+        <template v-else>
+          <div v-for="(monthEvents, index) in groupedEvents" :key="index">
+            <h2 class="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-4">{{ monthEvents.month }}</h2>
+            <div
+              v-for="(event, eIndex) in monthEvents.events"
+              :key="event.id"
+              v-motion
+              :initial="{ opacity: 0, y: 16 }"
+              :visible="{ opacity: 1, y: 0, transition: { duration: 400, delay: eIndex * 70, ease: 'easeOut' } }"
+              :class="event.gradient"
+              class="relative overflow-hidden text-white rounded-2xl shadow-lg ring-1 ring-black/5 p-5 sm:p-6 flex items-start mb-6 transition-all duration-300 hover:-translate-y-1 group"
+            >
+              <!-- Kbach Phkar Chan Silk Grid Watermark (Crisp White Damask on Crimson) -->
+              <div
+                class="absolute inset-0 pointer-events-none opacity-20 bg-repeat bg-center"
+                style="background-image: url('/patterns/phkar-chan-white.svg'); background-size: 34px 34px; mask-image: linear-gradient(to right, transparent 5%, black 100%); -webkit-mask-image: linear-gradient(to right, transparent 5%, black 100%);"
+                aria-hidden="true"
+              />
+
+              <!-- Cyber-Khmer Phkar Chan Corner Accent -->
+              <AppPhkarChan
+                :filled="false"
+                size="w-16 h-16 sm:w-20 sm:h-20"
+                custom-class="text-white/25"
+                class="absolute -top-3 -right-3 pointer-events-none"
+              />
+
+              <!-- Date -->
+              <div
+                class="relative z-10 flex-shrink-0 w-16 h-16 bg-white/95 flex items-center justify-center rounded-xl shadow-sm"
+                :style="{ color: event.gradientColors[0] }"
+              >
+                <p class="text-3xl font-bold leading-none">{{ event.date }}</p>
+              </div>
+
+              <!-- Details -->
+              <div class="relative z-10 ml-4 sm:ml-5 flex-1">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h3 class="text-xl sm:text-2xl font-semibold text-white leading-snug">{{ event.title }}</h3>
+                  <span
+                    :class="event.isUpcoming
+                      ? 'bg-emerald-500/90 text-white shadow-sm'
+                      : 'bg-white/20 text-white backdrop-blur-sm'"
+                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase flex-shrink-0"
+                  >
+                    <span
+                      :class="event.isUpcoming ? 'bg-emerald-300 animate-pulse' : 'bg-white/70'"
+                      class="w-1.5 h-1.5 rounded-full inline-block"
+                    />
+                    {{ event.isUpcoming ? $t('events.badge_upcoming') : $t('events.badge_completed') }}
+                  </span>
+                </div>
+                <p class="text-base text-white/95 mt-2">{{ event.description }}</p>
+                <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 mt-3 text-sm text-white/90">
+                  <span class="inline-flex items-center gap-1.5">
+                    <Icon class="text-base" name="material-symbols:location-on-rounded" />
+                    <strong>{{ event.location }}</strong>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <Icon class="text-base" name="material-symbols:calendar-today-rounded" />
+                    <strong>{{ event.fullDate }}</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- Pagination -->
+        <div v-if="totalPages > 1" class="flex justify-center mt-8 mb-4">
+          <UPagination
+            :model-value="currentPage"
+            :page-count="limit"
+            :total="total"
+            @update:model-value="onPageChange"
+          />
+        </div>
       </div>
     </div>
   </div>

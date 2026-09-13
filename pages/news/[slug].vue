@@ -399,7 +399,7 @@ useHead({
 
         <!-- Overlapping card -->
         <div
-          class="relative -mt-20 md:-mt-28 mx-4 md:mx-10 rounded-2xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md ring-1 ring-black/5 dark:ring-white/10 shadow-xl p-6 md:p-10 space-y-4"
+          class="relative -mt-20 md:-mt-28 mx-4 md:mx-10 rounded-2xl bg-white/90 dark:bg-[#161f30]/95 backdrop-blur-md ring-1 ring-black/5 dark:ring-white/10 shadow-xl p-6 md:p-10 space-y-4"
         >
           <USkeleton class="h-3 w-24" />
           <USkeleton class="h-8 w-3/4" />
@@ -502,7 +502,7 @@ useHead({
 
         <!-- Overlapping header card -->
         <div
-          class="relative -mt-20 md:-mt-28 mx-4 md:mx-10 rounded-2xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-md ring-1 ring-black/5 dark:ring-white/10 shadow-xl p-6 md:p-10"
+          class="relative -mt-20 md:-mt-28 mx-4 md:mx-10 rounded-2xl bg-white/90 dark:bg-[#161f30]/95 backdrop-blur-md ring-1 ring-black/5 dark:ring-white/10 shadow-xl p-6 md:p-10"
         >
           <span class="eyebrow">{{ $t('news.eyebrow') }}</span>
           <h1
@@ -511,10 +511,10 @@ useHead({
             {{ news.title }}
           </h1>
           <div
-            class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400"
+            class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-300"
           >
             <span
-              class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full"
+              class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-white/10 dark:text-gray-200 rounded-full"
             >
               <Icon
                 class="text-base"
@@ -523,7 +523,7 @@ useHead({
               {{ moment(news.createdAt).format('MMM DD, YYYY') }}
             </span>
             <span
-              class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full"
+              class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-white/10 dark:text-gray-200 rounded-full"
             >
               <Icon
                 class="text-base"

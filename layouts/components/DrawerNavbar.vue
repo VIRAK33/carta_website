@@ -25,28 +25,29 @@ function onRouteChange(): void {
 </script>
 
 <template>
-  <div
-    v-if="$appConfigStore.activeDrawer"
-    class="drawer-navbar--overlay"
-    @click="$appConfigStore.onUpdateActiveDrawer(false)"
-  />
-  <Transition name="slide-up">
+  <div v-if="$appConfigStore.activeDrawer" class="md:hidden">
     <div
-      v-if="$appConfigStore.activeDrawer"
-      :style="{ '--navbar-height': $appConfigStore.navbarHeight }"
-      class="drawer-navbar--content"
-    >
-      <ul class="drawer-navbar--content--menus">
-        <li
-          v-for="({ title, value, children }, $key) in $appConfigStore.menus"
-          :key="$key"
-          @click="onRouteChange"
-        >
-          <RouterLink
-            v-if="!children"
-            :to="{ name: value }"
-            v-text="$t(title)"
-          />
+      class="drawer-navbar--overlay"
+      @click="$appConfigStore.onUpdateActiveDrawer(false)"
+    />
+    <Transition name="slide-up">
+      <div
+        v-if="$appConfigStore.activeDrawer"
+        :style="{ '--navbar-height': $appConfigStore.navbarHeight }"
+        class="drawer-navbar--content"
+      >
+        <ul class="drawer-navbar--content--menus">
+          <li
+            v-for="({ title, value, children }, $key) in $appConfigStore.menus"
+            :key="$key"
+            @click="onRouteChange"
+          >
+            <RouterLink
+              v-if="!children"
+              :to="{ name: value }"
+            >
+              {{ $t(title) }}
+            </RouterLink>
 
           <HeadlessDisclosure v-else v-slot="{ open }">
             <HeadlessDisclosureButton class="w-full">
@@ -55,7 +56,7 @@ function onRouteChange(): void {
                 <Icon
                   :class="[
                     open ? 'rotate-90' : '',
-                    'transition-all duration-300 text-2xl text-gray-700 dark:text-gray-400',
+                    'transition-all duration-300 text-2xl text-gray-700 dark:text-gray-200',
                   ]"
                   name="ic:round-keyboard-arrow-right"
                 />
@@ -109,6 +110,7 @@ function onRouteChange(): void {
       </div>
     </div>
   </Transition>
+  </div>
 </template>
 
 <style lang="scss" scoped>

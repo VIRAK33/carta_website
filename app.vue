@@ -39,7 +39,7 @@ useHead({
 
 <template>
   <Body
-    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-cool-800 dark:text-gray-200"
+    class="antialiased duration-300 transition-colors text-gray-800 bg-white dark:bg-[#0B0F19] dark:text-gray-100"
   >
     <NuxtLayout>
       <NuxtLoadingIndicator />

@@ -90,14 +90,14 @@ const columns = computed(() => {
         <p class="subtitle mt-5 leading-relaxed max-w-xl">
           {{ $t('about.intro_des') }}
         </p>
-        <div class="mt-8 flex flex-wrap gap-4">
+        <div class="mt-8 flex flex-wrap gap-3">
           <NuxtLink :to="{ name: 'members' }" class="btn-primary">
-            <Icon name="material-symbols:group-add-rounded" class="text-xl" />
-            {{ $t('about.cta_btn_membership') }}
+            <Icon name="material-symbols:group-add-rounded" class="text-base" />
+            <span>{{ $t('about.cta_btn_membership') }}</span>
           </NuxtLink>
           <NuxtLink :to="{ name: 'events' }" class="btn-outline">
-            <Icon name="material-symbols:event-rounded" class="text-xl" />
-            {{ $t('about.cta_btn_events') }}
+            <Icon name="material-symbols:event-rounded" class="text-base" />
+            <span>{{ $t('about.cta_btn_events') }}</span>
           </NuxtLink>
         </div>
       </div>
@@ -123,7 +123,7 @@ const columns = computed(() => {
           </span>
           <span>
             <strong class="block text-sm text-gray-800 dark:text-gray-100">{{ $t('about.hero_badge_title') }}</strong>
-            <span class="text-xs text-gray-500 dark:text-gray-400">{{ $t('about.hero_badge_des') }}</span>
+            <span class="text-xs text-gray-600 dark:text-gray-300">{{ $t('about.hero_badge_des') }}</span>
           </span>
         </div>
       </div>
@@ -139,7 +139,7 @@ const columns = computed(() => {
           <strong v-animate-number="{ value: stat.value }" class="block text-3xl md:text-4xl font-bold gradient-text">
             {{ stat.value }}
           </strong>
-          <span class="mt-1.5 block text-sm text-gray-500 dark:text-gray-400">{{ $t(stat.label) }}</span>
+          <span class="mt-1.5 block text-sm text-gray-600 dark:text-gray-300">{{ $t(stat.label) }}</span>
         </div>
       </AppReveal>
     </div>
@@ -184,7 +184,7 @@ const columns = computed(() => {
               <Icon :name="icon" class="w-7 h-7 text-white" aria-hidden="true" />
             </div>
             <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-2">{{ $t(title) }}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ $t(des) }}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{{ $t(des) }}</p>
           </div>
         </AppReveal>
       </div>
@@ -200,14 +200,17 @@ const columns = computed(() => {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Mission -->
       <AppReveal :delay="0">
-        <div class="card-modern p-8 md:p-10 h-full">
-          <div class="flex items-center gap-4 mb-8">
+        <div class="card-modern p-8 md:p-10 h-full relative overflow-hidden">
+          <!-- Cyber-Khmer Phkar Chan Corner Accent -->
+          <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
+
+          <div class="flex items-center gap-4 mb-8 relative z-10">
             <span class="flex-none w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20">
               <Icon class="w-6 h-6 text-white" name="material-symbols:flag-rounded" />
             </span>
             <h4 class="text-xl text-gray-800 dark:text-gray-200 font-bold">{{ $t('about.our_mission') }}</h4>
           </div>
-          <ul class="space-y-6">
+          <ul class="space-y-6 relative z-10">
             <li v-for="({ title, text, icon }, $key) in mission" :key="$key" class="flex items-start gap-4">
               <span class="flex-none w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-900/40 grid place-items-center">
                 <Icon class="text-lg text-primary-600 dark:text-primary-400" :name="icon" />
@@ -226,15 +229,30 @@ const columns = computed(() => {
         <div
           class="relative overflow-hidden h-full rounded-2xl bg-gradient-to-br from-primary-700 via-primary-600 to-primary-500 text-white p-8 md:p-10 shadow-xl shadow-primary-500/20"
         >
+          <!-- Kbach Phkar Chan Silk Grid Watermark (Crisp White Damask on Crimson) -->
+          <div
+            class="absolute inset-0 pointer-events-none opacity-20 bg-repeat bg-center"
+            style="background-image: url('/patterns/phkar-chan-white.svg'); background-size: 34px 34px; mask-image: linear-gradient(135deg, transparent 15%, black 100%); -webkit-mask-image: linear-gradient(135deg, transparent 15%, black 100%);"
+            aria-hidden="true"
+          />
+
+          <!-- Corner Kbach Phkar Chan Watermark Accent -->
+          <AppPhkarChan
+            :filled="false"
+            size="w-20 h-20 sm:w-24 sm:h-24"
+            custom-class="text-white/25"
+            class="absolute -top-3 -right-3 pointer-events-none"
+          />
+
           <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-white/10" />
           <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-white/10" />
-          <div class="relative flex items-center gap-4 mb-8">
+          <div class="relative z-10 flex items-center gap-4 mb-8">
             <span class="flex-none w-12 h-12 rounded-2xl bg-white/15 grid place-items-center">
               <Icon class="w-6 h-6 text-white" name="material-symbols:visibility-rounded" />
             </span>
             <h4 class="text-xl font-bold">{{ $t('about.our_vision') }}</h4>
           </div>
-          <ul class="relative space-y-6">
+          <ul class="relative z-10 space-y-6">
             <li v-for="(vision, $key) in visions" :key="$key" class="flex items-start gap-4">
               <Icon class="flex-none self-start text-2xl text-white/90 mt-0.5" name="material-symbols:check-circle-rounded" />
               <span class="text-white/90 leading-relaxed">{{ $t(vision) }}</span>
@@ -253,8 +271,28 @@ const columns = computed(() => {
       :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
       class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500 text-white px-8 md:px-16 py-14 text-center shadow-xl shadow-primary-500/20"
     >
-      <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6) 0, transparent 25%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.6) 0, transparent 25%);" />
-      <div class="relative">
+      <!-- Kbach Phkar Chan Silk Grid Watermark (Crisp White Damask on Crimson) -->
+      <div
+        class="absolute inset-0 pointer-events-none opacity-20 bg-repeat bg-center"
+        style="background-image: url('/patterns/phkar-chan-white.svg'); background-size: 34px 34px; mask-image: linear-gradient(to right, black 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, black 100%); -webkit-mask-image: linear-gradient(to right, black 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, black 100%);"
+        aria-hidden="true"
+      />
+
+      <!-- Corner Kbach Phkar Chan Watermark Accents -->
+      <AppPhkarChan
+        :filled="false"
+        size="w-24 h-24 sm:w-32 sm:h-32"
+        custom-class="text-white/25"
+        class="absolute -top-4 -right-4 pointer-events-none"
+      />
+      <AppPhkarChan
+        :filled="false"
+        size="w-20 h-20 sm:w-28 sm:h-28"
+        custom-class="text-white/20"
+        class="absolute -bottom-4 -left-4 pointer-events-none"
+      />
+
+      <div class="relative z-10">
         <span class="inline-block text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-primary-100 mb-2">
           {{ $t('about.cta_eyebrow') }}
         </span>

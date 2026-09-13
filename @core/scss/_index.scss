@@ -23,11 +23,11 @@ body {
 /* ---- Modern primitives ---- */
 
 .btn-primary {
-  @apply relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-white
-  bg-gradient-to-r from-primary-600 to-primary-500 shadow-lg shadow-primary-500/25
-  hover:from-primary-700 hover:to-primary-600 hover:shadow-primary-500/40 hover:-translate-y-0.5
+  @apply relative inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold text-white
+  bg-gradient-to-r from-primary-600 to-primary-500 shadow-sm shadow-primary-500/20
+  hover:from-primary-700 hover:to-primary-600 hover:-translate-y-0.5
   active:scale-[0.98] overflow-hidden
-  transition-all duration-200 text-sm md:text-base cursor-pointer;
+  transition-all duration-200 text-xs sm:text-sm cursor-pointer;
 
   &::after {
     content: '';
@@ -47,27 +47,83 @@ body {
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold
+  @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-semibold
   text-primary-700 dark:text-primary-300 ring-1 ring-primary-300 dark:ring-primary-700
   hover:bg-primary-50 dark:hover:bg-primary-900/30 active:scale-[0.98]
-  transition-all duration-200 text-sm md:text-base cursor-pointer;
+  transition-all duration-200 text-xs sm:text-sm cursor-pointer;
 }
 
 .card-modern {
-  @apply rounded-2xl bg-white dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/10 shadow-sm
-  transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-black/50;
+  @apply relative rounded-2xl transition-all duration-300 overflow-hidden;
+  background-color: #FCFAF7;
+  border: 1px solid rgba(194, 43, 39, 0.12);
+
+  /* Khmer-Tech Geometric Watermark: Small grid of Kbach Phkar Chan with Left-to-Right luxury fade */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.065;
+    background-image: url("/patterns/phkar-chan-crimson.svg");
+    background-size: 34px 34px;
+    background-repeat: repeat;
+    background-position: center;
+    mask-image: linear-gradient(to right, transparent 10%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 10%, black 100%);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(194, 43, 39, 0.32);
+    box-shadow: 0 10px 28px -10px rgba(194, 43, 39, 0.12);
+  }
+}
+
+.dark .card-modern {
+  background-color: #161f30;
+  border-color: rgba(255, 255, 255, 0.12);
+
+  &::before {
+    background-image: url("/patterns/phkar-chan-gold.svg");
+    opacity: 0.085;
+  }
+
+  &:hover {
+    border-color: rgba(197, 160, 89, 0.45);
+    box-shadow: 0 10px 28px -10px rgba(197, 160, 89, 0.2);
+  }
 }
 
 .section {
-  @apply py-16 md:py-24;
+  @apply py-8 md:py-12;
 }
 
 .bg-section {
-  @apply bg-gray-50 dark:bg-gray-950/50;
+  @apply bg-gray-50/70 dark:bg-[#0e1626]/60;
 }
 
 .gradient-text {
   @apply bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
 }
 
 :focus-visible {
@@ -94,10 +150,10 @@ img {
 }
 
 .subtitle {
-  @apply text-base text-gray-500 dark:text-gray-400 font-medium;
+  @apply text-base text-gray-600 dark:text-gray-300 font-medium;
 }
 
 .divider {
-  @apply block w-full h-px bg-gray-400 dark:bg-gray-800;
+  @apply block w-full h-px bg-gray-200 dark:bg-gray-800;
 }
 

@@ -923,23 +923,31 @@ watch(
 <template>
   <div
     ref="root"
-    class="pn-root group relative h-full w-full select-none overflow-hidden rounded-3xl border border-gray-200/90 dark:border-white/10 bg-gradient-to-br from-slate-50 via-white to-primary-50/20 dark:from-gray-950 dark:via-slate-900 dark:to-primary-950/25 backdrop-blur-2xl shadow-xl shadow-primary-500/5 transition-all duration-300"
+    class="pn-root group relative h-full w-full select-none overflow-hidden rounded-3xl border border-gray-200/90 dark:border-white/10 bg-gradient-to-br from-slate-50 via-white to-primary-50/20 dark:from-gray-950 dark:via-slate-900 dark:to-primary-950/25 backdrop-blur-2xl transition-all duration-300"
     role="img"
     :aria-label="t('about.network.aria')"
   >
     <!-- 100% Dead Center Hub with CARTA Logo -->
     <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center text-center">
       <div class="relative flex items-center justify-center">
-        <!-- Ambient Breathing Aura -->
-        <span class="pn-center-aura absolute inset-[-14px] rounded-full bg-gradient-to-tr from-primary-500/35 to-amber-500/25 blur-md" />
+        <!-- Phkar Chan Sacred Solar Mandala (Rotating, Vibrant Crimson & Gold, transparent center) -->
+        <AppPhkarChan
+          :filled="false"
+          size="w-40 h-40 sm:w-52 sm:h-52"
+          custom-class="text-[#C22B27] dark:text-[#E5B869]"
+          class="pn-phkar-chan-mandala absolute pointer-events-none"
+        />
 
-        <!-- Logo Container -->
-        <div class="relative z-10 h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-full border-2 border-primary-500 bg-white dark:bg-gray-950 p-1.5 shadow-xl shadow-primary-500/30">
+        <!-- Ambient Breathing Aura -->
+        <span class="pn-center-aura absolute inset-[-6px] rounded-full bg-gradient-to-tr from-primary-500/30 to-amber-500/20 blur-sm" />
+
+        <!-- Logo Container: Sized precisely to fit the inner circle of the Kbach -->
+        <div class="relative z-10 h-12 w-12 sm:h-16 sm:w-16 overflow-hidden rounded-full border-2 border-primary-600 bg-white dark:bg-gray-950 p-1">
           <img :src="logo" alt="CARTA" class="h-full w-full rounded-full object-cover">
         </div>
 
         <!-- Radar Pulse Ripple -->
-        <span class="pn-center-pulse pointer-events-none absolute inset-[-8px] rounded-full border-2 border-primary-500/60" />
+        <span class="pn-center-pulse pointer-events-none absolute inset-[-4px] rounded-full border border-primary-500/50" />
       </div>
 
       <span class="mt-2 text-[11px] font-bold tracking-widest uppercase text-primary-600 dark:text-primary-400 font-mono">
@@ -953,14 +961,14 @@ watch(
     <!-- Interactive Hint (fades out after first interaction) -->
     <div
       v-if="!selectedNode && !isInteracted"
-      class="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full bg-white/85 dark:bg-gray-900/85 px-3 py-1 text-[11px] font-medium text-gray-600 dark:text-gray-400 shadow-sm backdrop-blur-md ring-1 ring-black/10 dark:ring-white/10"
+      class="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full bg-white/85 dark:bg-gray-900/85 px-3 py-1 text-[11px] font-medium text-gray-600 dark:text-gray-300 shadow-sm backdrop-blur-md ring-1 ring-black/10 dark:ring-white/10"
     >
       <Icon name="material-symbols:touch-app-rounded" class="text-xs text-primary-500 animate-pulse" />
       <span>{{ isTouch ? t('about.network.hint_mobile') : t('about.network.hint') }}</span>
     </div>
 
     <!-- Legend (Desktop, Bottom Left) -->
-    <div class="pointer-events-none absolute bottom-3.5 left-4 z-20 hidden sm:flex items-center gap-4 text-[11px] font-semibold text-gray-600 dark:text-gray-400">
+    <div class="pointer-events-none absolute bottom-3.5 left-4 z-20 hidden sm:flex items-center gap-4 text-[11px] font-semibold text-gray-600 dark:text-gray-300">
       <span class="inline-flex items-center gap-1.5">
         <span class="h-2.5 w-2.5 rounded-full bg-primary-600 shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
         {{ t('about.network.legend_mission') }}
@@ -1011,6 +1019,27 @@ watch(
 </template>
 
 <style lang="scss" scoped>
+.pn-phkar-chan-mandala {
+  animation: pn-mandala-spin 90s linear infinite;
+  transform-origin: center center;
+  opacity: 0.2;
+}
+
+@keyframes pn-mandala-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-phkar-chan-mandala {
+    animation: none;
+  }
+}
+
 .pn-center-pulse {
   animation: pn-pulse 2.5s ease-out infinite;
 }

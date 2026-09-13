@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 /* IMPORTS */
-import { ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useHead } from '#app'
 import { useI18n } from 'vue-i18n'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
-import { isArray } from 'lodash-es'
 import moment from 'moment'
 
 const OG_IMAGE = 'https://carta.org.kh/logo.png'
@@ -20,6 +19,8 @@ interface NewsListItem {
     title_km?: string
     short_content?: string
     short_content_km?: string
+    content?: string
+    content_km?: string
   }
 }
 
@@ -28,6 +29,7 @@ interface NewsApiResponse {
   pagination?: {
     total?: number
     totalPages?: number
+    page?: number
   }
 }
 
@@ -35,12 +37,8 @@ interface NewsApiResponse {
 const { locale } = useI18n()
 
 /* STATES */
-const news = ref<NewsListItem[]>([])
 const currentPage = ref(1)
-const totalPages = ref(1)
-const total = ref(0)
 const limit = 12
-const loading = ref(false)
 
 useHead({
   title: 'CARTA Blog - Insights on AI, Robotics, and Technology',
@@ -99,48 +97,24 @@ const resolveImageUrl = (thumb: string | null | undefined): string => {
   return thumb.startsWith('http') ? thumb : `https://cms-api.graphmining.dev${thumb}`
 }
 
-// All news items render with the same card layout (no separate featured hero).
-const gridNews = computed(() => news.value)
+const { data: newsData, pending: loading } = await useFetch<NewsApiResponse>('https://web-api.carta.org.kh/api/news', {
+  lazy: import.meta.client,
+  query: computed(() => ({
+    page: currentPage.value,
+    limit,
+    fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
+  })),
+  watch: [currentPage, locale],
+})
 
-/* METHODS */
-const fetchNews = async (page: number) => {
-  loading.value = true
-  try {
-    const data = await $fetch<NewsApiResponse>('https://web-api.carta.org.kh/api/news', {
-      method: 'GET',
-      params: {
-        page,
-        limit,
-        fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
-      },
-    })
+const gridNews = computed(() => newsData.value?.data ?? [])
+const totalPages = computed(() => newsData.value?.pagination?.totalPages ?? 1)
+const total = computed(() => newsData.value?.pagination?.total ?? 0)
 
-    if (isArray(data?.data)) {
-      news.value = data.data
-      const pagination = data.pagination
-      totalPages.value = pagination.totalPages
-      total.value = pagination.total
-      currentPage.value = pagination.page
-    }
-  } catch (error) {
-    console.error('Error loading news:', error)
-  } finally {
-    loading.value = false
-  }
-}
-
-const onPageChange = async (page: number) => {
+const onPageChange = (page: number) => {
   currentPage.value = page
-  await fetchNews(page)
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-
-/* LIFECYCLE */
-await fetchNews(1)
-
-watch(() => locale.value, () => {
-  fetchNews(currentPage.value)
-})
 </script>
 
 <template>
@@ -149,12 +123,12 @@ watch(() => locale.value, () => {
       v-motion
       :initial="{ opacity: 0, y: 24 }"
       :visible="{ opacity: 1, y: 0, transition: { duration: 500 } }"
-      class="w-full md:w-1/3 flex flex-col items-center justify-center mx-auto"
+      class="w-full md:w-2/3 lg:w-1/2 flex flex-col items-center justify-center mx-auto text-center"
     >
-      <AppTitle text="Our Latest News" />
+      <span class="eyebrow">{{ $t('news.eyebrow') }}</span>
+      <AppTitle :text="$t('news.title')" centered />
       <span class="inline-block pt-4 subtitle text-center">
-        Effective teams communication openly, leverage strength, and embrace
-        diversity for success.
+        {{ $t('news.subtitle') }}
       </span>
     </div>
 

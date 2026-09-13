@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import { round } from 'lodash-es'
-import ThemeSwitcher from '~/layouts/components/ThemeSwitcher.vue'
 import BtnBurger from '~/layouts/components/BtnBurger.vue'
 import DrawerNavbar from '~/layouts/components/DrawerNavbar.vue'
 import LanguageSwitcher from '~/layouts/components/LanguageSwitcher.vue'
@@ -62,7 +61,7 @@ onMounted(() => {
               <Icon
                 :class="[
                   open ? 'rotate-180' : '',
-                  'transition-all duration-300 text-xl text-gray-700',
+                  'transition-all duration-300 text-xl text-gray-700 dark:text-gray-200',
                 ]"
                 name="material-symbols:keyboard-arrow-down-rounded"
               />
@@ -116,11 +115,12 @@ onMounted(() => {
         <img src="/assets/icons/email.png" alt="email icon" />
       </a>
       <LanguageSwitcher />
-      <ThemeSwitcher />
       <BtnBurger class="md:hidden" />
-      <Teleport to="#teleports">
-        <DrawerNavbar />
-      </Teleport>
+      <ClientOnly>
+        <Teleport to="body">
+          <DrawerNavbar v-if="$appStore.activeDrawer" />
+        </Teleport>
+      </ClientOnly>
     </div>
   </nav>
 </template>
@@ -142,7 +142,7 @@ onMounted(() => {
       @apply relative;
 
       a {
-        @apply flex items-center lg:text-lg font-semibold tracking-wider cursor-pointer;
+        @apply flex items-center lg:text-lg font-semibold tracking-wider cursor-pointer text-gray-700 dark:text-gray-200;
 
         &:before {
           content: '';

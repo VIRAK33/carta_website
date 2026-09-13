@@ -26,32 +26,38 @@ onMounted(() => {
 <template>
   <div :class="{ loading }" class="card">
     <!-- 👉🏼Loading -->
-    <div v-if="loading" class="card-inner animate-pulse">
-      <div class="card-img"></div>
-      <div class="card-block">
-        <div class="title" />
-        <div class="subtitle" />
+    <div v-if="loading" class="card-inner">
+      <div class="card-img-wrapper">
+        <USkeleton class="w-full h-full rounded-2xl" />
+      </div>
+      <div class="card-block space-y-2.5">
+        <USkeleton class="h-5 w-3/4 rounded-md" />
+        <USkeleton class="h-4 w-full rounded-md" />
+        <USkeleton class="h-4 w-2/3 rounded-md" />
+        <div class="pt-2">
+          <USkeleton class="h-6 w-24 rounded-full" />
+        </div>
       </div>
     </div>
     <div v-else class="card-inner">
       <!-- 👉🏼 Card Image -->
       <div class="card-img-wrapper group">
         <img
-          ref="imgRef"
           v-show="!imageError && imageLoaded"
+          ref="imgRef"
           :src="thumbnail"
           alt=""
           class="card-img"
           @load="imageLoaded = true"
           @error="imageError = true"
-        />
+        >
         <div 
           v-if="!imageLoaded" 
           class="card-img card-img-placeholder"
         >
           <div class="flex items-center justify-center h-full text-gray-400">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
         </div>
@@ -96,17 +102,17 @@ onMounted(() => {
     @apply pt-7 pb-4;
 
     .title {
-      @apply text-lg text-gray-700 dark:text-gray-300 font-semibold tracking-wide;
+      @apply text-lg text-gray-800 dark:text-gray-100 font-semibold tracking-wide;
       @include truncated-text(100%, 2);
     }
 
     .subtitle {
-      @apply text-base text-gray-500 dark:text-gray-400;
+      @apply text-base text-gray-600 dark:text-gray-300;
       @include truncated-text(100%, 2);
     }
 
     .date-text {
-      @apply inline-flex items-center mt-4 px-3 py-1 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800;
+      @apply inline-flex items-center mt-4 px-3 py-1 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800/80 ring-1 ring-black/5 dark:ring-white/10;
     }
   }
 

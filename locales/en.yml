@@ -30,9 +30,31 @@ meta:
 home:
   hero:
     eyebrow: "CARTA"
+    badge: "CAMBODIA AI & ROBOTICS ECOSYSTEM"
     title: "Advancing AI, Robotics & Technology in Cambodia"
     subtitle: "Empowering innovation through education, industry, and research collaboration."
     cta: "Learn More"
+    explore_membership: "Explore Membership"
+  ticker:
+    tag: "KEY DOMAINS"
+    domains:
+      - "Artificial Intelligence"
+      - "Humanoid Robotics"
+      - "Smart Cities & Urban Tech"
+      - "Technology Transfer"
+      - "Automation & Industrial IoT"
+      - "Deep Tech Research"
+      - "Talent Incubation"
+      - "Cross-Border Partnerships"
+  impact:
+    founded: "Established"
+    pillars: "Strategic Pillars"
+    units: "Leadership Units"
+    tiers: "Membership Tiers"
+  pillars_section:
+    eyebrow: "Our Foundation"
+    title: "Four Pillars Driving Progress"
+    subtitle: "The core principles that guide CARTA in empowering Cambodia's technological ecosystem."
   features:
     knowledge: "Knowledge"
     knowledge_des: "We are committed to advancing technological expertise and industry insights, providing our members with valuable information and resources to stay ahead in their fields."
@@ -46,6 +68,9 @@ home:
   init_and_act:
     eyebrow: "What we do"
     title: "Initiatives & Activities"
+    subtitle: "Action-oriented programs connecting academia, government, and industry to build a resilient tech nation."
+    tag_initiative: "Initiative"
+    tag_activity: "Activity"
     at_carta: "At CARTA, our focus projects are designed to drive innovation and growth across key areas:"
     we_host: "We host a diverse range of activities and events designed to foster collaboration, knowledge sharing, and innovation:"
     consultancy_and_training: "Consultancy & Training"
@@ -64,8 +89,39 @@ home:
     exhibitions_and_showcases_des: "Platforms for members to showcase their innovations, products, and services to a wider audience."
     collaborative_projects: "Collaborative Projects"
     collaborative_projects_des: "Joint initiatives with industry and government partners to drive technological advancements and address key challenges."
+    innovation_callout: "Empowering Cambodia's innovation pipeline"
+    join_sessions: "Join upcoming workshops and networking sessions"
 
   our_activities: "Our activities and events are designed to support our mission of promoting technology, fostering industry growth, and facilitating valuable connections."
+  explore_events: "Explore All Events"
+
+  news_section:
+    eyebrow: "CARTA Journal"
+    title: "Latest News & Insights"
+    subtitle: "Stay informed on breakthroughs in artificial intelligence, robotics, and digital transformation in Cambodia."
+    view_all: "View All Articles"
+
+  events_section:
+    eyebrow: "Calendar"
+    title: "Featured Events & Programs"
+    subtitle: "Explore our milestones and stay tuned for upcoming workshops, conferences, and seminars."
+    view_all: "View All Events"
+    badge_upcoming: "Upcoming"
+    badge_completed: "Completed"
+
+  membership_section:
+    eyebrow: "Ecosystem"
+    title: "Join Cambodia's Technology Ecosystem"
+    subtitle: "Whether you represent an enterprise, are a technology professional, or are passionate about innovation, CARTA has a place for you."
+    view_tiers: "View Membership Details"
+    join_now: "Join Now"
+
+  cta:
+    eyebrow: "Get Involved"
+    title: "Ready to Shape Cambodia's Digital Future?"
+    subtitle: "Partner with CARTA to access cutting-edge research, regional industry networks, and transformative tech opportunities."
+    btn_join: "Become a Member"
+    btn_contact: "Get in Touch"
 
 
 about:
@@ -185,8 +241,12 @@ events:
   our_events: "Our Events"
   events_calendar: "Events Calendar"
   events_calendar_des: "Stay up to date with CARTA's workshops, conferences, and networking events."
+  badge_upcoming: "Upcoming"
+  badge_completed: "Completed"
 
 news:
+  title: "Our Latest News"
+  subtitle: "Effective teams communicate openly, leverage strength, and embrace diversity for success."
   back_to_news: "Back to News"
   gallery: "Gallery"
   latest: "Latest News"

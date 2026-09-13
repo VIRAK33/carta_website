@@ -27,8 +27,9 @@ useHead({
 </script>
 
 <template>
-  <!-- 👉🏼 Intro -->
-  <section class="fixed-width py-14">
+  <div class="overflow-x-hidden">
+    <!-- 👉🏼 Intro -->
+    <section class="fixed-width py-14">
     <div
       v-motion
       :initial="{ opacity: 0, y: 24 }"
@@ -55,49 +56,88 @@ useHead({
       <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
         <!-- Corporate Membership -->
         <AppReveal :delay="0">
-          <div class="card-modern group p-8 text-center">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
-              <Icon class="w-8 h-8 text-white" name="material-symbols:business-center-rounded" />
+          <div class="card-modern group p-8 text-center h-full flex flex-col justify-between relative overflow-hidden">
+            <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
+            <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
+            <svg class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
+              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
+              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
+              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
+              <circle cx="50" cy="8" r="3" fill="currentColor" />
+            </svg>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105 ring-1 ring-white/20">
+                <Icon class="w-8 h-8 text-white" name="material-symbols:business-center-rounded" />
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">
+                {{ $t('membership.corporate_membership') }}
+              </h2>
+              <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-sm">
+                {{ $t('membership.corporate_membership_des') }}
+              </p>
             </div>
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">
-              {{ $t('membership.corporate_membership') }}
-            </h2>
-            <p class="text-gray-600 dark:text-gray-300 mb-6">
-              {{ $t('membership.corporate_membership_des') }}
-            </p>
-            <a href="mailto:info@carta.org.kh" class="btn-outline">{{ $t('membership.join_now') }}</a>
+            <div class="relative z-10">
+              <a href="mailto:info@carta.org.kh" class="btn-outline">{{ $t('membership.join_now') }}</a>
+            </div>
           </div>
         </AppReveal>
 
         <!-- Professional Membership -->
         <AppReveal :delay="70">
-          <div class="card-modern group p-8 text-center">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-600 to-primary-800 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
-              <Icon class="w-8 h-8 text-white" name="material-symbols:workspace-premium-rounded" />
+          <div class="card-modern group p-8 text-center h-full flex flex-col justify-between relative overflow-hidden">
+            <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
+            <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
+            <svg class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
+              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
+              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
+              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
+              <circle cx="50" cy="8" r="3" fill="currentColor" />
+            </svg>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-600 to-primary-800 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105 ring-1 ring-white/20">
+                <Icon class="w-8 h-8 text-white" name="material-symbols:workspace-premium-rounded" />
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">
+                {{ $t('membership.professional_membership') }}
+              </h2>
+              <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-sm">
+                {{ $t('membership.professional_membership_des') }}
+              </p>
             </div>
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">
-              {{ $t('membership.professional_membership') }}
-            </h2>
-            <p class="text-gray-600 dark:text-gray-300 mb-6">
-              {{ $t('membership.professional_membership_des') }}
-            </p>
-            <a href="mailto:info@carta.org.kh" class="btn-outline">{{ $t('membership.join_now') }}</a>
+            <div class="relative z-10">
+              <a href="mailto:info@carta.org.kh" class="btn-outline">{{ $t('membership.join_now') }}</a>
+            </div>
           </div>
         </AppReveal>
 
         <!-- Associate Membership -->
         <AppReveal :delay="140">
-          <div class="card-modern group p-8 text-center">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
-              <Icon class="w-8 h-8 text-white" name="material-symbols:handshake-rounded" />
+          <div class="card-modern group p-8 text-center h-full flex flex-col justify-between relative overflow-hidden">
+            <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
+            <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
+            <svg class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
+              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
+              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
+              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
+              <circle cx="50" cy="8" r="3" fill="currentColor" />
+            </svg>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105 ring-1 ring-white/20">
+                <Icon class="w-8 h-8 text-white" name="material-symbols:handshake-rounded" />
+              </div>
+              <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">
+                {{ $t('membership.associate_membership') }}
+              </h2>
+              <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-sm">
+                {{ $t('membership.associate_membership_des') }}
+              </p>
             </div>
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-3">
-              {{ $t('membership.associate_membership') }}
-            </h2>
-            <p class="text-gray-600 dark:text-gray-300 mb-6">
-              {{ $t('membership.associate_membership_des') }}
-            </p>
-            <a href="mailto:info@carta.org.kh" class="btn-outline">{{ $t('membership.join_now') }}</a>
+            <div class="relative z-10">
+              <a href="mailto:info@carta.org.kh" class="btn-outline">{{ $t('membership.join_now') }}</a>
+            </div>
           </div>
         </AppReveal>
       </div>
@@ -123,7 +163,7 @@ useHead({
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:account-balance-rounded" />
           </div>
-          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700 dark:text-primary-400">
             {{$t('membership.government_partnerships')}}
           </h2>
           <p class="mb-4 text-gray-600 dark:text-gray-300">
@@ -148,7 +188,7 @@ useHead({
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-600 to-primary-800 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:school-rounded" />
           </div>
-          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700 dark:text-primary-400">
             {{$t('membership.educational_partnerships')}}
           </h2>
           <p class="mb-4 text-gray-600 dark:text-gray-300">
@@ -162,7 +202,7 @@ useHead({
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:precision-manufacturing-rounded" />
           </div>
-          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700 dark:text-primary-400">
             {{$t('membership.industry_partnerships')}}
 
           </h2>
@@ -180,7 +220,7 @@ useHead({
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:public-rounded" />
           </div>
-          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700">
+          <h2 class="mb-4 mt-2 text-2xl font-bold text-primary-700 dark:text-primary-400">
             {{$t('membership.international_organization')}}
           </h2>
           <p class="mb-4 text-gray-600 dark:text-gray-300">
@@ -224,16 +264,17 @@ useHead({
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .card {
 
   &-content {
-    @apply w-full rounded-lg pt-8 pb-4 px-2 text-center bg-gray-100 dark:bg-gray-900;
+    @apply w-full rounded-2xl pt-8 pb-4 px-3 text-center bg-gray-100 dark:bg-[#161f30] ring-1 ring-black/5 dark:ring-white/10;
 
     .title {
-      @apply text-base tracking-wide font-semibold dark:text-gray-300;
+      @apply text-base tracking-wide font-semibold dark:text-gray-200;
     }
   }
 
