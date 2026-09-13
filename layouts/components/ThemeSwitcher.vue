@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import sun from '~/assets/icons/sun.png'
-import moon from '~/assets/icons/moon_icon.png'
-
 /* STATES */
 const $colorMode = useColorMode()
 
@@ -12,18 +9,24 @@ const onToggleTheme = (): void => {
 </script>
 
 <template>
-  <button class="btn-switcher" type="button" @click="onToggleTheme">
-    <span v-if="$colorMode.value === 'light'" class="btn-switcher--icon">
-      <Icon v-if="false"
-        class="text-3xl text-yellow-600"
-        name="material-symbols:sunny-rounded"
-      />
-      <img :src="moon" alt="moon icon" />
-    </span>
-    <span v-else-if="$colorMode.value === 'dark'" class="btn-switcher--icon">
-      <Icon v-if="false" class="text-3xl text-gray-500" name="material-symbols:dark-mode" />
-      <img :src="sun" alt="sun icon" />
-    </span>
+  <button
+    class="btn-switcher"
+    type="button"
+    aria-label="Toggle color theme"
+    title="Toggle color theme"
+    @click="onToggleTheme"
+  >
+    <ClientOnly>
+      <span v-if="$colorMode.value === 'dark'" class="btn-switcher--icon">
+        <Icon class="text-xl text-amber-400" name="heroicons:sun-20-solid" />
+      </span>
+      <span v-else class="btn-switcher--icon">
+        <Icon class="text-xl text-gray-700 dark:text-gray-300" name="heroicons:moon-20-solid" />
+      </span>
+      <template #fallback>
+        <span class="w-5 h-5" />
+      </template>
+    </ClientOnly>
   </button>
 </template>
 

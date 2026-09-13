@@ -254,8 +254,8 @@ definePageMeta({
     <SwiperBanner />
 
     <!-- 2. Infinite Tech Ecosystem Marquee -->
-    <div class="border-y border-gray-200/80 dark:border-gray-800/80 bg-gray-50/80 dark:bg-gray-900/60 backdrop-blur-md overflow-hidden py-3">
-      <div class="animate-marquee items-center gap-6 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300">
+    <div class="border-y border-gray-200/80 dark:border-gray-800/80 bg-gray-50/80 dark:bg-gray-900/60 backdrop-blur-md overflow-hidden h-11 flex items-center">
+      <div class="animate-marquee items-center gap-6 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 h-full">
         <template v-for="cycle in 2" :key="cycle">
           <div
             v-for="(item, idx) in techDomains"
@@ -301,21 +301,21 @@ definePageMeta({
               <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#C22B27] dark:text-[#C5A059] mb-3">
                 <span>NATIONAL INNOVATION PLATFORM</span>
               </div>
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-50 leading-tight">
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-50 leading-tight">
                 {{ $t('home.hero.title') }}
-              </h2>
+              </h1>
               <p class="subtitle text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
                 {{ $t('home.hero.subtitle') }}
               </p>
             </div>
 
             <div class="relative z-10 pt-5 flex flex-wrap items-center gap-2.5">
-              <NuxtLink :to="{ name: 'about' }" class="btn-primary">
-                <Icon name="material-symbols:info-outline-rounded" class="text-base" />
+              <NuxtLink :to="{ name: 'about' }" class="btn-primary" aria-label="Learn more about CARTA">
+                <Icon name="heroicons:information-circle-20-solid" class="text-base" />
                 <span>{{ $t('home.hero.cta') }}</span>
               </NuxtLink>
               <NuxtLink :to="{ name: 'members' }" class="btn-outline">
-                <Icon name="material-symbols:group-add-rounded" class="text-base" />
+                <Icon name="heroicons:user-group-20-solid" class="text-base" />
                 <span>{{ $t('home.hero.explore_membership') }}</span>
               </NuxtLink>
             </div>
@@ -440,12 +440,12 @@ definePageMeta({
               <!-- Callout feature inside column -->
               <div class="mt-4 p-3.5 rounded-xl bg-primary-50/70 dark:bg-primary-950/40 border border-primary-100 dark:border-primary-900/40 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2.5">
-                  <Icon name="material-symbols:rocket-launch-rounded" class="text-xl text-primary-600 dark:text-primary-400 flex-shrink-0" />
+                  <Icon name="heroicons:rocket-launch-20-solid" class="text-xl text-primary-600 dark:text-primary-400 flex-shrink-0" />
                   <span class="text-xs font-medium text-primary-900 dark:text-primary-200">
                     {{ $t('home.init_and_act.innovation_callout') }}
                   </span>
                 </div>
-                <NuxtLink :to="{ name: 'about' }" class="text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline flex-shrink-0">
+                <NuxtLink :to="{ name: 'about' }" class="text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline flex-shrink-0" aria-label="Learn more about CARTA initiatives">
                   {{ $t('home.hero.cta') }} &rarr;
                 </NuxtLink>
               </div>
@@ -577,7 +577,7 @@ definePageMeta({
           </div>
           <NuxtLink :to="{ name: 'news' }" class="btn-outline text-xs py-2 px-3.5 self-start sm:self-auto flex items-center gap-1.5">
             <span>{{ $t('home.news_section.view_all') }}</span>
-            <Icon name="material-symbols:arrow-forward-rounded" class="text-base" />
+            <Icon name="heroicons:arrow-right-20-solid" class="text-base" />
           </NuxtLink>
         </div>
 
@@ -657,14 +657,14 @@ definePageMeta({
               :to="{ name: 'members' }"
               class="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-primary-700 bg-white shadow-sm hover:bg-gray-100 transition-all duration-200 active:scale-95"
             >
-              <Icon name="material-symbols:person-add-rounded" class="text-base" />
+              <Icon name="heroicons:user-plus-20-solid" class="text-base" />
               <span>{{ $t('home.cta.btn_join') }}</span>
             </NuxtLink>
             <a
               href="mailto:info@carta.org.kh"
               class="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white ring-1 ring-white/60 hover:bg-white/15 transition-all duration-200 active:scale-95"
             >
-              <Icon name="material-symbols:mail-rounded" class="text-base" />
+              <Icon name="heroicons:envelope-20-solid" class="text-base" />
               <span>{{ $t('home.cta.btn_contact') }}</span>
             </a>
           </div>

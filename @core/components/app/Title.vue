@@ -1,13 +1,19 @@
 <script lang="ts" setup>
-defineProps<{
-  text: string
-  centered?: boolean
-}>()
+withDefaults(
+  defineProps<{
+    text: string
+    centered?: boolean
+    tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  }>(),
+  {
+    tag: 'h2',
+  }
+)
 </script>
 
 <template>
   <div class="base-title" :class="{ centered }">
-    <h6>{{ text }}</h6>
+    <component :is="tag" class="title-heading">{{ text }}</component>
   </div>
 </template>
 
@@ -15,8 +21,8 @@ defineProps<{
 .base-title {
   @apply relative text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold tracking-tight pb-3.5 sm:pb-4 mb-2;
 
-  h6 {
-    @apply leading-normal;
+  .title-heading {
+    @apply leading-normal font-bold;
   }
 
   &:before {

@@ -112,8 +112,9 @@ onMounted(() => {
         rel="noopener noreferrer"
         class="navbar--controls__btn"
         title="Open Webmail"
+        aria-label="Open Webmail"
       >
-        <img src="/assets/icons/email.png" alt="email icon" />
+        <Icon name="heroicons:envelope-20-solid" class="text-xl text-gray-700 dark:text-gray-300" />
       </a>
       <LanguageSwitcher />
       <ThemeSwitcher />

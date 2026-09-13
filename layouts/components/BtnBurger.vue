@@ -9,6 +9,8 @@ const $appConfigStore = useAppConfigStore()
     :class="{ 'is-closed': $appConfigStore.activeDrawer }"
     class="btn-burger"
     type="button"
+    aria-label="Toggle navigation menu"
+    title="Toggle navigation menu"
     @click="$appConfigStore.onToggleActiveDrawer()"
   >
     <span class="btn-burger--inner">

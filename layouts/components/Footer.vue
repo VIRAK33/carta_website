@@ -40,7 +40,7 @@ const socials = [
           <p class="mt-2 text-xs text-gray-600 dark:text-gray-300 leading-relaxed max-w-sm">
             {{ $t('footer.tagline') }}
           </p>
-          <div class="flex items-center gap-2 mt-2.5">
+          <div class="flex items-center gap-2.5 mt-3">
             <a
               v-for="s in socials"
               :key="s.name"
@@ -48,23 +48,23 @@ const socials = [
               :aria-label="s.name"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-7 h-7 rounded-full bg-white dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/10 grid place-items-center text-gray-600 dark:text-gray-300 hover:text-white hover:bg-gradient-to-br hover:from-primary-500 hover:to-primary-700 hover:ring-primary-400 transition-all duration-200"
+              class="w-9 h-9 rounded-full bg-white dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/10 grid place-items-center text-gray-600 dark:text-gray-300 hover:text-white hover:bg-gradient-to-br hover:from-primary-500 hover:to-primary-700 hover:ring-primary-400 transition-all duration-200"
             >
-              <Icon :name="s.icon" class="text-sm" />
+              <Icon :name="s.icon" class="text-base" />
             </a>
           </div>
         </div>
 
         <!-- Quick Links -->
         <div class="md:col-span-3">
-          <h5 class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200 mb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200 mb-2">
             {{ $t('menus.quick_links') }}
-          </h5>
-          <ul class="space-y-1.5 text-xs">
+          </h3>
+          <ul class="space-y-0.5 text-xs">
             <li v-for="link in quickLinks" :key="link.to">
               <NuxtLink
                 :to="link.to"
-                class="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                class="inline-flex items-center gap-1.5 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2 px-1 rounded"
               >
                 <span class="text-primary-500/70">›</span>
                 {{ $t(link.label) }}
@@ -75,24 +75,24 @@ const socials = [
 
         <!-- Contact -->
         <div class="md:col-span-4">
-          <h5 class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200 mb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200 mb-2">
             {{ $t('menus.get_in_touch') }}
-          </h5>
-          <ul class="space-y-1.5 text-xs text-gray-600 dark:text-gray-300">
+          </h3>
+          <ul class="space-y-1 text-xs text-gray-600 dark:text-gray-300">
             <li>
-              <a href="tel:+85561809888" class="inline-flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                <Icon class="text-sm text-primary-500 flex-shrink-0" name="material-symbols:call-rounded" />
+              <a href="tel:+85561809888" class="inline-flex items-center gap-2 py-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <Icon class="text-sm text-primary-500 flex-shrink-0" name="heroicons:phone-20-solid" />
                 <span>+855 (61) 809 888</span>
               </a>
             </li>
             <li>
-              <a href="mailto:info@carta.org.kh" class="inline-flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                <Icon class="text-sm text-primary-500 flex-shrink-0" name="material-symbols:alternate-email-rounded" />
+              <a href="mailto:info@carta.org.kh" class="inline-flex items-center gap-2 py-1.5 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <Icon class="text-sm text-primary-500 flex-shrink-0" name="heroicons:at-symbol-20-solid" />
                 <span>info@carta.org.kh</span>
               </a>
             </li>
-            <li class="inline-flex items-center gap-2">
-              <Icon class="text-sm text-primary-500 flex-shrink-0" name="material-symbols:location-on-rounded" />
+            <li class="inline-flex items-center gap-2 py-1">
+              <Icon class="text-sm text-primary-500 flex-shrink-0" name="heroicons:map-pin-20-solid" />
               <span>Phnom Penh, Cambodia</span>
             </li>
           </ul>

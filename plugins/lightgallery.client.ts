@@ -14,6 +14,7 @@ import 'lightgallery/css/lg-fullscreen.css'
 export default defineNuxtPlugin((nuxtApp: NuxtApp) => {
   nuxtApp.provide('lightGallery', ($el: HTMLElement, options = {}) => {
     return lightGallery($el, {
+      licenseKey: 'GPLv3',
       plugins: [lgThumbnail, lgFullscreen, lgZoom],
       ...options,
     })

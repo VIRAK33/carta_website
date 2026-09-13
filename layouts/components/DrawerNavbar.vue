@@ -114,8 +114,9 @@ function onWindowResize(): void {
           rel="noopener noreferrer"
           class="btn-email-mobile"
           title="Open Webmail"
+          aria-label="Open Webmail"
         >
-          <img src="/assets/icons/email.png" alt="email icon" />
+          <Icon name="heroicons:envelope-20-solid" class="text-xl text-gray-700 dark:text-gray-300" />
         </a>
       </div>
     </div>

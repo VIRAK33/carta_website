@@ -106,7 +106,15 @@ const slideNext = () => {
   >
     <SwiperSlide v-for="({ name, image }, $i) in slides" :key="$i">
       <div class="swiper--item">
-        <img :alt="name || 'CARTA Banner'" :src="image" :loading="$i === 0 ? 'eager' : 'lazy'" decoding="async" />
+        <img
+          :alt="name || 'CARTA Banner'"
+          :src="image"
+          :loading="$i === 0 ? 'eager' : 'lazy'"
+          :fetchpriority="$i === 0 ? 'high' : undefined"
+          decoding="async"
+          width="1920"
+          height="520"
+        />
       </div>
     </SwiperSlide>
 

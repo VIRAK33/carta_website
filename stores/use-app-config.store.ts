@@ -63,7 +63,7 @@ export const useAppConfigStore = defineStore('appStore', () => {
     // },
   ])
 
-  const navbarHeight = ref<number>(0)
+  const navbarHeight = ref<number>(72)
   const loading = ref<boolean>(false)
   const activeDrawer = ref<boolean>(false)
 

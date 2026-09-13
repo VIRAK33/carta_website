@@ -1,0 +1,20 @@
+# CARTA - Cambodia AI, Robotics and Technology Transfer Association
+
+> CARTA (Cambodia AI, Robotics and Technology Transfer Association) is a leading national association driving the advancement of Artificial Intelligence, humanoid robotics, smart city innovation, and cross-border technology transfer in the Kingdom of Cambodia.
+
+## Overview
+CARTA bridges education, industry, government, and research institutions to accelerate Cambodia's transition into a high-value digital economy. Founded under the auspices of national technological initiatives, CARTA facilitates research, technology commercialization, and talent incubation.
+
+## Core Focus Areas
+- **Artificial Intelligence**: Generative AI, natural language processing for Khmer, predictive analytics, and machine vision.
+- **Humanoid Robotics & Automation**: Industrial IoT, smart manufacturing, service robots, and robotic automation.
+- **Smart Cities & Urban Tech**: Intelligent urban infrastructure, smart mobility, and sustainability systems.
+- **Technology Transfer**: Commercializing academic research and fostering cross-border tech licensing.
+- **Deep Tech Research & Incubation**: Supporting tech founders and high-tech research centers across Cambodia.
+
+## Key Pages & Resources
+- [About CARTA](https://carta.org.kh/about): Mission, vision, core pillars, organizational governance, and leadership.
+- [Members](https://carta.org.kh/members): Member organizations, founding partners, academic alliances, and industry ecosystem.
+- [Events](https://carta.org.kh/events): Tech summits, symposiums, robotics competitions, and community workshops.
+- [News & Insights](https://carta.org.kh/news): Association announcements, technology insights, and press releases.
+- [Contact & Inquiries](https://carta.org.kh/): Email: info@carta.org.kh | Phone: +855 (61) 809 888 | Phnom Penh, Cambodia.

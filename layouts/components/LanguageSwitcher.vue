@@ -15,13 +15,32 @@ function onToggleSwitch(): void {
 </script>
 
 <template>
-  <button class="ls-btn" type="button" @click="onToggleSwitch">
-    <img
-      v-if="locale === 'km'"
-      alt="English"
-      src="@/assets/icons/uk.png"
-    />
-    <img v-else alt="Khmer" src="@/assets/icons/khmer.png" />
+  <button
+    class="ls-btn"
+    type="button"
+    aria-label="Switch language"
+    title="Switch language"
+    @click="onToggleSwitch"
+  >
+    <ClientOnly>
+      <img
+        v-if="locale === 'km'"
+        alt="English language"
+        src="@/assets/icons/uk.png"
+        width="24"
+        height="24"
+      />
+      <img
+        v-else
+        alt="Khmer language"
+        src="@/assets/icons/khmer.png"
+        width="24"
+        height="24"
+      />
+      <template #fallback>
+        <span class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 inline-block" />
+      </template>
+    </ClientOnly>
   </button>
 </template>
 

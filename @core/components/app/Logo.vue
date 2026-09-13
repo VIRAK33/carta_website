@@ -1,30 +1,21 @@
 <script lang="ts" setup>
-/* IMPORTS */
-import { ref, onMounted, onUnmounted } from 'vue'
-const $config = useRuntimeConfig()
-
-/* STATES */
-const isSmallScreen = ref(true)
-
-/* LIFECYCLE */
-onMounted(() => {
-  const checkScreenSize = () => {
-    isSmallScreen.value = window.innerWidth < 768
-  }
-  checkScreenSize()
-  window.addEventListener('resize', checkScreenSize)
-  onUnmounted(() => window.removeEventListener('resize', checkScreenSize))
-})
+/* Logo component */
 </script>
 
 <template>
-  <RouterLink class="app-logo" to="/">
+  <RouterLink class="app-logo" to="/" aria-label="CARTA Home">
     <!-- Logo Image -->
-    <img alt="CARTA - Cambodia AI Robotics and Technology Transfer Association" src="/logo.webp" />
+    <img
+      alt="CARTA - Cambodia AI Robotics and Technology Transfer Association"
+      src="/logo.webp"
+      width="56"
+      height="56"
+      fetchpriority="high"
+    />
     <!-- Desktop: Full title -->
-    <div v-if="!isSmallScreen" class="text" v-text="$t('app_name')" />
+    <div class="text hidden md:block" v-text="$t('app_name')" />
     <!-- Mobile: Abbreviated title -->
-    <div v-if="isSmallScreen" class="text" v-text="'CARTA'" />
+    <div class="text block md:hidden" v-text="'CARTA'" />
   </RouterLink>
 </template>
 

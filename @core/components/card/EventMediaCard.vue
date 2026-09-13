@@ -27,7 +27,7 @@ function onViewSource(): void {
       <!-- 👉🏼 Card Action -->
       <div v-if="!isEmpty(gallery)" class="card--inner__action">
         <button class="btn-view" type="button" @click="onViewSource">
-          <Icon class="text-xl" name="fluent:eye-12-filled" />
+          <Icon class="text-xl" name="heroicons:eye-20-solid" />
           <span>View Sources</span>
         </button>
       </div>
