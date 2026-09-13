@@ -9,17 +9,33 @@ const $props = defineProps<{
 /* STATES */
 const { $lightGallery } = useNuxtApp()
 const galleryRef = ref<HTMLElement | null>(null)
+let lgInstance: { destroy?: () => void } | null = null
 
 function onInitialLightGallery(): void {
-  $lightGallery(galleryRef.value, {
-    // Custom lightGallery options
-    thumbnail: true,
-    zoom: true,
-    speed: 500,
-  })
+  if (galleryRef.value && typeof $lightGallery === 'function') {
+    lgInstance = $lightGallery(galleryRef.value, {
+      thumbnail: true,
+      zoom: true,
+      speed: 500,
+    })
+  }
 }
 
 onMounted(() => onInitialLightGallery())
+
+onBeforeUnmount(() => {
+  if (lgInstance && typeof lgInstance.destroy === 'function') {
+    try {
+      lgInstance.destroy()
+    } catch {
+      // ignore
+    }
+    lgInstance = null
+  }
+  if (import.meta.client) {
+    document.querySelectorAll('.lg-backdrop, .lg-outer, .lg-container').forEach(el => el.remove())
+  }
+})
 </script>
 
 <template>

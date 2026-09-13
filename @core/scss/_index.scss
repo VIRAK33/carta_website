@@ -191,3 +191,26 @@ html.dark img,
   @apply block w-full h-px bg-gray-200 dark:bg-gray-800;
 }
 
+/* ==========================================================================
+   Defensive Overlay Safety Guards
+   Prevents DevTools, LightGallery, or mobile drawer overlays from dimming the screen
+   ========================================================================== */
+#vue-tracer-overlay {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.lg-backdrop:not(.in) {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+@media (min-width: 768px) {
+  .drawer-navbar--overlay {
+    display: none !important;
+    pointer-events: none !important;
+  }
+}
+
+
