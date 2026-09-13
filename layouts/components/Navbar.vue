@@ -128,8 +128,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/@core/scss/_mixins.scss';
-
 .navbar {
   @apply fixed top-0 left-0 right-0 w-full flex items-center justify-between
   px-4 md:px-10 py-2 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border-b border-black/5 dark:border-white/10;

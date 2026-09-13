@@ -76,8 +76,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@core/scss/_mixins.scss';
-
 .card {
   @apply w-full;
 
@@ -104,13 +102,11 @@ onMounted(() => {
     @apply pt-7 pb-4;
 
     .title {
-      @apply text-lg text-gray-800 dark:text-gray-100 font-semibold tracking-wide;
-      @include truncated-text(100%, 2);
+      @apply text-lg text-gray-800 dark:text-gray-100 font-semibold tracking-wide line-clamp-2;
     }
 
     .subtitle {
-      @apply text-base text-gray-600 dark:text-gray-300;
-      @include truncated-text(100%, 2);
+      @apply text-base text-gray-600 dark:text-gray-300 line-clamp-2;
     }
 
     .date-text {

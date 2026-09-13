@@ -63,10 +63,7 @@ const slides = computed(() => {
         image: item.data?.image || '',
       })).filter((slide: any) => slide.image)
 
-      console.log('Using API slides:', processedSlides)
       return processedSlides
-    } else {
-      console.log('No valid data from API, using default slides')
     }
   } catch (e) {
     console.error('Error processing slides:', e)
@@ -76,12 +73,22 @@ const slides = computed(() => {
   return defaultSlides
 })
 
+const swiperInstance = ref<any>(null)
+const onSwiper = (swiper: any) => {
+  swiperInstance.value = swiper
+}
+const slidePrev = () => {
+  swiperInstance.value?.slidePrev()
+}
+const slideNext = () => {
+  swiperInstance.value?.slideNext()
+}
 </script>
 
 <template>
   <Swiper
     :autoplay="{
-      delay: 3000,
+      delay: 3500,
       disableOnInteraction: false,
     }"
     :loop="true"
@@ -95,6 +102,7 @@ const slides = computed(() => {
     class="swiper-banner"
     direction="vertical"
     effect="fade"
+    @swiper="onSwiper"
   >
     <SwiperSlide v-for="({ name, image }, $i) in slides" :key="$i">
       <div class="swiper--item">
@@ -102,47 +110,25 @@ const slides = computed(() => {
       </div>
     </SwiperSlide>
 
-    <!-- Custom Arrows -->
+    <!-- Custom Navigation Arrows -->
     <div class="swiper--navigation">
       <button
-        v-motion="{
-          initial: {
-            y: 100,
-            opacity: 0,
-          },
-          enter: {
-            y: 0,
-            opacity: 1,
-            transition: {
-              ease: 'easeInOut',
-            },
-          },
-        }"
         class="swiper--prev"
-        title="Previous"
+        title="Previous Slide"
+        aria-label="Previous Slide"
         type="button"
+        @click="slidePrev"
       >
-        <Icon class="icon" name="tabler:arrow-left-circle" />
+        <Icon class="icon" name="heroicons:chevron-left-20-solid" />
       </button>
       <button
-        v-motion="{
-          initial: {
-            y: 100,
-            opacity: 0,
-          },
-          enter: {
-            y: 0,
-            opacity: 1,
-            transition: {
-              ease: 'easeInOut',
-            },
-          },
-        }"
         class="swiper--next"
-        title="Next"
+        title="Next Slide"
+        aria-label="Next Slide"
         type="button"
+        @click="slideNext"
       >
-        <Icon class="icon" name="tabler:arrow-move-right" />
+        <Icon class="icon" name="heroicons:chevron-right-20-solid" />
       </button>
     </div>
   </Swiper>
@@ -150,19 +136,18 @@ const slides = computed(() => {
 
 <style lang="scss" scoped>
 .swiper--navigation {
-  @apply w-full flex items-start gap-4 justify-end absolute bottom-7 z-10 px-10;
+  @apply w-full flex items-center gap-3 justify-end absolute bottom-6 z-30 px-6 sm:px-10 pointer-events-none;
 
   .swiper--prev,
   .swiper--next {
-    @apply w-10 h-10 rounded-full grid place-items-center border-2
-    bg-primary-700/80 border-gray-300 transition-all duration-300;
-
-    &:hover {
-      @apply bg-primary-700 -translate-y-2;
-    }
+    @apply pointer-events-auto w-10 h-10 rounded-full flex items-center justify-center
+    bg-white/80 dark:bg-gray-900/80 hover:bg-primary-600 dark:hover:bg-primary-600
+    text-gray-800 dark:text-gray-100 hover:text-white dark:hover:text-white
+    border border-white/40 dark:border-white/20 shadow-lg backdrop-blur-md
+    transition-all duration-200 active:scale-95 cursor-pointer;
 
     .icon {
-      @apply text-xl text-gray-300;
+      @apply text-2xl transition-colors;
     }
   }
 }

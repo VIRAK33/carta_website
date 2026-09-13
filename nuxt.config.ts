@@ -6,6 +6,10 @@ const { resolve } = createResolver(import.meta.url)
 export default defineNuxtConfig({
   ssr: true,
 
+  experimental: {
+    appManifest: false,
+  },
+
   app: {
     head: {
       meta: [
@@ -83,6 +87,14 @@ export default defineNuxtConfig({
 
   // --- VITE CONFIGURATION ---
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          silenceDeprecations: ['import', 'legacy-js-api'],
+        },
+      },
+    },
     optimizeDeps: {
       include: ['axios'],
     },
@@ -141,8 +153,8 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: 'en', name: 'English', iso: 'en-US', file: 'en.yml' },
-      { code: 'km', name: 'ភាសាខ្មែរ', iso: 'km-KH', file: 'km.yml' },
+      { code: 'en', name: 'English', language: 'en-US', file: 'en.yml' },
+      { code: 'km', name: 'ភាសាខ្មែរ', language: 'km-KH', file: 'km.yml' },
     ],
     lazy: false,
     langDir: 'locales/',

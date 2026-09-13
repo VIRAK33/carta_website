@@ -29,8 +29,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '@core/scss/_mixins.scss';
-
 .app-logo {
   @apply flex flex-row items-center gap-4 text-xl font-semibold;
 
@@ -39,8 +37,7 @@ onMounted(() => {
   }
 
   .text {
-    @apply max-w-sm text-base font-semibold;
-    @include truncated-text(100%, 1);
+    @apply max-w-sm text-base font-semibold line-clamp-1;
   }
 }
 </style>
