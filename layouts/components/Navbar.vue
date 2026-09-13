@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import { round } from 'lodash-es'
+import ThemeSwitcher from '~/layouts/components/ThemeSwitcher.vue'
 import BtnBurger from '~/layouts/components/BtnBurger.vue'
 import DrawerNavbar from '~/layouts/components/DrawerNavbar.vue'
 import LanguageSwitcher from '~/layouts/components/LanguageSwitcher.vue'
@@ -115,6 +116,7 @@ onMounted(() => {
         <img src="/assets/icons/email.png" alt="email icon" />
       </a>
       <LanguageSwitcher />
+      <ThemeSwitcher />
       <BtnBurger class="md:hidden" />
       <ClientOnly>
         <Teleport to="body">
@@ -161,10 +163,10 @@ onMounted(() => {
     }
 
     &__group {
-      @apply flex flex-col gap-2 p-2.5 rounded-lg shadow-md bg-white dark:shadow-gray-500 dark:bg-gray-950 ring-1 ring-black/5;
+      @apply flex flex-col gap-2 p-2.5 rounded-lg shadow-xl bg-white dark:bg-[#161f30] ring-1 ring-black/5 dark:ring-white/10;
 
       a {
-        @apply flex p-2 gap-2 rounded-lg hover:bg-gray-100 hover:dark:bg-gray-800 text-base;
+        @apply flex p-2 gap-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 text-base text-gray-700 dark:text-gray-200;
 
         &:before {
           content: '' !important;

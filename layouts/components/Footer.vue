@@ -13,7 +13,7 @@ const socials = [
 </script>
 
 <template>
-  <footer class="relative overflow-hidden bg-gray-50 dark:bg-gray-950/60 border-t border-gray-200 dark:border-gray-800">
+  <footer class="relative overflow-hidden bg-gray-50 dark:bg-[#0e1626]/80 border-t border-gray-200 dark:border-gray-800">
     <!-- Kbach Phkar Chan Silk Grid Watermark -->
     <div class="footer-phkar-chan-texture" aria-hidden="true" />
 
