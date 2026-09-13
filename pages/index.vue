@@ -283,9 +283,9 @@ definePageMeta({
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>{{ $t('home.hero.badge') }}</span>
           </div>
-          <AppTitle :text="$t('home.pillars_section.title')" centered />
+          <AppTitle :text="$t('home.hero.title')" centered tag="h1" />
           <p class="subtitle text-sm sm:text-base mt-2">
-            {{ $t('home.pillars_section.subtitle') }}
+            {{ $t('home.hero.subtitle') }}
           </p>
         </div>
 
@@ -301,18 +301,18 @@ definePageMeta({
               <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#C22B27] dark:text-[#C5A059] mb-3">
                 <span>NATIONAL INNOVATION PLATFORM</span>
               </div>
-              <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-50 leading-tight">
-                {{ $t('home.hero.title') }}
-              </h1>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-gray-50 leading-tight">
+                {{ $t('home.pillars_section.title') }}
+              </h2>
               <p class="subtitle text-sm sm:text-base leading-relaxed mt-3 max-w-2xl">
-                {{ $t('home.hero.subtitle') }}
+                {{ $t('home.pillars_section.subtitle') }}
               </p>
             </div>
 
             <div class="relative z-10 pt-5 flex flex-wrap items-center gap-2.5">
               <NuxtLink :to="{ name: 'about' }" class="btn-primary" aria-label="Learn more about CARTA">
                 <Icon name="heroicons:information-circle-20-solid" class="text-base" />
-                <span>{{ $t('home.hero.cta') }}</span>
+                <span>{{ $t('home.hero.cta') }} <span class="sr-only">about CARTA</span></span>
               </NuxtLink>
               <NuxtLink :to="{ name: 'members' }" class="btn-outline">
                 <Icon name="heroicons:user-group-20-solid" class="text-base" />
@@ -446,7 +446,7 @@ definePageMeta({
                   </span>
                 </div>
                 <NuxtLink :to="{ name: 'about' }" class="text-xs font-bold text-primary-600 dark:text-primary-400 hover:underline flex-shrink-0" aria-label="Learn more about CARTA initiatives">
-                  {{ $t('home.hero.cta') }} &rarr;
+                  {{ $t('home.hero.cta') }} <span class="sr-only">about CARTA</span> &rarr;
                 </NuxtLink>
               </div>
             </div>

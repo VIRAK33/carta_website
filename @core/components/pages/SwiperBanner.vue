@@ -53,6 +53,23 @@ const { data: slideResponse } = useFetch<any>(
   }
 )
 
+const localSlideMap: Record<string, string> = {
+  slide1,
+  slide2,
+  slide3,
+  slide4,
+}
+
+function resolveSlideImage(rawUrl: string, index: number): string {
+  if (!rawUrl) return defaultSlides[index % defaultSlides.length]?.image || ''
+  for (const key of ['slide1', 'slide2', 'slide3', 'slide4']) {
+    if (rawUrl.toLowerCase().includes(key)) {
+      return localSlideMap[key]
+    }
+  }
+  return rawUrl
+}
+
 // Process slides data
 const slides = computed(() => {
   try {
@@ -60,7 +77,7 @@ const slides = computed(() => {
     if (slideResponse.value?.data && Array.isArray(slideResponse.value.data) && slideResponse.value.data.length > 0) {
       const processedSlides = slideResponse.value.data.map((item: any, index: number) => ({
         name: item.data?.name || `Slide ${index + 1}`,
-        image: item.data?.image || '',
+        image: resolveSlideImage(item.data?.image, index),
       })).filter((slide: any) => slide.image)
 
       return processedSlides
