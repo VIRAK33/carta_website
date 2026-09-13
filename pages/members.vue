@@ -1,28 +1,38 @@
 <script lang="ts" setup>
-/* IMPORTS */
-import ogImage from '~/assets/icons/member/associate.webp'
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
+const pageTitle = 'Membership & Partnerships - Corporate, Professional, and Associate | CARTA'
+const pageDescription = 'Explore CARTA’s Membership options: Corporate, Professional, and Associate. Join Cambodia’s premier AI, robotics, and technology transfer ecosystem.'
 
-
-/* STATES */
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'CARTA Membership, Tech Association Cambodia, Corporate Membership, Professional Membership, Associate Membership, Robotics Partners',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/members',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'CARTA Membership - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'CARTA Membership - Cambodia AI Robotics and Technology Transfer Association',
+})
 
 useHead({
-  title: 'Membership - Corporate, Professional, and Associate Options | CARTA',
+  link: [
+    { rel: 'canonical', href: 'https://carta.org.kh/members' },
+  ],
   meta: [
-    { property: 'og:title', content: 'Membership - Corporate, Professional, and Associate Options | CARTA' },
-    {
-      property: 'og:description',
-      content: 'Explore CARTA’s Membership options: Corporate, Professional, and Associate. Join to access industry insights, exclusive events, and networking opportunities tailored to your needs.'
-    },
-    { property: 'og:image', content: ogImage },
-    { property: 'og:url', content: 'https://carta.org.kh/membership' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Membership - Corporate, Professional, and Associate Options | CARTA' },
-    { name: 'twitter:description', content: 'Discover CARTA Membership benefits and find the best option for you.' },
-    { name: 'twitter:image', content: ogImage },
-    { name: 'telegram:title', content: 'Membership - Corporate, Professional, and Associate Options | CARTA' },
-    { name: 'telegram:description', content: 'Join CARTA and access tailored opportunities for businesses and individuals in the technology sector.' },
-    { name: 'telegram:image', content: ogImage }
-  ]
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
+    { name: 'telegram:image', content: OG_IMAGE },
+  ],
 })
 </script>
 
@@ -59,13 +69,6 @@ useHead({
           <div class="card-modern group p-8 text-center h-full flex flex-col justify-between relative overflow-hidden">
             <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
             <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
-            <svg class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="50" cy="8" r="3" fill="currentColor" />
-            </svg>
             <div class="relative z-10">
               <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105 ring-1 ring-white/20">
                 <Icon class="w-8 h-8 text-white" name="material-symbols:business-center-rounded" />
@@ -88,13 +91,6 @@ useHead({
           <div class="card-modern group p-8 text-center h-full flex flex-col justify-between relative overflow-hidden">
             <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
             <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
-            <svg class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="50" cy="8" r="3" fill="currentColor" />
-            </svg>
             <div class="relative z-10">
               <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-600 to-primary-800 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105 ring-1 ring-white/20">
                 <Icon class="w-8 h-8 text-white" name="material-symbols:workspace-premium-rounded" />
@@ -117,13 +113,6 @@ useHead({
           <div class="card-modern group p-8 text-center h-full flex flex-col justify-between relative overflow-hidden">
             <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
             <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
-            <svg class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="50" cy="8" r="3" fill="currentColor" />
-            </svg>
             <div class="relative z-10">
               <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105 ring-1 ring-white/20">
                 <Icon class="w-8 h-8 text-white" name="material-symbols:handshake-rounded" />
@@ -171,14 +160,16 @@ useHead({
           </p>
           <div class="flex justify-center space-x-4">
             <img
-              alt="Gov Logo 1"
+              alt="Ministry of Industry, Science, Technology & Innovation (MISTI) Logo"
               class="h-16 w-16"
               src="@/assets/icons/member/misti-logo.webp"
-              />
+              loading="lazy"
+            />
             <img
-              alt="Gov Logo 2"
+              alt="Ministry of Interior (MOI) Logo"
               class="h-16 w-16"
               src="@/assets/icons/member/moi-logo.webp"
+              loading="lazy"
             />
           </div>
         </div>
@@ -194,7 +185,7 @@ useHead({
           <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.educational_partnerships_des')}}
           </p>
-          <img alt="Education Logo" class="mx-auto h-16 w-auto" src="@/assets/icons/member/cit.png" />
+          <img alt="Cambodia Institute of Technology (CIT) Logo" class="mx-auto h-16 w-auto" src="@/assets/icons/member/cit.png" loading="lazy" />
         </div>
 
         <!-- Industry Partnerships -->
@@ -210,8 +201,8 @@ useHead({
             {{$t('membership.industry_partnerships_des')}}
           </p>
           <div class="flex justify-center space-x-4">
-            <img alt="Industry Logo 1" class="h-16 w-auto" src="@/assets/icons/member/cognizer-cambodia.png" />
-            <img alt="Industry Logo 2" class="h-16 w-auto" src="@/assets/icons/member/arm-robotics.png" />
+            <img alt="Cognizer Cambodia Logo" class="h-16 w-auto" src="@/assets/icons/member/cognizer-cambodia.png" loading="lazy" />
+            <img alt="ARM Robotics Logo" class="h-16 w-auto" src="@/assets/icons/member/arm-robotics.png" loading="lazy" />
           </div>
         </div>
 
@@ -228,36 +219,43 @@ useHead({
           </p>
           <div class="card-img flex justify-center space-x-2">
             <img
-              alt="International Logo 1"
+              alt="Korea Association of Robotics (KAR) Logo"
               src="../assets/icons/member/kar.webp"
+              loading="lazy"
             />
             <img
-              alt="International Logo 2"
+              alt="Malaysia Robotics & Automation Society (MyRAS) Logo"
               src="@/assets/icons/member/myras.webp"
+              loading="lazy"
             />
             <img
-              alt="International Logo 3"
+              alt="Robotics Society of the Philippines (MRSP) Logo"
               src="../assets/icons/member/mrsp.webp"
+              loading="lazy"
             />
           </div>
           <div class="card-img flex justify-center space-x-2">
             <img
-              alt="International Logo 3"
+              alt="Asia Pacific Assistive Robotics Association (APARA) Logo"
               src="../assets/icons/member/apara.webp"
+              loading="lazy"
             />
             <img
-              alt="International Logo 3"
+              alt="AutomationSG Logo"
               src="@/assets/icons/member/automationsg.webp"
+              loading="lazy"
             />
           </div>
           <div class="card-img flex justify-center space-x-2">
             <img
-              alt="International Logo 3"
-              src="@/assets/icons/member/china-asean.webp"
+              alt="China-ASEAN Robotics Association Logo"
+              src="../assets/icons/member/china-asean.webp"
+              loading="lazy"
             />
             <img
-              alt="International Logo 3"
+              alt="Asian Robotics Innovation Network (ARAIN) Logo"
               src="@/assets/icons/member/arain.png"
+              loading="lazy"
             />
           </div>
         </div>

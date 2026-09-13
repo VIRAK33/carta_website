@@ -20,7 +20,7 @@ onMounted(() => {
 <template>
   <RouterLink class="app-logo" to="/">
     <!-- Logo Image -->
-    <img alt="Carta" src="/logo.webp" />
+    <img alt="CARTA - Cambodia AI Robotics and Technology Transfer Association" src="/logo.webp" />
     <!-- Desktop: Full title -->
     <div v-if="!isSmallScreen" class="text" v-text="$t('app_name')" />
     <!-- Mobile: Abbreviated title -->

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import MemberCard from '~/@core/components/card/MemberCard.vue'
-import ogImage from '~/assets/images/logo/logo.webp'
 import Dr_Pheng_Sokliep from '@/assets/images/committees/Dr_Pheng_Sokliep.jpg'
 import Heng_Sokunthy from '@/assets/images/committees/Heng_Sokunthy.png'
 import Ly_Diamand from '@/assets/images/committees/Dimand.webp'
@@ -53,24 +52,55 @@ const members = ref<ICommitteeMember[]>([
   },
 ])
 
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
+const pageTitle = 'Our Committees - Leadership & Governance | CARTA'
+const pageDescription = 'Meet the leadership team and committee members of the Cambodia AI Robotics and Technology Transfer Association (CARTA).'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'CARTA Leadership, CARTA Committees, Robotics Association Board, Tech Transfer Committee, AI Leadership Cambodia',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/our-committees',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'CARTA Committees - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'CARTA Committees - Cambodia AI Robotics and Technology Transfer Association',
+})
+
 useHead({
-  title: 'Our Committees - CARTA Leadership | CARTA',
+  link: [
+    { rel: 'canonical', href: 'https://carta.org.kh/our-committees' },
+  ],
   meta: [
-    { property: 'og:title', content: 'Our Committees - CARTA Leadership | CARTA' },
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
+    { name: 'telegram:image', content: OG_IMAGE },
+  ],
+  script: [
     {
-      property: 'og:description',
-      content: 'Meet the leadership of the Cambodia AI Robotics and Technology Transfer Association (CARTA).'
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        'name': pageTitle,
+        'description': pageDescription,
+        'url': 'https://carta.org.kh/our-committees',
+        'mainEntity': {
+          '@id': 'https://carta.org.kh/#organization',
+        },
+      }),
     },
-    { property: 'og:image', content: ogImage },
-    { property: 'og:url', content: 'https://carta.org.kh/our-committees' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Our Committees - CARTA Leadership | CARTA' },
-    { name: 'twitter:description', content: 'Meet CARTA’s leadership team and organizational structure.' },
-    { name: 'twitter:image', content: ogImage },
-    { name: 'telegram:title', content: 'Our Committees - CARTA Leadership | CARTA' },
-    { name: 'telegram:description', content: 'Discover CARTA’s leadership and organizational structure.' },
-    { name: 'telegram:image', content: ogImage }
-  ]
+  ],
 })
 </script>
 

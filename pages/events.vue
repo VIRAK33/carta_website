@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { useHead } from '#app'
 import { useI18n } from 'vue-i18n'
 
-const OG_IMAGE = 'https://carta.org.kh/logo.png'
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
 
 /* TYPES */
 interface RawEventData {
@@ -136,37 +136,53 @@ const onPageChange = (page: number) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+const pageTitle = 'Event Calendar - Upcoming Robotics and Technology Events | CARTA'
+const pageDescription = 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'Robotics Events Cambodia, AI Conferences, Technology Exhibitions, ICanrob, CARTA Events, Tech Calendar',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/events',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'CARTA Event Calendar - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'CARTA Event Calendar - Cambodia AI Robotics and Technology Transfer Association',
+})
+
 useHead({
-  title: 'Event Calendar - Upcoming Robotics and Technology Events',
   link: [
     { rel: 'canonical', href: 'https://carta.org.kh/events' },
   ],
   meta: [
-    { property: 'og:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
-    {
-      property: 'og:description',
-      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.',
-    },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:image', content: OG_IMAGE },
-    { property: 'og:image:secure_url', content: OG_IMAGE },
-    { property: 'og:image:width', content: '640' },
-    { property: 'og:image:height', content: '640' },
-    { property: 'og:image:alt', content: 'CARTA Event Calendar' },
-    { property: 'og:url', content: 'https://carta.org.kh/events' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
-    {
-      name: 'twitter:description',
-      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.',
-    },
-    { name: 'twitter:image', content: OG_IMAGE },
-    { name: 'telegram:title', content: 'Event Calendar - Upcoming Robotics and Technology Events' },
-    {
-      name: 'telegram:description',
-      content: 'Discover the latest robotics and technology events such as ICanrob, Industrial Transformation ASIA-PACIFIC, and World Robotics Conference. Stay updated with event dates, locations, and details.',
-    },
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
     { name: 'telegram:image', content: OG_IMAGE },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': pageTitle,
+        'description': pageDescription,
+        'url': 'https://carta.org.kh/events',
+        'mainEntity': {
+          '@id': 'https://carta.org.kh/#organization',
+        },
+      }),
+    },
   ],
 })
 

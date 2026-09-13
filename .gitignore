@@ -22,6 +22,7 @@ logs
 
 # macOS AppleDouble metadata (created when copying to external drives)
 ._*
+.npm
 
 # Static site build archives
 carta-static*.zip

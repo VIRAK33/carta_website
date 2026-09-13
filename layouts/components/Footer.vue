@@ -124,7 +124,7 @@ const socials = [
   -webkit-mask-image: linear-gradient(to right, transparent 5%, black 50%, transparent 95%);
 }
 
-:global(.dark) .footer-phkar-chan-texture {
+.dark .footer-phkar-chan-texture {
   background-image: url("/patterns/phkar-chan-gold.svg");
   opacity: 0.07;
 }

@@ -67,6 +67,57 @@ const medias = ref<ICard[]>([
     ],
   },
 ])
+
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
+const pageTitle = 'Event Media & Photo Gallery | CARTA'
+const pageDescription = 'Explore photo highlights and event media from CARTA robotics workshops, AI conferences, and technology exhibitions across Cambodia.'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'CARTA Photos, Robotics Gallery, Tech Events Media, AI Conference Photos, Cambodia Technology Pictures',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/library/photos',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'CARTA Event Media - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'CARTA Event Media - Cambodia AI Robotics and Technology Transfer Association',
+})
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://carta.org.kh/library/photos' },
+  ],
+  meta: [
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
+    { name: 'telegram:image', content: OG_IMAGE },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ImageGallery',
+        'name': pageTitle,
+        'description': pageDescription,
+        'url': 'https://carta.org.kh/library/photos',
+        'mainEntity': {
+          '@id': 'https://carta.org.kh/#organization',
+        },
+      }),
+    },
+  ],
+})
 </script>
 
 <template>

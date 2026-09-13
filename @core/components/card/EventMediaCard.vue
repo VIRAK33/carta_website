@@ -20,8 +20,7 @@ function onViewSource(): void {
 <template>
   <div class="card">
     <div class="card--inner">
-      <!-- 👉🏼 Card Image -->
-      <img :src="src" alt="" />
+      <img :src="src" :alt="title || 'CARTA Event Media'" loading="lazy" decoding="async" />
 
       <!-- 👉🏼 Card Overlay -->
       <div v-if="!isEmpty(gallery)" class="card--inner__overlay" />

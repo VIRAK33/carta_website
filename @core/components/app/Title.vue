@@ -13,7 +13,11 @@ defineProps<{
 
 <style lang="scss" scoped>
 .base-title {
-  @apply relative text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold tracking-tight;
+  @apply relative text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold tracking-tight pb-3.5 sm:pb-4 mb-2;
+
+  h6 {
+    @apply leading-normal;
+  }
 
   &:before {
     content: '';

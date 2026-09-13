@@ -5,9 +5,8 @@ import { useHead } from '#app'
 import { useI18n } from 'vue-i18n'
 import SwiperBanner from '~/@core/components/pages/SwiperBanner.vue'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
-import moment from 'moment'
 
-const OG_IMAGE = 'https://carta.org.kh/logo.png'
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
 
 /* TYPES */
 interface NewsListItem {
@@ -181,7 +180,10 @@ const extractShortContent = (content: string): string => {
 }
 
 const formatDate = (date: string): string => {
-  return moment(date).format('MM-DD-YYYY')
+  if (!date) return ''
+  const d = new Date(date)
+  if (isNaN(d.getTime())) return ''
+  return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}-${d.getFullYear()}`
 }
 
 const resolveImageUrl = (thumb: string | null | undefined): string => {
@@ -203,30 +205,37 @@ const { data: newsResponse, pending: newsLoading } = await useFetch<NewsApiRespo
 const latestNews = computed(() => newsResponse.value?.data ?? [])
 
 /* SEO */
+const pageTitle = 'CARTA - Empowering Cambodia with AI and Robotics'
+const pageDescription = 'Discover how CARTA fosters innovation in Cambodia through AI, robotics, and technology transfer, creating opportunities for education, industry, and research collaboration.'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'AI Cambodia, Robotics Cambodia, Technology Transfer, CARTA, Smart Cities, Artificial Intelligence, Innovation Cambodia',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'CARTA - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'CARTA - Cambodia AI Robotics and Technology Transfer Association',
+})
+
 useHead({
-  title: 'CARTA - Empowering Cambodia with AI and Robotics',
   link: [
     { rel: 'canonical', href: 'https://carta.org.kh/' },
   ],
   meta: [
-    { property: 'og:title', content: 'CARTA - Empowering Cambodia with AI and Robotics' },
-    {
-      property: 'og:description',
-      content: 'Discover how CARTA fosters innovation in Cambodia through AI, robotics, and technology transfer, creating opportunities for education, industry, and research collaboration.',
-    },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:image', content: OG_IMAGE },
-    { property: 'og:image:secure_url', content: OG_IMAGE },
-    { property: 'og:image:width', content: '640' },
-    { property: 'og:image:height', content: '640' },
-    { property: 'og:image:alt', content: 'CARTA' },
-    { property: 'og:url', content: 'https://carta.org.kh/' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'CARTA - Empowering Cambodia with AI and Robotics' },
-    { name: 'twitter:description', content: 'Discover how CARTA fosters innovation in Cambodia through AI and robotics.' },
-    { name: 'twitter:image', content: OG_IMAGE },
-    { name: 'telegram:title', content: 'CARTA - Empowering Cambodia with AI and Robotics' },
-    { name: 'telegram:description', content: 'Explore how CARTA supports Cambodia’s digital transformation.' },
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
     { name: 'telegram:image', content: OG_IMAGE },
     { name: 'contact:email', content: 'info@carta.org.kh' },
     { name: 'contact:phone', content: '+855 (61) 809 888' },
@@ -287,23 +296,6 @@ definePageMeta({
             <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
             <AppPhkarChan size="w-12 h-12" class="absolute top-0 right-0" />
 
-            <!-- Bottom-right Digitalized Prasat wireframe -->
-            <svg
-              class="absolute -bottom-5 -right-5 w-36 h-36 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]"
-              viewBox="0 0 100 100"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.1"
-              aria-hidden="true"
-            >
-              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="12" cy="70" r="2" fill="currentColor" />
-              <circle cx="88" cy="70" r="2" fill="currentColor" />
-              <circle cx="50" cy="8" r="3" fill="currentColor" />
-            </svg>
 
             <div class="relative z-10">
               <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#C22B27] dark:text-[#C5A059] mb-3">
@@ -361,23 +353,6 @@ definePageMeta({
             <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
             <AppPhkarChan size="w-9 h-9 sm:w-10 sm:h-10" class="absolute top-0 right-0" />
 
-            <!-- Bottom-Right Digitalized Prasat / Circuit Wireframe Watermark -->
-            <svg
-              class="absolute -bottom-3 -right-3 w-20 h-20 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]"
-              viewBox="0 0 100 100"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-              aria-hidden="true"
-            >
-              <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-              <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-              <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-              <circle cx="12" cy="70" r="2" fill="currentColor" />
-              <circle cx="88" cy="70" r="2" fill="currentColor" />
-              <circle cx="50" cy="8" r="3" fill="currentColor" />
-            </svg>
 
             <!-- Large Khmer Numeral Background Watermark -->
             <span
@@ -561,21 +536,6 @@ definePageMeta({
               <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
               <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
 
-              <!-- Bottom-right subtle tech lotus motif -->
-              <svg
-                class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]"
-                viewBox="0 0 100 100"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.2"
-                aria-hidden="true"
-              >
-                <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-                <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-                <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-                <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-                <circle cx="50" cy="8" r="3" fill="currentColor" />
-              </svg>
 
               <div class="relative z-10">
                 <div

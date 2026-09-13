@@ -4,9 +4,8 @@ import { ref, computed } from 'vue'
 import { useHead } from '#app'
 import { useI18n } from 'vue-i18n'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
-import moment from 'moment'
 
-const OG_IMAGE = 'https://carta.org.kh/logo.png'
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
 
 /* TYPES */
 interface NewsListItem {
@@ -40,38 +39,54 @@ const { locale } = useI18n()
 const currentPage = ref(1)
 const limit = 12
 
+const pageTitle = 'CARTA News & Insights - AI, Robotics, and Technology'
+const pageDescription = 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA newsroom.'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'CARTA News, AI News Cambodia, Robotics Updates, Tech Transfer Articles, Cambodia Innovation',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/news',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'CARTA News - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'CARTA News - Cambodia AI Robotics and Technology Transfer Association',
+})
+
 useHead({
-  title: 'CARTA Blog - Insights on AI, Robotics, and Technology',
   titleTemplate: '%s',
   link: [
     { rel: 'canonical', href: 'https://carta.org.kh/news' },
   ],
   meta: [
-    { property: 'og:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
-    {
-      property: 'og:description',
-      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.',
-    },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:image', content: OG_IMAGE },
-    { property: 'og:image:secure_url', content: OG_IMAGE },
-    { property: 'og:image:width', content: '640' },
-    { property: 'og:image:height', content: '640' },
-    { property: 'og:image:alt', content: 'CARTA Blog' },
-    { property: 'og:url', content: 'https://carta.org.kh/news' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
-    {
-      name: 'twitter:description',
-      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.',
-    },
-    { name: 'twitter:image', content: OG_IMAGE },
-    { name: 'telegram:title', content: 'CARTA Blog - Insights on AI, Robotics, and Technology' },
-    {
-      name: 'telegram:description',
-      content: 'Stay updated with the latest trends, insights, and innovations in AI, robotics, and technology transfer through the CARTA blog.',
-    },
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
     { name: 'telegram:image', content: OG_IMAGE },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': pageTitle,
+        'description': pageDescription,
+        'url': 'https://carta.org.kh/news',
+        'mainEntity': {
+          '@id': 'https://carta.org.kh/#organization',
+        },
+      }),
+    },
   ],
 })
 
@@ -89,7 +104,10 @@ const extractShortContent = (content: string): string => {
 }
 
 const formatDate = (date: string): string => {
-  return moment(date).format('MM-DD-YYYY')
+  if (!date) return ''
+  const d = new Date(date)
+  if (isNaN(d.getTime())) return ''
+  return `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}-${d.getFullYear()}`
 }
 
 const resolveImageUrl = (thumb: string | null | undefined): string => {

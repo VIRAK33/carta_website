@@ -27,19 +27,19 @@ const swiperModules = computed(() => [
 // Default slides as fallback
 const defaultSlides = [
   {
-    name: 'First Banner',
+    name: 'CARTA - Empowering Cambodia with AI and Robotics',
     image: slide1,
   },
   {
-    name: 'Second Banner',
+    name: 'CARTA - Promoting Innovation and Technology Transfer',
     image: slide2,
   },
   {
-    name: 'Third Banner',
+    name: 'CARTA - Fostering Public-Private Technology Collaboration',
     image: slide3,
   },
   {
-    name: 'A JOURNEY OF GROWTH THROUGH EDUCATION AND EXCHANGE',
+    name: 'CARTA - A Journey of Growth Through Education and Exchange',
     image: slide4,
   },
 ]
@@ -98,7 +98,7 @@ const slides = computed(() => {
   >
     <SwiperSlide v-for="({ name, image }, $i) in slides" :key="$i">
       <div class="swiper--item">
-        <img :alt="name" :src="image" />
+        <img :alt="name || 'CARTA Banner'" :src="image" :loading="$i === 0 ? 'eager' : 'lazy'" decoding="async" />
       </div>
     </SwiperSlide>
 

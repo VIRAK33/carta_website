@@ -36,21 +36,6 @@ const initials = computed(() =>
       <!-- Cyber-Khmer Phkar Chan (ផ្កាច័ន្ទ) Corner Accent -->
       <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0 pointer-events-none" />
 
-      <!-- Digitalized Prasat Architectural Corner Accent -->
-      <svg
-        class="absolute -bottom-3 -right-3 w-16 h-16 text-[#C22B27]/[0.035] dark:text-white/[0.03] pointer-events-none transition-all duration-500 group-hover:scale-105 group-hover:text-[#C22B27]/[0.07] dark:group-hover:text-[#C5A059]/[0.07]"
-        viewBox="0 0 100 100"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.2"
-        aria-hidden="true"
-      >
-        <path d="M50 8 L50 22 M44 22 L56 22 M50 22 L36 46 L64 46 Z M36 46 L26 70 L74 70 Z M26 70 L16 94 L84 94 Z" />
-        <path d="M22 94 H6 M78 94 H94 M32 70 H12 M68 70 H88 M40 46 H18 M60 46 H82" stroke-dasharray="2 3" />
-        <circle cx="6" cy="94" r="2.5" fill="currentColor" />
-        <circle cx="94" cy="94" r="2.5" fill="currentColor" />
-        <circle cx="50" cy="8" r="3" fill="currentColor" />
-      </svg>
 
       <div class="relative z-10">
         <span v-if="subtitle" class="member-card__role" v-text="subtitle" />
@@ -118,9 +103,14 @@ const initials = computed(() =>
       -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
     }
 
-    > * {
+    > *:not(.absolute) {
       position: relative;
       z-index: 1;
+    }
+
+    > .absolute {
+      position: absolute;
+      z-index: 2;
     }
   }
 
@@ -137,7 +127,7 @@ const initials = computed(() =>
   }
 }
 
-:global(.dark) .member-card__content {
+.dark .member-card__content {
   background-color: #161f30;
   border-color: rgba(255, 255, 255, 0.12);
 

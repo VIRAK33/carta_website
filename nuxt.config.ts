@@ -12,10 +12,15 @@ export default defineNuxtConfig({
         { name: 'color-scheme', content: 'light dark' },
         { name: 'darkreader-lock', content: 'true' },
       ],
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+      ],
     },
   },
 
   nitro: {
+    compressPublicAssets: true,
     prerender: {
       crawlLinks: true,
       failOnError: false,
@@ -116,9 +121,14 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      Quicksand: [300, 400, 500, 600, 700],
-      'Kantumruy Pro': [100, 200, 300, 400, 500, 600, 700],
+      Quicksand: [400, 500, 600, 700],
+      'Kantumruy Pro': [400, 500, 600, 700],
     },
+    display: 'swap',
+    prefetch: true,
+    preconnect: true,
+    preload: true,
+    download: false,
   },
 
   headlessui: {

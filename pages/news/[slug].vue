@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 /* IMPORTS */
 import { useRoute } from 'vue-router'
-import moment from 'moment'
 import { useEventListener } from '@vueuse/core'
 import NewsCard from '~/@core/components/card/NewsCard.vue'
 
 /* CONSTANTS */
-const DEFAULT_OG_IMAGE = 'https://carta.org.kh/logo.png'
+const DEFAULT_OG_IMAGE = 'https://carta.org.kh/og-image.png'
 const SITE_NAME = 'CARTA'
 const FALLBACK_DESCRIPTION =
   'Read the latest insights and updates from CARTA - Cambodia AI Robotics and Technology Transfer Association'
@@ -520,7 +519,7 @@ useHead({
                 class="text-base"
                 name="material-symbols:calendar-today-rounded"
               />
-              {{ moment(news.createdAt).format('MMM DD, YYYY') }}
+              {{ formatDate(news.createdAt) }}
             </span>
             <span
               class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-white/10 dark:text-gray-200 rounded-full"
@@ -643,7 +642,7 @@ useHead({
               class="inline-block cursor-pointer transition-all duration-300 hover:-translate-y-1.5"
             >
               <NewsCard
-                :date="moment(item.createdAt).format('MMM DD, YYYY')"
+                :date="formatDate(item.createdAt)"
                 :description="item.short_content"
                 :thumbnail="item.thumbnail"
                 :title="item.title"

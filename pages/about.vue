@@ -1,13 +1,7 @@
 <script lang="ts" setup>
-import ogImage from '~/assets/images/logo/logo.webp'
 import ParticleNetwork from '~/@core/components/ParticleNetwork.vue'
 
 /* STATES */
-
-interface IStoryItem {
-  id: number
-  text: string
-}
 
 interface IMissionItem {
   id: number
@@ -15,14 +9,6 @@ interface IMissionItem {
   text: string
   icon: string
 }
-
-const about = ref<IStoryItem[]>([
-  { id: 1, text: 'about.about_1' },
-  { id: 2, text: 'about.about_2' },
-  { id: 3, text: 'about.about_3' },
-  { id: 4, text: 'about.about_4' },
-  { id: 5, text: 'about.about_5' },
-])
 
 const stats = ref([
   { label: 'about.stat_founded', value: 2024, icon: 'material-symbols:calendar-today-rounded' },
@@ -38,24 +24,55 @@ const pillars = ref([
   { title: 'home.features.leadership', des: 'home.features.leadership_des', icon: 'material-symbols:groups-rounded', gradient: 'from-red-600 to-primary-800' },
 ])
 
+const OG_IMAGE = 'https://carta.org.kh/og-image.png'
+const pageTitle = 'About CARTA - Driving Technology Transfer in Cambodia'
+const pageDescription = 'Learn about CARTA’s mission, vision, and efforts in advancing AI, robotics, and technology transfer to enhance Cambodia’s technological landscape.'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDescription,
+  keywords: 'About CARTA, Technology Transfer Cambodia, AI Cambodia, Robotics Cambodia, CARTA Mission, CARTA Vision',
+  ogTitle: pageTitle,
+  ogDescription: pageDescription,
+  ogType: 'website',
+  ogUrl: 'https://carta.org.kh/about',
+  ogImage: OG_IMAGE,
+  ogImageSecureUrl: OG_IMAGE,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogImageAlt: 'About CARTA - Cambodia AI Robotics and Technology Transfer Association',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: OG_IMAGE,
+  twitterImageAlt: 'About CARTA - Cambodia AI Robotics and Technology Transfer Association',
+})
+
 useHead({
-  title: 'About CARTA - Driving Technology Transfer in Cambodia',
+  link: [
+    { rel: 'canonical', href: 'https://carta.org.kh/about' },
+  ],
   meta: [
-    { property: 'og:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
+    { name: 'telegram:title', content: pageTitle },
+    { name: 'telegram:description', content: pageDescription },
+    { name: 'telegram:image', content: OG_IMAGE },
+  ],
+  script: [
     {
-      property: 'og:description',
-      content: 'Learn about CARTA’s mission, vision, and efforts in advancing AI, robotics, and technology transfer to enhance Cambodia\'s technological landscape.'
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        'name': pageTitle,
+        'description': pageDescription,
+        'url': 'https://carta.org.kh/about',
+        'mainEntity': {
+          '@id': 'https://carta.org.kh/#organization',
+        },
+      }),
     },
-    { property: 'og:image', content: ogImage },
-    { property: 'og:url', content: 'https://carta.org.kh/about' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
-    { name: 'twitter:description', content: 'Learn about CARTA’s mission and its role in Cambodia’s tech growth.' },
-    { name: 'twitter:image', content: ogImage },
-    { name: 'telegram:title', content: 'About CARTA - Driving Technology Transfer in Cambodia' },
-    { name: 'telegram:description', content: 'Discover CARTA’s role in shaping Cambodia’s tech future.' },
-    { name: 'telegram:image', content: ogImage }
-  ]
+  ],
 })
 
 const mission = ref<IMissionItem[]>([
@@ -67,11 +84,6 @@ const mission = ref<IMissionItem[]>([
 ])
 
 const visions = ref<string[]>(['about.our_vision_1', 'about.our_vision_2', 'about.our_vision_3'])
-
-const columns = computed(() => {
-  const mid = Math.ceil(about.value.length / 2)
-  return [about.value.slice(0, mid), about.value.slice(mid)]
-})
 </script>
 
 <template>
@@ -151,18 +163,120 @@ const columns = computed(() => {
       <span class="eyebrow">{{ $t('about.story_eyebrow') }}</span>
       <AppTitle :text="$t('about.story_title')" centered />
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 w-full lg:w-4/5 mx-auto">
-      <AppReveal v-for="(column, colIndex) in columns" :key="colIndex" :delay="colIndex * 80">
-        <div class="space-y-6">
-          <p
-            v-for="(item, index) in column"
-            :key="index"
-            class="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px]"
-          >
-            {{ $t(item.text) }}
-          </p>
-        </div>
-      </AppReveal>
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+      <!-- Left Column: Manifesto / Foundation Card -->
+      <div class="lg:col-span-5 flex flex-col">
+        <AppReveal :delay="0" class="h-full">
+          <div class="card-modern p-6 sm:p-8 h-full flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#FCFAF7] via-white to-primary-50/25 dark:from-[#182234] dark:via-[#151d2d] dark:to-[#182234]">
+            <!-- Cyber-Khmer Phkar Chan Corner Accent -->
+            <AppPhkarChan size="w-12 h-12" class="absolute top-0 right-0" />
+
+            <div class="relative z-10">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-950/50 border border-primary-200/60 dark:border-primary-800/40 text-primary-700 dark:text-primary-300 text-xs font-bold uppercase tracking-wider mb-4">
+                <Icon name="material-symbols:verified-rounded" class="text-sm text-primary-600 dark:text-primary-400" />
+                <span>{{ $t('about.story_manifesto_badge') }}</span>
+              </div>
+
+              <h3 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-gray-50 mb-4 leading-snug">
+                {{ $t('about.story_manifesto_title') }}
+              </h3>
+
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] mb-6">
+                {{ $t('about.about_1') }}
+              </p>
+            </div>
+
+            <!-- Vision Callout Quote -->
+            <div class="relative z-10 mt-auto pt-4 border-t border-gray-100 dark:border-gray-800/80">
+              <div class="flex items-start gap-3 p-4 rounded-xl bg-primary-50/60 dark:bg-primary-950/40 border border-primary-100/80 dark:border-primary-900/40">
+                <Icon name="material-symbols:format-quote-rounded" class="flex-none text-2xl text-primary-500 mt-0.5" />
+                <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-200 leading-relaxed italic">
+                  {{ $t('about.about_5') }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </AppReveal>
+      </div>
+
+      <!-- Right Column: 3 Thematic Focus Cards -->
+      <div class="lg:col-span-7 flex flex-col gap-4 sm:gap-5 justify-between">
+        <!-- Card 1: Public-Private Synergy -->
+        <AppReveal :delay="100">
+          <div class="card-modern p-5 sm:p-6 group hover:border-primary-300 dark:hover:border-primary-700 transition-all duration-300">
+            <div class="flex items-start gap-4">
+              <span class="flex-none w-11 h-11 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-md shadow-primary-500/20 text-white transition-transform duration-300 group-hover:scale-105">
+                <Icon name="material-symbols:handshake-rounded" class="text-xl" />
+              </span>
+              <div class="flex-1">
+                <h4 class="text-base sm:text-lg font-bold text-gray-800 dark:text-gray-100 mb-1.5">
+                  {{ $t('about.story_card_synergy_title') }}
+                </h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {{ $t('about.about_2') }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </AppReveal>
+
+        <!-- Card 2: Empowering Local Enterprise & Commerce -->
+        <AppReveal :delay="180">
+          <div class="card-modern p-5 sm:p-6 group hover:border-primary-300 dark:hover:border-primary-700 transition-all duration-300">
+            <div class="flex items-start gap-4">
+              <span class="flex-none w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500 to-primary-600 grid place-items-center shadow-md shadow-rose-500/20 text-white transition-transform duration-300 group-hover:scale-105">
+                <Icon name="material-symbols:storefront-rounded" class="text-xl" />
+              </span>
+              <div class="flex-1">
+                <h4 class="text-base sm:text-lg font-bold text-gray-800 dark:text-gray-100 mb-1.5">
+                  {{ $t('about.story_card_ecosystem_title') }}
+                </h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {{ $t('about.about_3') }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </AppReveal>
+
+        <!-- Card 3: Anchored by Four Strategic Pillars -->
+        <AppReveal :delay="260">
+          <div class="card-modern p-5 sm:p-6 group hover:border-primary-300 dark:hover:border-primary-700 transition-all duration-300">
+            <div class="flex items-start gap-4">
+              <span class="flex-none w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-primary-600 grid place-items-center shadow-md shadow-amber-500/20 text-white transition-transform duration-300 group-hover:scale-105">
+                <Icon name="material-symbols:layers-rounded" class="text-xl" />
+              </span>
+              <div class="flex-1">
+                <h4 class="text-base sm:text-lg font-bold text-gray-800 dark:text-gray-100 mb-1.5">
+                  {{ $t('about.story_card_pillars_title') }}
+                </h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
+                  {{ $t('about.about_4') }}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary-50 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-800/40">
+                    <Icon name="material-symbols:psychology-rounded" class="text-sm text-primary-500" />
+                    {{ $t('home.features.knowledge') }}
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary-50 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-800/40">
+                    <Icon name="material-symbols:hub-rounded" class="text-sm text-primary-500" />
+                    {{ $t('home.features.network') }}
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary-50 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-800/40">
+                    <Icon name="material-symbols:storefront-rounded" class="text-sm text-primary-500" />
+                    {{ $t('home.features.marketplace') }}
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary-50 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-800/40">
+                    <Icon name="material-symbols:groups-rounded" class="text-sm text-primary-500" />
+                    {{ $t('home.features.leadership') }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AppReveal>
+      </div>
     </div>
   </section>
 
