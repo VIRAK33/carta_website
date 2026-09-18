@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 /* PROPS */
 defineProps<{
@@ -13,14 +13,6 @@ defineProps<{
 /* STATE */
 const imageError = ref(false)
 const imageLoaded = ref(false)
-const imgRef = ref<HTMLImageElement>()
-
-onMounted(() => {
-  if (imgRef.value?.complete) {
-    if (imgRef.value.naturalWidth > 0) imageLoaded.value = true
-    else imageError.value = true
-  }
-})
 </script>
 
 <template>
@@ -43,18 +35,16 @@ onMounted(() => {
       <!-- 👉🏼 Card Image -->
       <div class="card-img-wrapper group">
         <img
-          v-show="!imageError && imageLoaded"
-          ref="imgRef"
+          :class="{ 'opacity-0': !imageLoaded }"
           :src="thumbnail"
           :alt="title || 'CARTA News'"
-          loading="lazy"
           decoding="async"
           class="card-img"
           @load="imageLoaded = true"
           @error="imageError = true"
         >
         <div 
-          v-if="!imageLoaded" 
+          v-if="!imageLoaded && !imageError" 
           class="card-img card-img-placeholder"
         >
           <div class="flex items-center justify-center h-full text-gray-400">
@@ -88,7 +78,7 @@ onMounted(() => {
       position: relative;
 
       .card-img {
-        @apply w-full h-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-110;
+        @apply w-full h-full rounded-xl object-cover transition-all duration-300 group-hover:scale-110;
         display: block;
       }
 
