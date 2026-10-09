@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 /* PROPS */
-defineProps<{
+const props = defineProps<{
   thumbnail?: string
   title: string
   description?: string
@@ -13,6 +13,28 @@ defineProps<{
 /* STATE */
 const imageError = ref(false)
 const imageLoaded = ref(false)
+const imgRef = ref<HTMLImageElement | null>(null)
+
+// If the image is already complete when mounted (SSR HTML + cache /
+// fast network), the `load` event has already fired and will never fire
+// again — without this check the card stays at opacity-0 forever.
+onMounted(() => {
+  const img = imgRef.value
+  if (!img || !img.src) return
+  if (img.complete) {
+    if (img.naturalWidth > 0) imageLoaded.value = true
+    else imageError.value = true
+  }
+})
+
+// Reset state when the thumbnail URL changes (e.g. locale switch)
+watch(
+  () => props.thumbnail,
+  () => {
+    imageLoaded.value = false
+    imageError.value = false
+  },
+)
 </script>
 
 <template>
@@ -35,6 +57,8 @@ const imageLoaded = ref(false)
       <!-- 👉🏼 Card Image -->
       <div class="card-img-wrapper group">
         <img
+          v-if="thumbnail && !imageError"
+          ref="imgRef"
           :class="{ 'opacity-0': !imageLoaded }"
           :src="thumbnail"
           :alt="title || 'CARTA News'"
@@ -43,8 +67,9 @@ const imageLoaded = ref(false)
           @load="imageLoaded = true"
           @error="imageError = true"
         >
-        <div 
-          v-if="!imageLoaded && !imageError" 
+        <!-- Placeholder shown while loading, when there is no thumbnail, or on error -->
+        <div
+          v-if="!imageLoaded || imageError || !thumbnail"
           class="card-img card-img-placeholder"
         >
           <div class="flex items-center justify-center h-full text-gray-400">

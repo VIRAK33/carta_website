@@ -111,8 +111,18 @@ const formatDate = (date: string): string => {
 }
 
 const resolveImageUrl = (thumb: string | null | undefined): string => {
-  if (!thumb) return ''
-  return thumb.startsWith('http') ? thumb : `https://cms-api.graphmining.dev${thumb}`
+  if (!thumb || typeof thumb !== 'string') return ''
+  const trimmed = thumb.trim()
+  if (!trimmed || trimmed === 'null' || trimmed === 'undefined') return ''
+
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed.replace(/^http:\/\//i, 'https://')
+  }
+  if (trimmed.startsWith('//')) {
+    return `https:${trimmed}`
+  }
+  const cleanPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  return `https://cms-api.graphmining.dev${cleanPath}`
 }
 
 const { data: newsData, pending: loading } = await useFetch<NewsApiResponse>('https://web-api.carta.org.kh/api/news', {
