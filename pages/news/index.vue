@@ -125,6 +125,8 @@ const resolveImageUrl = (thumb: string | null | undefined): string => {
   return `https://cms-api.graphmining.dev${cleanPath}`
 }
 
+const nuxtApp = useNuxtApp()
+
 const { data: newsData, pending: loading } = await useFetch<NewsApiResponse>('https://web-api.carta.org.kh/api/news', {
   lazy: import.meta.client,
   query: computed(() => ({
@@ -133,6 +135,11 @@ const { data: newsData, pending: loading } = await useFetch<NewsApiResponse>('ht
     fields: 'thumbnail,title,title_km,short_content,short_content_km,slug,createdAt',
   })),
   watch: [currentPage, locale],
+  // This page is prerendered at build time, so its payload is a frozen snapshot of
+  // the CMS. Ignore that snapshot while hydrating so the browser always requests the
+  // live news list instead of showing build-time articles until the next deploy.
+  getCachedData: (key) =>
+    nuxtApp.isHydrating ? undefined : nuxtApp.payload.data[key],
 })
 
 const gridNews = computed(() => newsData.value?.data ?? [])

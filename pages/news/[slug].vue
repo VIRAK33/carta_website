@@ -54,6 +54,14 @@ const copied = ref(false)
 let copyTimer: ReturnType<typeof setTimeout> | undefined
 
 // Fetch news detail from worker proxy - query by slug for single article
+const nuxtApp = useNuxtApp()
+
+// Prerendered articles carry a build-time payload snapshot. Ignoring it while
+// hydrating makes the browser fetch the live article (and stays correct when an
+// article is edited in the CMS after the build).
+const getFreshCachedData = (key: string) =>
+  nuxtApp.isHydrating ? undefined : nuxtApp.payload.data[key]
+
 const {
   data: newsResponse,
   pending,
@@ -70,6 +78,7 @@ const {
     // Lazy on the client so the loading skeleton is shown while fetching;
     // blocking on the server so SSR/prerendered HTML still has the full article.
     lazy: import.meta.client,
+    getCachedData: getFreshCachedData,
   }
 )
 
@@ -84,6 +93,7 @@ const { data: relatedResponse } = await useFetch<{ data: NewsListEntry[] }>(
     key: () => `news-related-${slug.value}`,
     watch: [() => slug.value, () => locale.value],
     lazy: import.meta.client,
+    getCachedData: getFreshCachedData,
   }
 )
 
