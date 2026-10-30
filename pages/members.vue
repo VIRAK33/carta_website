@@ -148,7 +148,8 @@ useHead({
         class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
       >
         <!-- Government Partnerships -->
-        <div class="card-content">
+        <div class="card-content card-modern group">
+          <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:account-balance-rounded" />
           </div>
@@ -158,24 +159,55 @@ useHead({
           <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.government_partnerships_des')}}
           </p>
-          <div class="flex justify-center space-x-4">
-            <img
-              alt="Ministry of Industry, Science, Technology & Innovation (MISTI) Logo"
-              class="h-16 w-16"
-              src="@/assets/icons/member/misti-logo.webp"
-              loading="lazy"
-            />
-            <img
-              alt="Ministry of Interior (MOI) Logo"
-              class="h-16 w-16"
-              src="@/assets/icons/member/moi-logo.webp"
-              loading="lazy"
-            />
+          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+            <a
+              href="https://misti.gov.kh"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Ministry of Industry, Science, Technology & Innovation website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Ministry of Industry, Science, Technology & Innovation (MISTI) Logo"
+                class="h-16 w-16 object-contain"
+                src="@/assets/icons/member/misti-logo.webp"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://www.interior.gov.kh"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Ministry of Interior website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Ministry of Interior (MOI) Logo"
+                class="h-16 w-16 object-contain"
+                src="@/assets/icons/member/moi-logo.webp"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://moj.gov.kh"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Ministry of Justice website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Ministry of Justice (MOJ) Logo"
+                class="h-16 w-16 object-contain"
+                src="@/assets/icons/member/moj-logo.webp"
+                loading="lazy"
+              />
+            </a>
           </div>
         </div>
 
         <!-- Educational Partnerships -->
-        <div class="card-content">
+        <div class="card-content card-modern group">
+          <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-600 to-primary-800 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:school-rounded" />
           </div>
@@ -185,11 +217,23 @@ useHead({
           <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.educational_partnerships_des')}}
           </p>
-          <img alt="Cambodia Institute of Technology (CIT) Logo" class="mx-auto h-16 w-auto" src="@/assets/icons/member/cit.png" loading="lazy" />
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <img alt="Cambodia Institute of Technology (CIT) Logo" class="h-16 w-auto object-contain" src="@/assets/icons/member/cit.png" loading="lazy" />
+            <a
+              href="https://www.ggas.edu.kh"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Golden Gate American School website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img alt="Golden Gate American School (GGAS) Logo" class="h-16 w-auto object-contain" src="@/assets/icons/member/ggas-logo.webp" loading="lazy" />
+            </a>
+          </div>
         </div>
 
         <!-- Industry Partnerships -->
-        <div class="card-content">
+        <div class="card-content card-modern group">
+          <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:precision-manufacturing-rounded" />
           </div>
@@ -200,14 +244,31 @@ useHead({
           <p class="mb-4 text-gray-600 dark:text-gray-300">
             {{$t('membership.industry_partnerships_des')}}
           </p>
-          <div class="flex justify-center space-x-4">
-            <img alt="Cognizer Cambodia Logo" class="h-16 w-auto" src="@/assets/icons/member/cognizer-cambodia.png" loading="lazy" />
-            <img alt="ARM Robotics Logo" class="h-16 w-auto" src="@/assets/icons/member/arm-robotics.png" loading="lazy" />
+          <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
+            <a
+              href="https://www.cogniserkh.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Cogniser Technology Cambodia website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img alt="Cogniser Technology Cambodia Logo" class="h-12 w-auto max-w-[150px] object-contain" src="@/assets/icons/member/cogniser-cambodia.webp" loading="lazy" />
+            </a>
+            <a
+              href="https://kh.linkedin.com/company/arm-robotics-cambodia"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit ARM Robotics Cambodia on LinkedIn"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img alt="ARM Robotics Cambodia Logo" class="h-12 w-auto object-contain" src="@/assets/icons/member/arm-robotics.webp" loading="lazy" />
+            </a>
           </div>
         </div>
 
         <!-- International Organizations -->
-        <div class="card-content">
+        <div class="card-content card-modern group">
+          <AppPhkarChan size="w-10 h-10" class="absolute top-0 right-0" />
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-primary-700 grid place-items-center shadow-lg shadow-primary-500/20 mb-5 transition-transform duration-300 group-hover:scale-105">
             <Icon class="w-8 h-8 text-white" name="material-symbols:public-rounded" />
           </div>
@@ -218,38 +279,78 @@ useHead({
             {{$t('membership.international_organization_des')}}
           </p>
           <div class="card-img flex justify-center space-x-2">
-            <img
-              alt="Korea Association of Robotics (KAR) Logo"
-              src="../assets/icons/member/kar.webp"
-              loading="lazy"
-            />
-            <img
-              alt="Malaysia Robotics & Automation Society (MyRAS) Logo"
-              src="@/assets/icons/member/myras.webp"
-              loading="lazy"
-            />
-            <img
-              alt="Robotics Society of the Philippines (MRSP) Logo"
-              src="../assets/icons/member/mrsp.webp"
-              loading="lazy"
-            />
+            <a
+              href="https://www.korearobot.or.kr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Korea Association of Robot Industry website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Korea Association of Robotics (KAR) Logo"
+                src="@/assets/icons/member/kar.webp"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://www.myras.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Malaysia Robotics, AI & Automation Association website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Malaysia Robotics, AI & Automation Association (MyRAS) Logo"
+                src="@/assets/icons/member/myras.webp"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://www.facebook.com/MRSP.2006"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Mechatronics and Robotics Society of the Philippines Facebook page"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Mechatronics and Robotics Society of the Philippines (MRSP) Logo"
+                src="@/assets/icons/member/mrsp.webp"
+                loading="lazy"
+              />
+            </a>
           </div>
           <div class="card-img flex justify-center space-x-2">
-            <img
-              alt="Asia Pacific Assistive Robotics Association (APARA) Logo"
-              src="../assets/icons/member/apara.webp"
-              loading="lazy"
-            />
-            <img
-              alt="AutomationSG Logo"
-              src="@/assets/icons/member/automationsg.webp"
-              loading="lazy"
-            />
+            <a
+              href="https://www.apara.asia"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the Asia Pacific Assistive Robotics Association website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="Asia Pacific Assistive Robotics Association (APARA) Logo"
+                src="@/assets/icons/member/apara.webp"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://www.automationsg.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit the AutomationSG website"
+              class="inline-flex transition-opacity duration-200 hover:opacity-80"
+            >
+              <img
+                alt="AutomationSG Logo"
+                src="@/assets/icons/member/automationsg.webp"
+                loading="lazy"
+              />
+            </a>
           </div>
           <div class="card-img flex justify-center space-x-2">
             <img
               alt="China-ASEAN Robotics Association Logo"
-              src="../assets/icons/member/china-asean.webp"
+              src="@/assets/icons/member/china-asean.webp"
               loading="lazy"
             />
             <img
@@ -269,7 +370,7 @@ useHead({
 .card {
 
   &-content {
-    @apply w-full rounded-2xl pt-8 pb-4 px-3 text-center bg-gray-100 dark:bg-[#161f30] ring-1 ring-black/5 dark:ring-white/10;
+    @apply w-full rounded-2xl pt-8 pb-5 px-3 text-center;
 
     .title {
       @apply text-base tracking-wide font-semibold dark:text-gray-200;
